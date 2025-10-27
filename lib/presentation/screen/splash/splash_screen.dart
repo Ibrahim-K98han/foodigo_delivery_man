@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodigo/presentation/core/routes/route_names.dart';
+import 'package:foodigo_delivery_man/presentation/core/routes/route_names.dart';
 
 import '../../../utils/k_images.dart';
 import '../../../widget/custom_image.dart';

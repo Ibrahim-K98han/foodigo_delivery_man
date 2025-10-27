@@ -1,12 +1,12 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:foodigo/utils/constraints.dart';
-import 'package:foodigo/utils/k_images.dart';
-import 'package:foodigo/utils/utils.dart';
-import 'package:foodigo/widget/custom_dropdown.dart';
-import 'package:foodigo/widget/custom_form.dart';
-import 'package:foodigo/widget/custom_image.dart';
-import 'package:foodigo/widget/custom_text_style.dart';
+import 'package:foodigo_delivery_man/utils/constraints.dart';
+import 'package:foodigo_delivery_man/utils/k_images.dart';
+import 'package:foodigo_delivery_man/utils/utils.dart';
+import 'package:foodigo_delivery_man/widget/custom_dropdown.dart';
+import 'package:foodigo_delivery_man/widget/custom_form.dart';
+import 'package:foodigo_delivery_man/widget/custom_image.dart';
+import 'package:foodigo_delivery_man/widget/custom_text_style.dart';
 
 class DocumentInfoStep extends StatefulWidget {
   const DocumentInfoStep({super.key});
@@ -63,12 +63,7 @@ class _DocumentInfoStepState extends State<DocumentInfoStep> {
                       label: 'Document Number',
                       bottomSpace: 8,
                       child: TextFormField(
-                        decoration: InputDecoration(
-                          hint: CustomText(
-                            text: 'Enter Number',
-                            color: sTxtColor,
-                          ),
-                        ),
+                        decoration: InputDecoration(hintText: 'Enter Number'),
                       ),
                     ),
                   ],
@@ -178,9 +173,7 @@ class _DocumentInfoStepState extends State<DocumentInfoStep> {
             bottomSpace: 8,
             child: TextFormField(
               maxLines: 3,
-              decoration: InputDecoration(
-                hint: CustomText(text: 'Enter Note', color: sTxtColor),
-              ),
+              decoration: InputDecoration(hintText: 'Enter Note'),
             ),
           ),
         ],

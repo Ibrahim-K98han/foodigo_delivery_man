@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:foodigo/utils/constraints.dart';
-import 'package:foodigo/utils/k_images.dart';
-import 'package:foodigo/utils/utils.dart';
-import 'package:foodigo/widget/custom_appbar.dart';
-import 'package:foodigo/widget/custom_image.dart';
-import 'package:foodigo/widget/custom_text_style.dart';
-import 'package:foodigo/widget/primary_button.dart';
+import 'package:foodigo_delivery_man/utils/constraints.dart';
+import 'package:foodigo_delivery_man/utils/k_images.dart';
+import 'package:foodigo_delivery_man/utils/utils.dart';
+import 'package:foodigo_delivery_man/widget/custom_appbar.dart';
+import 'package:foodigo_delivery_man/widget/custom_image.dart';
+import 'package:foodigo_delivery_man/widget/custom_text_style.dart';
+import 'package:foodigo_delivery_man/widget/primary_button.dart';
 
 class OrderConfirmScreen extends StatelessWidget {
   const OrderConfirmScreen({super.key});
@@ -295,7 +295,7 @@ class DeliveryManInfoCard extends StatelessWidget {
               Row(
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadiusGeometry.circular(50),
+                    borderRadius: BorderRadius.circular(50),
                     child: CustomImage(
                       path: KImages.profile,
                       width: 48,
@@ -406,7 +406,7 @@ class OrderCard extends StatelessWidget {
       horizontalTitleGap: 8.0,
       contentPadding: EdgeInsets.zero,
       leading: ClipRRect(
-        borderRadius: BorderRadiusGeometry.circular(4),
+        borderRadius: BorderRadius.circular(4),
         child: CustomImage(
           path: KImages.foodImage1,
           width: 68,
