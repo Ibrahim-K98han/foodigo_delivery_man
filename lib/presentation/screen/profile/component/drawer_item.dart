@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:foodigo/utils/constraints.dart';
-import 'package:foodigo/utils/utils.dart';
-import 'package:foodigo/widget/custom_image.dart';
-import 'package:foodigo/widget/custom_text_style.dart';
+import 'package:foodigo_delivery_man/utils/constraints.dart';
+import 'package:foodigo_delivery_man/utils/utils.dart';
+import 'package:foodigo_delivery_man/widget/custom_image.dart';
+import 'package:foodigo_delivery_man/widget/custom_text_style.dart';
 
 class DrawerItem extends StatelessWidget {
   const DrawerItem({

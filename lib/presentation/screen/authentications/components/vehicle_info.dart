@@ -1,11 +1,11 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:foodigo/utils/constraints.dart';
-import 'package:foodigo/utils/k_images.dart';
-import 'package:foodigo/utils/utils.dart';
-import 'package:foodigo/widget/custom_form.dart';
-import 'package:foodigo/widget/custom_image.dart';
-import 'package:foodigo/widget/custom_text_style.dart';
+import 'package:foodigo_delivery_man/utils/constraints.dart';
+import 'package:foodigo_delivery_man/utils/k_images.dart';
+import 'package:foodigo_delivery_man/utils/utils.dart';
+import 'package:foodigo_delivery_man/widget/custom_form.dart';
+import 'package:foodigo_delivery_man/widget/custom_image.dart';
+import 'package:foodigo_delivery_man/widget/custom_text_style.dart';
 
 class VehicleInfoStep extends StatefulWidget {
   const VehicleInfoStep({super.key});
@@ -62,7 +62,7 @@ class _VehicleInfoStepState extends State<VehicleInfoStep> {
             bottomSpace: 8,
             child: TextFormField(
               decoration: InputDecoration(
-                hint: CustomText(text: 'DH 31-7530', color: sTxtColor),
+               hintText: 'DH 31-7530'
               ),
             ),
           ),

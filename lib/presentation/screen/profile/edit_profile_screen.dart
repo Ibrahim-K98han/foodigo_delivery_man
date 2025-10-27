@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:foodigo/utils/k_images.dart';
-import 'package:foodigo/widget/custom_appbar.dart';
-import 'package:foodigo/widget/custom_dropdown.dart';
-import 'package:foodigo/widget/custom_form.dart';
-import 'package:foodigo/widget/custom_image.dart';
-import 'package:foodigo/widget/custom_text_style.dart';
-import 'package:foodigo/widget/primary_button.dart';
+import 'package:foodigo_delivery_man/utils/k_images.dart';
+import 'package:foodigo_delivery_man/widget/custom_appbar.dart';
+import 'package:foodigo_delivery_man/widget/custom_dropdown.dart';
+import 'package:foodigo_delivery_man/widget/custom_form.dart';
+import 'package:foodigo_delivery_man/widget/custom_image.dart';
+import 'package:foodigo_delivery_man/widget/custom_text_style.dart';
+import 'package:foodigo_delivery_man/widget/primary_button.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 import '../../../utils/constraints.dart';
@@ -260,7 +260,7 @@ class _LoadProfileDataState extends State<LoadProfileData> {
                           bottomSpace: 8,
                           child: TextFormField(
                             decoration: InputDecoration(
-                              hint: CustomText(text: '9002', color: sTxtColor),
+                              hintText: '9002'
                             ),
                           ),
                         ),
@@ -275,7 +275,7 @@ class _LoadProfileDataState extends State<LoadProfileData> {
                 bottomSpace: 8,
                 child: TextFormField(
                   decoration: InputDecoration(
-                    hint: CustomText(text: 'mirpur Dhaka', color: sTxtColor),
+                    hintText: 'mirpur Dhaka',
                   ),
                 ),
               ),
@@ -308,7 +308,7 @@ class ProfileImage extends StatelessWidget {
       child: Stack(
         children: [
           ClipRRect(
-            borderRadius: BorderRadiusGeometry.circular(50),
+            borderRadius: BorderRadius.circular(50),
             child: CustomImage(
               path: KImages.profile,
               width: 80,

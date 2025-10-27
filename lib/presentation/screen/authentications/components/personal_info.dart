@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:foodigo/utils/constraints.dart';
-import 'package:foodigo/utils/utils.dart';
-import 'package:foodigo/widget/custom_dropdown.dart';
-import 'package:foodigo/widget/custom_form.dart';
-import 'package:foodigo/widget/custom_text_style.dart';
+import 'package:foodigo_delivery_man/utils/constraints.dart';
+import 'package:foodigo_delivery_man/utils/utils.dart';
+import 'package:foodigo_delivery_man/widget/custom_dropdown.dart';
+import 'package:foodigo_delivery_man/widget/custom_form.dart';
+import 'package:foodigo_delivery_man/widget/custom_text_style.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class PersonalInfoStep extends StatefulWidget {
@@ -40,7 +40,7 @@ class _PersonalInfoStepState extends State<PersonalInfoStep> {
             bottomSpace: 8,
             child: TextFormField(
               decoration: InputDecoration(
-                hint: CustomText(text: 'onam sorker', color: sTxtColor),
+                hintText: 'onam sorker'
               ),
             ),
           ),
@@ -105,7 +105,7 @@ class _PersonalInfoStepState extends State<PersonalInfoStep> {
             bottomSpace: 8,
             child: TextFormField(
               decoration: InputDecoration(
-                hint: CustomText(text: 'example@gmail.com', color: sTxtColor),
+                hintText: 'example@gmail.com'
               ),
             ),
           ),
@@ -115,7 +115,7 @@ class _PersonalInfoStepState extends State<PersonalInfoStep> {
             child: TextFormField(
               decoration: InputDecoration(
                 suffixIcon: Icon(Icons.date_range, color: sTxtColor),
-                hint: CustomText(text: 'Date', color: sTxtColor),
+               hintText: 'Date'
               ),
             ),
           ),
@@ -201,7 +201,7 @@ class _PersonalInfoStepState extends State<PersonalInfoStep> {
                       bottomSpace: 8,
                       child: TextFormField(
                         decoration: InputDecoration(
-                          hint: CustomText(text: '9002', color: sTxtColor),
+                         hintText: '9002'
                         ),
                       ),
                     ),
@@ -216,7 +216,7 @@ class _PersonalInfoStepState extends State<PersonalInfoStep> {
             bottomSpace: 8,
             child: TextFormField(
               decoration: InputDecoration(
-                hint: CustomText(text: 'mirpur Dhaka', color: sTxtColor),
+                hintText: 'mirpur Dhaka'
               ),
             ),
           ),

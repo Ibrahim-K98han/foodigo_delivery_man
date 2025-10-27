@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodigo/widget/custom_appbar.dart';
+import 'package:foodigo_delivery_man/widget/custom_appbar.dart';
 
 class TermsConditionScreen extends StatelessWidget {
   const TermsConditionScreen({super.key});
