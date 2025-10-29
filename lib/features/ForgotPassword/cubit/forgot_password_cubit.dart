@@ -2,9 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodigo_delivery_man/features/ForgotPassword/cubit/forgot_password_state.dart';
-import 'package:foodigo_delivery_man/features/ForgotPassword/cubit/forgot_password_state_model.dart';
-import 'package:foodigo_delivery_man/features/ForgotPassword/repository/forgot_password_repository.dart';
+import 'package:foodigo/features/ForgotPassword/cubit/forgot_password_state.dart';
+import 'package:foodigo/features/ForgotPassword/cubit/forgot_password_state_model.dart';
+import 'package:foodigo/features/ForgotPassword/repository/forgot_password_repository.dart';
+
 import '../../../data/errors/failure.dart';
 
 class ForgotPasswordCubit extends Cubit<ForgotPasswordStateModel> {

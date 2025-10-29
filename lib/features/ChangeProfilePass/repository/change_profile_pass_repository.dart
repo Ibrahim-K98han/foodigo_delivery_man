@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:foodigo_delivery_man/features/ChangeProfilePass/model/change_profile_pass_state_model.dart';
-import 'package:foodigo_delivery_man/features/ChangeProfilePass/remote/change_profile_pass_remote_data_source.dart';
+import 'package:foodigo/features/ChangeProfilePass/model/change_profile_pass_state_model.dart';
+import 'package:foodigo/features/ChangeProfilePass/remote/change_profile_pass_remote_data_source.dart';
+
 import '../../../data/errors/exception.dart';
 import '../../../data/errors/failure.dart';
 

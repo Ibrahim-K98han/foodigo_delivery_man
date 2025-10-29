@@ -80,6 +80,8 @@ class KImages {
   static const String notFound = 'assets/images/not_found.png';
   static const String cartNotFound = 'assets/images/cart_not_found.png';
   static const String notImage = 'assets/images/not_image.png';
+    static const String placeholderImage = 'assets/images/placeholder-image.png';
+
 
   ///Food Image
   static const String foodImage1 = 'assets/images/food_image.jpg';
@@ -109,6 +111,8 @@ class KImages {
       static const String privacy = 'assets/deliveryMan/privacy.svg';
       static const String kycSubmit = 'assets/deliveryMan/kyc_submit.png';
       static const String changePassword = 'assets/deliveryMan/change_password.png';
+      static const String running = 'assets/deliveryMan/running.svg';
+      static const String total = 'assets/deliveryMan/total.svg';
 
   static const String kNetworkImage = "https://picsum.photos/320";
   static var acRepair;

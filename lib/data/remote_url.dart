@@ -16,7 +16,7 @@ class RemoteUrls {
   static String productDetailsData(int id) => '${baseUrl}products/$id';
 
   // static const String login = '${baseUrl}auth/login';
-  static const String getProfile = '${baseUrl}auth/profile';
+  // static const String getProfile = '${baseUrl}auth/profile';
   static const String updateProfile = '${baseUrl}auth/profile';
   static const String addProduct = '${baseUrl}cart/add';
 
@@ -45,7 +45,7 @@ class RemoteUrls {
   static const String getReview = '${baseUrl}dashboard/reviews';
   static const String getSearch = '${baseUrl}home/search';
   // static const String logout = '${baseUrl}auth/logout';
-  static const String register = '${baseUrl}auth/register';
+  // static const String register = '${baseUrl}auth/register';
   static const String otpVerify = '${baseUrl}auth/verify-email';
   static const String forgotPassOtpVerify = '${baseUrl}auth/reset-otp-match';
   static const String resendVerificationCode =
@@ -111,6 +111,14 @@ class RemoteUrls {
   static const String login = '${baseUrl}deliveryman/auth/login';
   static const String logout = '${baseUrl}deliveryman/auth/logout';
   static const String dashboard = '${baseUrl}deliveryman/dashboard';
+  static const String getProfile = '${baseUrl}deliveryman/profile/edit';
+  static const String registerStepOne =
+      '${baseUrl}deliveryman/auth/register/step-one';
+  static const String registerStepTwo =
+      '${baseUrl}deliveryman/auth/register/step-two';
+  static const String registerStepThree =
+      '${baseUrl}deliveryman/auth/register/step-three';
+  static const String getCity = '${baseUrl}deliveryman/cities';
 
   static imageUrl(String imageUrl) => rootUrl + imageUrl;
 }
