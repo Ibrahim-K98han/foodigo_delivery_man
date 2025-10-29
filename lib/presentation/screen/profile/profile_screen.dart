@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodigo_delivery_man/features/Login/bloc/login_bloc.dart';
-import 'package:foodigo_delivery_man/features/Login/bloc/login_event.dart';
-import 'package:foodigo_delivery_man/features/Login/bloc/login_state.dart';
-import 'package:foodigo_delivery_man/features/Login/model/login_state_model.dart';
-import 'package:foodigo_delivery_man/presentation/core/routes/route_names.dart';
-import 'package:foodigo_delivery_man/presentation/screen/profile/component/drawer_item.dart';
-import 'package:foodigo_delivery_man/utils/constraints.dart';
-import 'package:foodigo_delivery_man/utils/k_images.dart';
-import 'package:foodigo_delivery_man/utils/utils.dart';
-import 'package:foodigo_delivery_man/widget/custom_image.dart';
-import 'package:foodigo_delivery_man/widget/custom_text_style.dart';
-import 'package:foodigo_delivery_man/widget/loading_widget.dart';
-import 'package:foodigo_delivery_man/widget/primary_button.dart';
+import 'package:foodigo/data/remote_url.dart';
+import 'package:foodigo/features/GetProfile/cubit/get_profile_cubit.dart';
+import 'package:foodigo/features/Login/bloc/login_bloc.dart';
+import 'package:foodigo/features/Login/bloc/login_event.dart';
+import 'package:foodigo/features/Login/bloc/login_state.dart';
+import 'package:foodigo/features/Login/model/login_state_model.dart';
+import 'package:foodigo/presentation/core/routes/route_names.dart';
+import 'package:foodigo/presentation/screen/profile/component/drawer_item.dart';
+import 'package:foodigo/utils/constraints.dart';
+import 'package:foodigo/utils/k_images.dart';
+import 'package:foodigo/utils/utils.dart';
+import 'package:foodigo/widget/circle_image.dart';
+import 'package:foodigo/widget/custom_image.dart';
+import 'package:foodigo/widget/custom_text_style.dart';
+import 'package:foodigo/widget/loading_widget.dart';
+import 'package:foodigo/widget/primary_button.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -22,13 +25,98 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  late GetProfileCubit profileCubit;
+  late String image;
+  late String name;
+  late String lname;
+  late String email;
+  @override
+  void initState() {
+    _initState();
+    super.initState();
+  }
+
+  _initState() {
+    profileCubit = context.read<GetProfileCubit>();
+    profileCubit.getProfileData();
+    if (profileCubit.user != null && profileCubit.user!.manImage.isNotEmpty) {
+      image = RemoteUrls.imageUrl(profileCubit.user!.manImage);
+      // name = profileData.user!.name;
+      // email = profileData.user!.email;
+    } else {
+      image = KImages.profile;
+      // name = 'user';
+      // email = 'user@gmail.com';
+    }
+    name = profileCubit.user?.fname ?? 'User';
+    lname = profileCubit.user?.lname ?? 'Name';
+    email = profileCubit.user?.email ?? 'user@gmail.com';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const ProfileHeader(),
+            Container(
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Color(0xFFFFFFF8), Color(0xFFFEFEDD)],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+              child: Column(
+                children: [
+                  Utils.verticalSpace(12.0),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Padding(
+                      padding: Utils.only(left: 16, top: 30, bottom: 10),
+                      child: const CustomText(
+                        text: 'Profile',
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  Utils.verticalSpace(12.0),
+
+                  CircleImage(image: image, size: 80),
+                  Utils.verticalSpace(8),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CustomText(
+                        text: '$name $lname',
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      Utils.horizontalSpace(8),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            RouteNames.editProfileScreen,
+                          );
+                        },
+                        child: const CustomImage(
+                          path: KImages.editIcon,
+                          color: Color(0xFF46D993),
+                          height: 18,
+                          width: 18,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Utils.verticalSpace(2),
+                  CustomText(text: email, color: sTxtColor),
+                  Utils.verticalSpace(20),
+                ],
+              ),
+            ),
             Utils.verticalSpace(20),
             DrawerItem(
               icon: KImages.profileInActive,
@@ -187,77 +275,6 @@ class LogoutDialog extends StatelessWidget {
             Utils.verticalSpace(10),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class ProfileHeader extends StatelessWidget {
-  const ProfileHeader({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Color(0xFFFFFFF8), Color(0xFFFEFEDD)],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
-      ),
-      child: Column(
-        children: [
-          Utils.verticalSpace(12.0),
-          Align(
-            alignment: Alignment.center,
-            child: Padding(
-              padding: Utils.only(left: 16, top: 30, bottom: 10),
-              child: const CustomText(
-                text: 'Profile',
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-          Utils.verticalSpace(12.0),
-
-          ClipRRect(
-            borderRadius: BorderRadius.circular(50),
-            child: const CustomImage(
-              path: KImages.profile,
-              width: 60,
-              height: 60,
-              fit: BoxFit.cover,
-            ),
-          ),
-          Utils.verticalSpace(8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const CustomText(
-                text: 'Devid Richard',
-                fontSize: 16.0,
-                fontWeight: FontWeight.w500,
-              ),
-              Utils.horizontalSpace(8),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, RouteNames.editProfileScreen);
-                },
-                child: const CustomImage(
-                  path: KImages.editIcon,
-                  color: Color(0xFF46D993),
-                  height: 18,
-                  width: 18,
-                ),
-              ),
-            ],
-          ),
-          Utils.verticalSpace(2),
-          const CustomText(text: 'devidrichard@gmail.com', color: sTxtColor),
-          Utils.verticalSpace(20),
-        ],
       ),
     );
   }

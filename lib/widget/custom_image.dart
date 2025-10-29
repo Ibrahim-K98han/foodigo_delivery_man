@@ -88,9 +88,8 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
-import '../utils/k_images.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:foodigo/utils/k_images.dart';
 
 class CustomImage extends StatelessWidget {
   const CustomImage({
@@ -111,7 +110,7 @@ class CustomImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final imagePath = path ?? KImages.kNetworkImage;
+    final imagePath = path ?? KImages.kNetworkImage; // Default fallback image
 
     if (isFile) {
       return Image.file(
@@ -120,37 +119,37 @@ class CustomImage extends StatelessWidget {
         color: color,
         height: height,
         width: width,
-        errorBuilder: (context, error, stackTrace) {
-          return Image.asset(
-            'assets/images/not_image.png', // আপনার default image
-            fit: fit,
-            height: height,
-            width: width,
-          );
-        },
       );
     }
 
     if (imagePath.endsWith('.svg')) {
-      if (imagePath.startsWith('http') || imagePath.startsWith('https')) {
-        // Network SVG
+      if (imagePath.startsWith('http') ||
+          imagePath.startsWith('https') ||
+          imagePath.startsWith('www.')) {
         return SvgPicture.network(
           imagePath,
           fit: fit,
           height: height,
           width: width,
           color: color,
-          placeholderBuilder:
-              (context) => const Center(child: CircularProgressIndicator()),
+          placeholderBuilder: (BuildContext context) =>
+          const Center(child: CircularProgressIndicator()),
+          // Placeholder while loading
+          // Handle network errors gracefully
+          semanticsLabel: 'Network SVG',
         );
       } else {
-        // Local asset SVG
-        return SvgPicture.asset(
-          imagePath,
-          fit: fit,
+        return SizedBox(
           height: height,
           width: width,
-          color: color,
+          child: SvgPicture.asset(
+            imagePath,
+            fit: fit,
+            height: height,
+            width: width,
+            color: color,
+            semanticsLabel: 'Local SVG',
+          ),
         );
       }
     }
@@ -164,19 +163,10 @@ class CustomImage extends StatelessWidget {
         color: color,
         height: height,
         width: width,
-        progressIndicatorBuilder:
-            (context, url, downloadProgress) => Center(
-              child: CircularProgressIndicator(
-                value: downloadProgress.progress,
-              ),
-            ),
-        errorWidget:
-            (context, url, error) => Image.asset(
-              'assets/images/not_image.png', // আপনার default image path
-              fit: fit,
-              height: height,
-              width: width,
-            ),
+        placeholder: (context, url) => const Center(
+          child: CircularProgressIndicator(),
+        ),
+        errorWidget: (context, url, error) => CustomImage(path: KImages.placeholderImage),
       );
     }
 
@@ -186,14 +176,6 @@ class CustomImage extends StatelessWidget {
       color: color,
       height: height,
       width: width,
-      errorBuilder: (context, error, stackTrace) {
-        return Image.asset(
-          'assets/images/not_image.png', // আপনার default image
-          fit: fit,
-          height: height,
-          width: width,
-        );
-      },
     );
   }
 }

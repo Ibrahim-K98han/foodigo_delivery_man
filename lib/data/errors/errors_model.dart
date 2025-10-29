@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 
 class Errors extends Equatable {
   final List<String> name;
+  final List<String> lname;
   final List<String> addressType;
   final List<String> age;
   final List<String> gender;
@@ -17,6 +18,7 @@ class Errors extends Equatable {
   final List<String> categoryId;
   final List<String> username;
   final List<String> email;
+  final List<String> vehicleNumber;
   final List<String> phone;
   final List<String> password;
   final List<String> confirmPassword;
@@ -96,6 +98,8 @@ class Errors extends Equatable {
 
   const Errors({
     required this.email,
+    required this.vehicleNumber,
+    required this.lname,
     required this.addressType,
     required this.username,
     required this.age,
@@ -273,10 +277,14 @@ class Errors extends Equatable {
     List<String>? subject,
     List<String>? brandId,
     List<String>? condition,
+    List<String>? vehicleNumber,
+    List<String>? lname,
     List<String>? sellerType,
   }) {
     return Errors(
       email: email ?? this.email,
+      vehicleNumber: vehicleNumber ?? this.vehicleNumber,
+      lname: lname ?? this.lname,
       addressType: addressType ?? this.addressType,
       phone: phone ?? this.phone,
       age: age ?? this.age,
@@ -369,7 +377,8 @@ class Errors extends Equatable {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'name': name,
+      'fname': name,
+      'lname': lname,
       'address_type': addressType,
       'title': title,
       'age': age,
@@ -467,265 +476,357 @@ class Errors extends Equatable {
       }
     });
     return Errors(
-      username: map['username'] != null
-          ? List<String>.from(map['username'].map((x) => x))
-          : [],
-      addressType: map['address_type'] != null
-          ? List<String>.from(map['address_type'].map((x) => x))
-          : [],
-      title: map['title'] != null
-          ? List<String>.from(map['title'].map((x) => x))
-          : [],
-      email: map['email'] != null
-          ? List<String>.from(map['email'].map((x) => x))
-          : [],
-      phone: map['phone'] != null
-          ? List<String>.from(map['phone'].map((x) => x))
-          : [],
+      lname:
+          map['lname'] != null
+              ? List<String>.from(map['lname'].map((x) => x))
+              : [],
+      vehicleNumber:
+          map['vehicle_number'] != null
+              ? List<String>.from(map['vehicle_number'].map((x) => x))
+              : [],
+      username:
+          map['username'] != null
+              ? List<String>.from(map['username'].map((x) => x))
+              : [],
+      addressType:
+          map['address_type'] != null
+              ? List<String>.from(map['address_type'].map((x) => x))
+              : [],
+      title:
+          map['title'] != null
+              ? List<String>.from(map['title'].map((x) => x))
+              : [],
+      email:
+          map['email'] != null
+              ? List<String>.from(map['email'].map((x) => x))
+              : [],
+      phone:
+          map['phone'] != null
+              ? List<String>.from(map['phone'].map((x) => x))
+              : [],
       age:
           map['age'] != null ? List<String>.from(map['age'].map((x) => x)) : [],
-      gender: map['gender'] != null
-          ? List<String>.from(map['gender'].map((x) => x))
-          : [],
-      password: map['password'] != null
-          ? List<String>.from(map['password'].map((x) => x))
-          : [],
-      confirmPassword: map['password_confirmation'] != null
-          ? List<String>.from(map['password_confirmation'].map((x) => x))
-          : [],
-      address: map['address'] != null
-          ? List<String>.from(map['address'].map((x) => x))
-          : [],
-      serviceArea: map['service_area'] != null
-          ? List<String>.from(map['service_area'].map((x) => x))
-          : [],
-      designation: map['designation'] != null
-          ? List<String>.from(map['designation'].map((x) => x))
-          : [],
-      country: map['country'] != null
-          ? List<String>.from(map['country'].map((x) => x))
-          : [],
-      state: map['state'] != null
-          ? List<String>.from(map['state'].map((x) => x))
-          : [],
-      city: map['city'] != null
-          ? List<String>.from(map['city'].map((x) => x))
-          : [],
-      companyName: map['company_name'] != null
-          ? List<String>.from(map['company_name'].map((x) => x))
-          : [],
-      companyAddress: map['company_address'] != null
-          ? List<String>.from(map['company_address'].map((x) => x))
-          : [],
-      companyDescription: map['company_description'] != null
-          ? List<String>.from(map['company_description'].map((x) => x))
-          : [],
-      message: map['message'] != null
-          ? List<String>.from(map['message'].map((x) => x))
-          : [],
-      review: map['review'] != null
-          ? List<String>.from(map['review'].map((x) => x))
-          : [],
-      name: map['name'] != null
-          ? List<String>.from(map['name'].map((x) => x))
-          : [],
-      image: map['image'] != null
-          ? List<String>.from(map['image'].map((x) => x))
-          : [],
-      image2: map['image2'] != null
-          ? List<String>.from(map['image2'].map((x) => x))
-          : [],
-      image3: map['image3'] != null
-          ? List<String>.from(map['image3'].map((x) => x))
-          : [],
-      image4: map['image4'] != null
-          ? List<String>.from(map['image4'].map((x) => x))
-          : [],
-      details: map['details'] != null
-          ? List<String>.from(map['details'].map((x) => x))
-          : [],
-      description: map['description'] != null
-          ? List<String>.from(map['description'].map((x) => x))
-          : [],
-      categoryId: map['category_id'] != null
-          ? List<String>.from(map['category_id'].map((x) => x))
-          : [],
-      shopName: map['shop_name'] != null
-          ? List<String>.from(map['shop_name'].map((x) => x))
-          : [],
-      shortName: map['short_name'] != null
-          ? List<String>.from(map['short_name'].map((x) => x))
-          : [],
-      thumbImage: map['thumb_image'] != null
-          ? List<String>.from(map['thumb_image'].map((x) => x))
-          : [],
-      videoImage: map['video_image'] != null
-          ? List<String>.from(map['video_image'].map((x) => x))
-          : [],
+      gender:
+          map['gender'] != null
+              ? List<String>.from(map['gender'].map((x) => x))
+              : [],
+      password:
+          map['password'] != null
+              ? List<String>.from(map['password'].map((x) => x))
+              : [],
+      confirmPassword:
+          map['password_confirmation'] != null
+              ? List<String>.from(map['password_confirmation'].map((x) => x))
+              : [],
+      address:
+          map['address'] != null
+              ? List<String>.from(map['address'].map((x) => x))
+              : [],
+      serviceArea:
+          map['service_area'] != null
+              ? List<String>.from(map['service_area'].map((x) => x))
+              : [],
+      designation:
+          map['designation'] != null
+              ? List<String>.from(map['designation'].map((x) => x))
+              : [],
+      country:
+          map['country'] != null
+              ? List<String>.from(map['country'].map((x) => x))
+              : [],
+      state:
+          map['state'] != null
+              ? List<String>.from(map['state'].map((x) => x))
+              : [],
+      city:
+          map['city'] != null
+              ? List<String>.from(map['city'].map((x) => x))
+              : [],
+      companyName:
+          map['company_name'] != null
+              ? List<String>.from(map['company_name'].map((x) => x))
+              : [],
+      companyAddress:
+          map['company_address'] != null
+              ? List<String>.from(map['company_address'].map((x) => x))
+              : [],
+      companyDescription:
+          map['company_description'] != null
+              ? List<String>.from(map['company_description'].map((x) => x))
+              : [],
+      message:
+          map['message'] != null
+              ? List<String>.from(map['message'].map((x) => x))
+              : [],
+      review:
+          map['review'] != null
+              ? List<String>.from(map['review'].map((x) => x))
+              : [],
+      name:
+          map['name'] != null
+              ? List<String>.from(map['name'].map((x) => x))
+              : [],
+      image:
+          map['image'] != null
+              ? List<String>.from(map['image'].map((x) => x))
+              : [],
+      image2:
+          map['image2'] != null
+              ? List<String>.from(map['image2'].map((x) => x))
+              : [],
+      image3:
+          map['image3'] != null
+              ? List<String>.from(map['image3'].map((x) => x))
+              : [],
+      image4:
+          map['image4'] != null
+              ? List<String>.from(map['image4'].map((x) => x))
+              : [],
+      details:
+          map['details'] != null
+              ? List<String>.from(map['details'].map((x) => x))
+              : [],
+      description:
+          map['description'] != null
+              ? List<String>.from(map['description'].map((x) => x))
+              : [],
+      categoryId:
+          map['category_id'] != null
+              ? List<String>.from(map['category_id'].map((x) => x))
+              : [],
+      shopName:
+          map['shop_name'] != null
+              ? List<String>.from(map['shop_name'].map((x) => x))
+              : [],
+      shortName:
+          map['short_name'] != null
+              ? List<String>.from(map['short_name'].map((x) => x))
+              : [],
+      thumbImage:
+          map['thumb_image'] != null
+              ? List<String>.from(map['thumb_image'].map((x) => x))
+              : [],
+      videoImage:
+          map['video_image'] != null
+              ? List<String>.from(map['video_image'].map((x) => x))
+              : [],
       galleryImage: galleryErrors,
-      slug: map['slug'] != null
-          ? List<String>.from(map['slug'].map((x) => x))
-          : [],
-      category: map['category'] != null
-          ? List<String>.from(map['category'].map((x) => x))
-          : [],
-      price: map['price'] != null
-          ? List<String>.from(map['price'].map((x) => x))
-          : [],
-      quantity: map['quantity'] != null
-          ? List<String>.from(map['quantity'].map((x) => x))
-          : [],
-      shortDescription: map['short_description'] != null
-          ? List<String>.from(map['short_description'].map((x) => x))
-          : [],
-      longDescription: map['long_description'] != null
-          ? List<String>.from(map['long_description'].map((x) => x))
-          : [],
-      status: map['status'] != null
-          ? List<String>.from(map['status'].map((x) => x))
-          : [],
-      weight: map['weight'] != null
-          ? List<String>.from(map['weight'].map((x) => x))
-          : [],
-      zipCode: map['zip_code'] != null
-          ? List<String>.from(map['zip_code'].map((x) => x))
-          : [],
-      cityId: map['city_id'] != null
-          ? List<String>.from(map['city_id'].map((x) => x))
-          : [],
-      closedAt: map['closed_at'] != null
-          ? List<String>.from(map['closed_at'].map((x) => x))
-          : [],
-      greeting: map['greeting_msg'] != null
-          ? List<String>.from(map['greeting_msg'].map((x) => x))
-          : [],
-      aboutMe: map['about_me'] != null
-          ? List<String>.from(map['about_me'].map((x) => x))
-          : [],
-      methodId: map['method_id'] != null
-          ? List<String>.from(map['method_id'].map((x) => x))
-          : [],
-      withdrawAmount: map['withdraw_amount'] != null
-          ? List<String>.from(map['withdraw_amount'].map((x) => x))
-          : [],
-      accountInfo: map['account_info'] != null
-          ? List<String>.from(map['account_info'].map((x) => x))
-          : [],
+      slug:
+          map['slug'] != null
+              ? List<String>.from(map['slug'].map((x) => x))
+              : [],
+      category:
+          map['category'] != null
+              ? List<String>.from(map['category'].map((x) => x))
+              : [],
+      price:
+          map['price'] != null
+              ? List<String>.from(map['price'].map((x) => x))
+              : [],
+      quantity:
+          map['quantity'] != null
+              ? List<String>.from(map['quantity'].map((x) => x))
+              : [],
+      shortDescription:
+          map['short_description'] != null
+              ? List<String>.from(map['short_description'].map((x) => x))
+              : [],
+      longDescription:
+          map['long_description'] != null
+              ? List<String>.from(map['long_description'].map((x) => x))
+              : [],
+      status:
+          map['status'] != null
+              ? List<String>.from(map['status'].map((x) => x))
+              : [],
+      weight:
+          map['weight'] != null
+              ? List<String>.from(map['weight'].map((x) => x))
+              : [],
+      zipCode:
+          map['zip_code'] != null
+              ? List<String>.from(map['zip_code'].map((x) => x))
+              : [],
+      cityId:
+          map['city_id'] != null
+              ? List<String>.from(map['city_id'].map((x) => x))
+              : [],
+      closedAt:
+          map['closed_at'] != null
+              ? List<String>.from(map['closed_at'].map((x) => x))
+              : [],
+      greeting:
+          map['greeting_msg'] != null
+              ? List<String>.from(map['greeting_msg'].map((x) => x))
+              : [],
+      aboutMe:
+          map['about_me'] != null
+              ? List<String>.from(map['about_me'].map((x) => x))
+              : [],
+      methodId:
+          map['method_id'] != null
+              ? List<String>.from(map['method_id'].map((x) => x))
+              : [],
+      withdrawAmount:
+          map['withdraw_amount'] != null
+              ? List<String>.from(map['withdraw_amount'].map((x) => x))
+              : [],
+      accountInfo:
+          map['account_info'] != null
+              ? List<String>.from(map['account_info'].map((x) => x))
+              : [],
       day:
           map['day'] != null ? List<String>.from(map['day'].map((x) => x)) : [],
-      maxPrice: map['max_price'] != null
-          ? List<String>.from(map['max_price'].map((x) => x))
-          : [],
-      minPrice: map['min_price'] != null
-          ? List<String>.from(map['min_price'].map((x) => x))
-          : [],
-      currentPassword: map['current_password'] != null
-          ? List<String>.from(map['current_password'].map((x) => x))
-          : [],
-      newPassword: map['new_password'] != null
-          ? List<String>.from(map['new_password'].map((x) => x))
-          : [],
-      totalFollower: map['total_follower'] != null
-          ? List<String>.from(map['total_follower'].map((x) => x))
-          : [],
-      totalFollowing: map['total_following'] != null
-          ? List<String>.from(map['total_following'].map((x) => x))
-          : [],
-      jobDate: map['job_date'] != null
-          ? List<String>.from(map['job_date'].map((x) => x))
-          : [],
-      packageFeatures: map['package_features'] != null
-          ? List<String>.from(map['package_features'].map((x) => x))
-          : [],
-      comment: map['comment'] != null
-          ? List<String>.from(map['comment'].map((x) => x))
-          : [],
-      tags: map['tags'] != null
-          ? List<String>.from(map['tags'].map((x) => x))
-          : [],
-      regularPrice: map['regular_price'] != null
-          ? List<String>.from(map['regular_price'].map((x) => x))
-          : [],
-      offerPrice: map['offer_price'] != null
-          ? List<String>.from(map['offer_price'].map((x) => x))
-          : [],
-      minBookingDate: map['min_booking_date'] != null
-          ? List<String>.from(map['min_booking_date'].map((x) => x))
-          : [],
-      bodyType: map['body_type'] != null
-          ? List<String>.from(map['body_type'].map((x) => x))
-          : [],
-      engineSize: map['engine_size'] != null
-          ? List<String>.from(map['engine_size'].map((x) => x))
-          : [],
-      drive: map['drive'] != null
-          ? List<String>.from(map['drive'].map((x) => x))
-          : [],
-      interiorColor: map['interior_color'] != null
-          ? List<String>.from(map['interior_color'].map((x) => x))
-          : [],
-      exteriorColor: map['exterior_color'] != null
-          ? List<String>.from(map['exterior_color'].map((x) => x))
-          : [],
-      year: map['year'] != null
-          ? List<String>.from(map['year'].map((x) => x))
-          : [],
-      mileage: map['mileage'] != null
-          ? List<String>.from(map['mileage'].map((x) => x))
-          : [],
-      kilometer: map['kilometres_driven'] != null
-          ? List<String>.from(map['kilometres_driven'].map((x) => x))
-          : [],
-      numberOfSeat: map['number_of_seat'] != null
-          ? List<String>.from(map['number_of_seat'].map((x) => x))
-          : [],
-      fuelType: map['fuel_type'] != null
-          ? List<String>.from(map['fuel_type'].map((x) => x))
-          : [],
-      transmission: map['transmission'] != null
-          ? List<String>.from(map['transmission'].map((x) => x))
-          : [],
-      variant: map['variant'] != null
-          ? List<String>.from(map['variant'].map((x) => x))
-          : [],
-      seoTitle: map['seo_title'] != null
-          ? List<String>.from(map['seo_title'].map((x) => x))
-          : [],
-      seoDescription: map['seo_description'] != null
-          ? List<String>.from(map['seo_description'].map((x) => x))
-          : [],
-      videoId: map['video_id'] != null
-          ? List<String>.from(map['video_id'].map((x) => x))
-          : [],
-      videoDescription: map['video_description'] != null
-          ? List<String>.from(map['video_description'].map((x) => x))
-          : [],
-      carModel: map['car_model'] != null
-          ? List<String>.from(map['car_model'].map((x) => x))
-          : [],
-      cardNumber: map['card_number'] != null
-          ? List<String>.from(map['card_number'].map((x) => x))
-          : [],
-      month: map['month'] != null
-          ? List<String>.from(map['month'].map((x) => x))
-          : [],
+      maxPrice:
+          map['max_price'] != null
+              ? List<String>.from(map['max_price'].map((x) => x))
+              : [],
+      minPrice:
+          map['min_price'] != null
+              ? List<String>.from(map['min_price'].map((x) => x))
+              : [],
+      currentPassword:
+          map['current_password'] != null
+              ? List<String>.from(map['current_password'].map((x) => x))
+              : [],
+      newPassword:
+          map['new_password'] != null
+              ? List<String>.from(map['new_password'].map((x) => x))
+              : [],
+      totalFollower:
+          map['total_follower'] != null
+              ? List<String>.from(map['total_follower'].map((x) => x))
+              : [],
+      totalFollowing:
+          map['total_following'] != null
+              ? List<String>.from(map['total_following'].map((x) => x))
+              : [],
+      jobDate:
+          map['job_date'] != null
+              ? List<String>.from(map['job_date'].map((x) => x))
+              : [],
+      packageFeatures:
+          map['package_features'] != null
+              ? List<String>.from(map['package_features'].map((x) => x))
+              : [],
+      comment:
+          map['comment'] != null
+              ? List<String>.from(map['comment'].map((x) => x))
+              : [],
+      tags:
+          map['tags'] != null
+              ? List<String>.from(map['tags'].map((x) => x))
+              : [],
+      regularPrice:
+          map['regular_price'] != null
+              ? List<String>.from(map['regular_price'].map((x) => x))
+              : [],
+      offerPrice:
+          map['offer_price'] != null
+              ? List<String>.from(map['offer_price'].map((x) => x))
+              : [],
+      minBookingDate:
+          map['min_booking_date'] != null
+              ? List<String>.from(map['min_booking_date'].map((x) => x))
+              : [],
+      bodyType:
+          map['body_type'] != null
+              ? List<String>.from(map['body_type'].map((x) => x))
+              : [],
+      engineSize:
+          map['engine_size'] != null
+              ? List<String>.from(map['engine_size'].map((x) => x))
+              : [],
+      drive:
+          map['drive'] != null
+              ? List<String>.from(map['drive'].map((x) => x))
+              : [],
+      interiorColor:
+          map['interior_color'] != null
+              ? List<String>.from(map['interior_color'].map((x) => x))
+              : [],
+      exteriorColor:
+          map['exterior_color'] != null
+              ? List<String>.from(map['exterior_color'].map((x) => x))
+              : [],
+      year:
+          map['year'] != null
+              ? List<String>.from(map['year'].map((x) => x))
+              : [],
+      mileage:
+          map['mileage'] != null
+              ? List<String>.from(map['mileage'].map((x) => x))
+              : [],
+      kilometer:
+          map['kilometres_driven'] != null
+              ? List<String>.from(map['kilometres_driven'].map((x) => x))
+              : [],
+      numberOfSeat:
+          map['number_of_seat'] != null
+              ? List<String>.from(map['number_of_seat'].map((x) => x))
+              : [],
+      fuelType:
+          map['fuel_type'] != null
+              ? List<String>.from(map['fuel_type'].map((x) => x))
+              : [],
+      transmission:
+          map['transmission'] != null
+              ? List<String>.from(map['transmission'].map((x) => x))
+              : [],
+      variant:
+          map['variant'] != null
+              ? List<String>.from(map['variant'].map((x) => x))
+              : [],
+      seoTitle:
+          map['seo_title'] != null
+              ? List<String>.from(map['seo_title'].map((x) => x))
+              : [],
+      seoDescription:
+          map['seo_description'] != null
+              ? List<String>.from(map['seo_description'].map((x) => x))
+              : [],
+      videoId:
+          map['video_id'] != null
+              ? List<String>.from(map['video_id'].map((x) => x))
+              : [],
+      videoDescription:
+          map['video_description'] != null
+              ? List<String>.from(map['video_description'].map((x) => x))
+              : [],
+      carModel:
+          map['car_model'] != null
+              ? List<String>.from(map['car_model'].map((x) => x))
+              : [],
+      cardNumber:
+          map['card_number'] != null
+              ? List<String>.from(map['card_number'].map((x) => x))
+              : [],
+      month:
+          map['month'] != null
+              ? List<String>.from(map['month'].map((x) => x))
+              : [],
       cvc:
           map['cvc'] != null ? List<String>.from(map['cvc'].map((x) => x)) : [],
-      tnxInfo: map['tnx_info'] != null
-          ? List<String>.from(map['tnx_info'].map((x) => x))
-          : [],
-      subject: map['subject'] != null
-          ? List<String>.from(map['subject'].map((x) => x))
-          : [],
-      brandId: map['brand_id'] != null
-          ? List<String>.from(map['brand_id'].map((x) => x))
-          : [],
-      condition: map['condition'] != null
-          ? List<String>.from(map['condition'].map((x) => x))
-          : [],
-      sellerType: map['seller_type'] != null
-          ? List<String>.from(map['seller_type'].map((x) => x))
-          : [],
+      tnxInfo:
+          map['tnx_info'] != null
+              ? List<String>.from(map['tnx_info'].map((x) => x))
+              : [],
+      subject:
+          map['subject'] != null
+              ? List<String>.from(map['subject'].map((x) => x))
+              : [],
+      brandId:
+          map['brand_id'] != null
+              ? List<String>.from(map['brand_id'].map((x) => x))
+              : [],
+      condition:
+          map['condition'] != null
+              ? List<String>.from(map['condition'].map((x) => x))
+              : [],
+      sellerType:
+          map['seller_type'] != null
+              ? List<String>.from(map['seller_type'].map((x) => x))
+              : [],
     );
   }
 
@@ -739,97 +840,99 @@ class Errors extends Equatable {
 
   @override
   List<Object> get props => [
-        name,
-        title,
-        age,
-        gender,
-        image,
-        image2,
-        image3,
-        image4,
-        categoryId,
-        details,
-        description,
-        shopName,
-        email,
-        phone,
-        country,
-        state,
-        city,
-        shortName,
-        thumbImage,
-        videoImage,
-        galleryImage,
-        slug,
-        category,
-        price,
-        quantity,
-        shortDescription,
-        longDescription,
-        status,
-        weight,
-        zipCode,
-        cityId,
-        closedAt,
-        greeting,
-        aboutMe,
-        methodId,
-        withdrawAmount,
-        accountInfo,
-        designation,
-        day,
-        maxPrice,
-        minPrice,
-        username,
-        email,
-        phone,
-        totalFollower,
-        totalFollowing,
-        jobDate,
-        packageFeatures,
-        serviceArea,
-        designation,
-        country,
-        state,
-        city,
-        companyName,
-        companyAddress,
-        companyDescription,
-        message,
-        slug,
-        price,
-        currentPassword,
-        newPassword,
-        confirmPassword,
-        comment,
-        tags,
-        regularPrice,
-        offerPrice,
-        minBookingDate,
-        bodyType,
-        engineSize,
-        drive,
-        interiorColor,
-        exteriorColor,
-        year,
-        mileage,
-        kilometer,
-        numberOfSeat,
-        fuelType,
-        transmission,
-        variant,
-        seoTitle,
-        seoDescription,
-        videoId,
-        videoDescription,
-        carModel,
-        cardNumber,
-        month,
-        cvc,
-        tnxInfo,
-        subject,
-        brandId,
-        condition,
-        sellerType,
-      ];
+    name,
+    vehicleNumber,
+    lname,
+    title,
+    age,
+    gender,
+    image,
+    image2,
+    image3,
+    image4,
+    categoryId,
+    details,
+    description,
+    shopName,
+    email,
+    phone,
+    country,
+    state,
+    city,
+    shortName,
+    thumbImage,
+    videoImage,
+    galleryImage,
+    slug,
+    category,
+    price,
+    quantity,
+    shortDescription,
+    longDescription,
+    status,
+    weight,
+    zipCode,
+    cityId,
+    closedAt,
+    greeting,
+    aboutMe,
+    methodId,
+    withdrawAmount,
+    accountInfo,
+    designation,
+    day,
+    maxPrice,
+    minPrice,
+    username,
+    email,
+    phone,
+    totalFollower,
+    totalFollowing,
+    jobDate,
+    packageFeatures,
+    serviceArea,
+    designation,
+    country,
+    state,
+    city,
+    companyName,
+    companyAddress,
+    companyDescription,
+    message,
+    slug,
+    price,
+    currentPassword,
+    newPassword,
+    confirmPassword,
+    comment,
+    tags,
+    regularPrice,
+    offerPrice,
+    minBookingDate,
+    bodyType,
+    engineSize,
+    drive,
+    interiorColor,
+    exteriorColor,
+    year,
+    mileage,
+    kilometer,
+    numberOfSeat,
+    fuelType,
+    transmission,
+    variant,
+    seoTitle,
+    seoDescription,
+    videoId,
+    videoDescription,
+    carModel,
+    cardNumber,
+    month,
+    cvc,
+    tnxInfo,
+    subject,
+    brandId,
+    condition,
+    sellerType,
+  ];
 }

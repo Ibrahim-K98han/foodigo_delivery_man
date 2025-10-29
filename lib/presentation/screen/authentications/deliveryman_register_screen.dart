@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:foodigo_delivery_man/presentation/screen/authentications/components/document_info.dart';
-import 'package:foodigo_delivery_man/presentation/screen/authentications/components/personal_info.dart';
-import 'package:foodigo_delivery_man/presentation/screen/authentications/components/vehicle_info.dart';
-import 'package:foodigo_delivery_man/utils/constraints.dart';
-import 'package:foodigo_delivery_man/utils/utils.dart';
-import 'package:foodigo_delivery_man/widget/custom_appbar.dart';
-import 'package:foodigo_delivery_man/widget/custom_text_style.dart';
-import 'package:foodigo_delivery_man/widget/primary_button.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foodigo/features/register/cubit/register_cubit.dart';
+import 'package:foodigo/features/register/cubit/register_state.dart';
+import 'package:foodigo/features/register/model/register_state_model.dart';
+import 'package:foodigo/presentation/core/routes/route_names.dart';
+import 'package:foodigo/presentation/screen/authentications/components/document_info.dart';
+import 'package:foodigo/presentation/screen/authentications/components/personal_info.dart';
+import 'package:foodigo/presentation/screen/authentications/components/vehicle_info.dart';
+import 'package:foodigo/utils/constraints.dart';
+import 'package:foodigo/utils/utils.dart';
+import 'package:foodigo/widget/custom_appbar.dart';
+import 'package:foodigo/widget/custom_text_style.dart';
+import 'package:foodigo/widget/primary_button.dart';
 
 class DeliverymanRegistrationScreen extends StatefulWidget {
   const DeliverymanRegistrationScreen({Key? key}) : super(key: key);
@@ -20,10 +25,16 @@ class _DeliverymanRegistrationScreenState
     extends State<DeliverymanRegistrationScreen> {
   int currentStep = 0;
 
+  late RegisterCubit rCubit;
+  @override
+  void initState() {
+    super.initState();
+    rCubit = context.read<RegisterCubit>();
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
     return Scaffold(
       backgroundColor: whiteColor,
       appBar: const CustomAppBar(
@@ -42,12 +53,89 @@ class _DeliverymanRegistrationScreenState
           ),
           Padding(
             padding: Utils.symmetric(h: 20.0, v: 10.0),
-            child: PrimaryButton(
-              text: currentStep < 2 ? 'Save & Next' : 'Submit',
-              onPressed: () {
-                if (currentStep < 2) {
-                  setState(() => currentStep++);
+            child: BlocConsumer<RegisterCubit, RegisterStateModel>(
+              // listener: (context, state) {
+              //   final register = state.registerState;
+              //   if (register is RegisterStateOneLoading) {
+              //     Utils.loadingDialog(context);
+              //   } else {
+              //     Utils.closeDialog(context);
+              //     if (register is RegisterStateOneError) {
+              //       Utils.failureSnackBar(context, register.message);
+              //     } else if (register is RegisterStateOneSuccess) {
+              //       Utils.successSnackBar(context, register.message);
+              //       setState(() {
+              //         if (currentStep == 0) {
+              //           currentStep = 1;
+              //         } else if (currentStep == 1) {
+              //           currentStep = 2;
+              //         }
+              //       });
+              //     }
+              //   }
+              // },
+              listener: (context, state) {
+                final register = state.registerState;
+
+                // Loading states
+                if (register is RegisterStateOneLoading ||
+                    register is RegisterStateTwoLoading ||
+                    register is RegisterStateThreeLoading) {
+                  Utils.loadingDialog(context);
+                  return;
                 }
+
+                // Close any loading dialog if not loading
+                Utils.closeDialog(context);
+
+                // Error states
+                if (register is RegisterStateOneError) {
+                  Utils.failureSnackBar(context, register.message);
+                  return;
+                }
+                if (register is RegisterStateTwoError) {
+                  Utils.failureSnackBar(context, register.message);
+                  return;
+                }
+                if (register is RegisterStateThreeError) {
+                  Utils.failureSnackBar(context, register.message);
+                  return;
+                }
+
+                // Success states
+                if (register is RegisterStateOneSuccess) {
+                  Utils.successSnackBar(context, register.message);
+                  setState(() => currentStep = 1);
+                  return;
+                }
+                if (register is RegisterStateTwoSuccess) {
+                  Utils.successSnackBar(context, register.message);
+                  setState(() => currentStep = 2);
+                  return;
+                }
+                if (register is RegisterStateThreeSuccess) {
+                  Utils.successSnackBar(context, register.message);
+                  Navigator.pushNamed(
+                    context,
+                    RouteNames.registrationOtpVerifyScreen,
+                  );
+                  return;
+                }
+              },
+
+              builder: (context, state) {
+                return PrimaryButton(
+                  text: currentStep < 2 ? 'Save & Next' : 'Submit',
+                  onPressed: () {
+                    if (currentStep == 0) {
+                      rCubit.registerStepOne();
+                    } else if (currentStep == 1) {
+                      rCubit.registerStepTwo();
+                    } else if (currentStep == 2) {
+                      rCubit.registerStepThree();
+                    }
+                  },
+                );
               },
             ),
           ),
