@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:foodigo/data/errors/exception.dart';
-import 'package:foodigo/data/errors/failure.dart';
-import 'package:foodigo/features/Splash/model/splash_response_model.dart';
+import 'package:foodigo_delivery_man/data/errors/exception.dart';
+import 'package:foodigo_delivery_man/data/errors/failure.dart';
+import 'package:foodigo_delivery_man/features/Splash/model/splash_response_model.dart';
 import '../remote/splash_remote_data_source.dart';
 
 abstract class SplashRepository {

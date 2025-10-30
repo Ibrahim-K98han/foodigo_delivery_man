@@ -11,6 +11,7 @@ abstract class RegisterRemoteDataSource {
   Future getCity();
 
   Future otpVerify(RegisterStateModel body, String email);
+  Future setPassword(RegisterStateModel body, String email);
 
   Future<String> resendVerificationCode(Map<String, dynamic> body);
 }
@@ -111,8 +112,23 @@ class RegisterRemoteDataSourceImpl extends RegisterRemoteDataSource {
 
   @override
   Future otpVerify(RegisterStateModel body, String email) async {
-    final uri = Uri.parse(RemoteUrls.otpVerify);
+    final uri = Uri.parse(RemoteUrls.regOtpVerify);
     print("Otp url : $uri");
+    final clientMethod = client.post(
+      uri,
+      body: body.toMap(),
+      headers: postDeleteHeader,
+    );
+    final responseJsonBody = await NetworkParser.callClientWithCatchException(
+      () => clientMethod,
+    );
+    return responseJsonBody;
+  }
+
+  @override
+  Future setPassword(RegisterStateModel body, String email) async {
+    final uri = Uri.parse(RemoteUrls.setPassword);
+    print("setPass url : $uri");
     final clientMethod = client.post(
       uri,
       body: body.toMap(),
@@ -128,20 +144,6 @@ class RegisterRemoteDataSourceImpl extends RegisterRemoteDataSource {
   Future<String> resendVerificationCode(Map<String, dynamic> body) async {
     final uri = Uri.parse(RemoteUrls.resendVerificationCode);
 
-    final clientMethod = client.post(
-      uri,
-      headers: postDeleteHeader,
-      body: body,
-    );
-    final responseJsonBody = await NetworkParser.callClientWithCatchException(
-      () => clientMethod,
-    );
-    return responseJsonBody['message'] as String;
-  }
-
-  @override
-  Future<String> forgotPassword(Map<String, dynamic> body) async {
-    final uri = Uri.parse(RemoteUrls.forgotPassword);
     final clientMethod = client.post(
       uri,
       headers: postDeleteHeader,

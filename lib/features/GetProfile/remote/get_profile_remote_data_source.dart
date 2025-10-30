@@ -1,8 +1,6 @@
 import 'dart:io';
-
-import 'package:foodigo/data/network_parser.dart';
-import 'package:foodigo/data/remote_url.dart';
-import 'package:foodigo/features/GetProfile/model/profile_state_model.dart';
+import 'package:foodigo_delivery_man/data/network_parser.dart';
+import 'package:foodigo_delivery_man/features/GetProfile/model/profile_state_model.dart';
 import 'package:http/http.dart' as http;
 
 abstract class GetProfileRemoteDataSource {

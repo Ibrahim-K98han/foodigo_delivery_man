@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodigo/features/Login/bloc/login_bloc.dart';
-import 'package:foodigo/features/Login/model/user_response_model.dart';
+import 'package:foodigo_delivery_man/features/Login/bloc/login_bloc.dart';
+import 'package:foodigo_delivery_man/features/Login/model/user_response_model.dart';
 
 import '../../../data/remote_url.dart';
 import '../../../utils/utils.dart';
@@ -37,7 +37,13 @@ class GetProfileCubit extends Cubit<User> {
   }
 
   void image(String image) {
-    emit(state.copyWith(manImage: image));
+    emit(state.copyWith(profileImage: image));
+  }
+  void zip(String text) {
+    emit(state.copyWith(zipCode: text));
+  }
+  void address(String text) {
+    emit(state.copyWith(address: text));
   }
 
   Future<void> getProfileData() async {
@@ -69,7 +75,10 @@ class GetProfileCubit extends Cubit<User> {
             emit(state.copyWith(lname: user!.lname));
             emit(state.copyWith(email: user!.email));
             emit(state.copyWith(phone: user!.phone));
-            emit(state.copyWith(manImage: user!.manImage));
+            emit(state.copyWith(address: user!.address));
+            emit(state.copyWith(zipCode: user!.zipCode));
+            emit(state.copyWith(cityId: user!.cityId));
+            emit(state.copyWith(profileImage: user!.profileImage));
           }
           final successState = GetProfileLoaded(success);
           emit(state.copyWith(getProfileState: successState));

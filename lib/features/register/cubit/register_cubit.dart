@@ -1,10 +1,9 @@
 import 'dart:async';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodigo/data/remote_url.dart';
-import 'package:foodigo/features/register/cubit/register_state.dart';
-import 'package:foodigo/features/register/model/register_state_model.dart';
-import 'package:foodigo/features/register/repository/register_repository.dart';
+import 'package:foodigo_delivery_man/data/remote_url.dart';
+import 'package:foodigo_delivery_man/features/register/cubit/register_state.dart';
+import 'package:foodigo_delivery_man/features/register/model/register_state_model.dart';
+import 'package:foodigo_delivery_man/features/register/repository/register_repository.dart';
 
 import '../../../data/errors/failure.dart';
 
@@ -111,13 +110,18 @@ class RegisterCubit extends Cubit<RegisterStateModel> {
     emit(state.copyWith(zipCode: text, registerState: const RegisterInitial()));
   }
 
+  String? proImg;
   void changeProfilImg(String text) {
+    proImg = text;
     emit(
       state.copyWith(profileImg: text, registerState: const RegisterInitial()),
     );
   }
 
+  String? vehicleImg;
+
   void changeVehicleImg(String text) {
+    vehicleImg = text;
     emit(
       state.copyWith(
         vehicleImage: text,
@@ -126,7 +130,10 @@ class RegisterCubit extends Cubit<RegisterStateModel> {
     );
   }
 
+  String? documentImg;
+
   void changeDocumentImg(String text) {
+    documentImg = text;
     emit(
       state.copyWith(document: text, registerState: const RegisterInitial()),
     );
@@ -178,8 +185,8 @@ class RegisterCubit extends Cubit<RegisterStateModel> {
     );
   }
 
-  void otpChange(String text) {
-    emit(state.copyWith(otp: text));
+  void changeOtp(String otp) {
+    emit(state.copyWith(otp: otp));
   }
 
   Future<void> registerStepOne() async {
@@ -273,41 +280,48 @@ class RegisterCubit extends Cubit<RegisterStateModel> {
   // }
 
   Future<void> verifyRegOtp(String email) async {
-    emit(state.copyWith(registerState: RegisterOtpStateLoading()));
+    emit(state.copyWith(registerState: RegisterOtpLoading()));
     final result = await _repository.verifyRegOtp(state, email);
     result.fold(
       (failure) {
-        final errors = RegisterOtpStateError(
-          failure.message,
-          failure.statusCode,
-        );
+        final errors = RegisterOtpError(failure.message, failure.statusCode);
         emit(state.copyWith(registerState: errors));
       },
       (success) {
-        final userLoaded = RegisterOtpStateSuccess(success);
+        final userLoaded = RegisterOtpSuccess(success);
+        emit(state.copyWith(registerState: userLoaded));
+      },
+    );
+  }
+
+  Future<void> setPassword(String email) async {
+    emit(state.copyWith(registerState: SetPasswordLoading()));
+    final result = await _repository.setPassword(state, email);
+    result.fold(
+      (failure) {
+        final errors = SetPasswordError(failure.message, failure.statusCode);
+        emit(state.copyWith(registerState: errors));
+      },
+      (success) {
+        final userLoaded = SetPasswordSuccess(success);
         emit(state.copyWith(registerState: userLoaded));
       },
     );
   }
 
   Future<void> resendVerificationCode() async {
-    emit(state.copyWith(registerState: const SignUpStateResendCodeLoading()));
+    emit(state.copyWith(registerState: ResendCodeLoading()));
     final body = {'email': state.email, 'lang_code': state.languageCode};
     print('verification email $body');
     final result = await _repository.resendVerificationCode(body);
     result.fold(
       (failure) {
-        if (failure is InvalidAuthData) {
-          final errors = SignUpStateFormValidate(failure.errors);
-          emit(state.copyWith(registerState: errors));
-        } else {
-          final errors = SignUpStateError(failure.message, failure.statusCode);
-          emit(state.copyWith(registerState: errors));
-        }
+        final errors = ResendCodeError(failure.message, failure.statusCode);
+        emit(state.copyWith(registerState: errors));
       },
       (success) {
         emit(
-          state.copyWith(registerState: SignUpStateResendCodeLoaded(success)),
+          state.copyWith(registerState: ResendCodeSuccess(success)),
         );
       },
     );

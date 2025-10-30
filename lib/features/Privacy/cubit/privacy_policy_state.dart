@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:foodigo/features/Privacy/model/privacy_response_model.dart';
+import 'package:foodigo_delivery_man/features/Privacy/model/privacy_response_model.dart';
 
 class PrivacyPolicyState extends Equatable {
   const PrivacyPolicyState();

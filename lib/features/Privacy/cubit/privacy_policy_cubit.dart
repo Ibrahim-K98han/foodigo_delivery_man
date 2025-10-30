@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodigo/features/Login/bloc/login_bloc.dart';
-import 'package:foodigo/features/Privacy/cubit/privacy_policy_state.dart';
-import 'package:foodigo/features/Privacy/model/privacy_response_model.dart';
-import 'package:foodigo/features/Privacy/repository/privacy_policy_repository.dart';
+import 'package:foodigo_delivery_man/features/Login/bloc/login_bloc.dart';
+import 'package:foodigo_delivery_man/features/Privacy/cubit/privacy_policy_state.dart';
+import 'package:foodigo_delivery_man/features/Privacy/model/privacy_response_model.dart';
+import 'package:foodigo_delivery_man/features/Privacy/repository/privacy_policy_repository.dart';
 
 class PrivacyPolicyCubit extends Cubit<PrivacyPolicyState> {
   final PrivacyPolicyRepository _repository;

@@ -1,4 +1,4 @@
-import 'package:foodigo/features/ForgotPassword/cubit/forgot_password_state_model.dart';
+import 'package:foodigo_delivery_man/features/ForgotPassword/cubit/forgot_password_state_model.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../data/network_parser.dart';
@@ -11,7 +11,7 @@ abstract class ForgotPasswordRemoteDataSource {
     ForgotPasswordStateModel body,
   );
 
-  Future forgotOtpVerify(ForgotPasswordStateModel body, String email);
+  // Future forgotOtpVerify(ForgotPasswordStateModel body, String email);
   Future forgotPassOtpVerify(ForgotPasswordStateModel body);
 }
 
@@ -63,28 +63,28 @@ class ForgotPasswordRemoteDataSourceImpl
     return responseJsonBody['message'] as String;
   }
 
-  @override
-  Future forgotOtpVerify(ForgotPasswordStateModel body, String email) async {
-    final uri = Uri.parse(RemoteUrls.otpVerify);
-    print("Otp url : $uri");
+  // @override
+  // Future forgotOtpVerify(ForgotPasswordStateModel body, String email) async {
+  //   final uri = Uri.parse(RemoteUrls.otpVerify);
+  //   print("Otp url : $uri");
 
-    final clientMethod = client.post(
-      uri,
-      headers: {
-        'Accept': 'application/json',
-        'X-Requested-With': 'XMLHttpRequest',
-      },
-      body: {"email": email, "otp": body.otp},
-    );
-    print("Sending OTP: '${body.otp}'");
+  //   final clientMethod = client.post(
+  //     uri,
+  //     headers: {
+  //       'Accept': 'application/json',
+  //       'X-Requested-With': 'XMLHttpRequest',
+  //     },
+  //     body: {"email": email, "otp": body.otp},
+  //   );
+  //   print("Sending OTP: '${body.otp}'");
 
-    final responseJsonBody = await NetworkParser.callClientWithCatchException(
-      () => clientMethod,
-    );
+  //   final responseJsonBody = await NetworkParser.callClientWithCatchException(
+  //     () => clientMethod,
+  //   );
 
-    print("[RemoteDataSourceImpl] $responseJsonBody");
-    return responseJsonBody['message'];
-  }
+  //   print("[RemoteDataSourceImpl] $responseJsonBody");
+  //   return responseJsonBody['message'];
+  // }
 
   @override
   Future forgotPassOtpVerify(ForgotPasswordStateModel body) async{

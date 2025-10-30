@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:foodigo/features/register/model/city_model.dart';
+import 'package:foodigo_delivery_man/features/register/model/city_model.dart';
 
 import '../../../data/errors/errors_model.dart';
 
@@ -39,6 +39,7 @@ class CityLoaded extends RegisterState {
 }
 
 class RegisterStateLoading extends RegisterState {}
+
 class RegisterStateOneLoading extends RegisterState {}
 
 class RegisterStateTwoLoading extends RegisterState {}
@@ -53,6 +54,7 @@ class RegisterStateOneSuccess extends RegisterState {
   @override
   List<Object> get props => [message];
 }
+
 class RegisterStateSuccess extends RegisterState {
   final String message;
 
@@ -98,6 +100,7 @@ class RegisterStateOneError extends RegisterState {
   @override
   List<Object> get props => [message, statusCode];
 }
+
 class RegisterStateError extends RegisterState {
   final String message;
   final int statusCode;
@@ -128,23 +131,45 @@ class RegisterStateThreeError extends RegisterState {
   List<Object> get props => [message, statusCode];
 }
 
-/// otp
-class RegisterOtpStateLoading extends RegisterState {}
+///set Password
+class SetPasswordLoading extends RegisterState {}
 
-class RegisterOtpStateSuccess extends RegisterState {
+class SetPasswordError extends RegisterState {
+  final String message;
+  final int statusCode;
+
+  const SetPasswordError(this.message, this.statusCode);
+
+  @override
+  List<Object> get props => [message, statusCode];
+}
+
+class SetPasswordSuccess extends RegisterState {
   final String message;
 
-  const RegisterOtpStateSuccess(this.message);
+  const SetPasswordSuccess(this.message);
 
   @override
   List<Object> get props => [message];
 }
 
-class RegisterOtpStateError extends RegisterState {
+/// otp
+class RegisterOtpLoading extends RegisterState {}
+
+class RegisterOtpSuccess extends RegisterState {
+  final String message;
+
+  const RegisterOtpSuccess(this.message);
+
+  @override
+  List<Object> get props => [message];
+}
+
+class RegisterOtpError extends RegisterState {
   final String message;
   final int statusCode;
 
-  const RegisterOtpStateError(this.message, this.statusCode);
+  const RegisterOtpError(this.message, this.statusCode);
 
   @override
   List<Object> get props => [message, statusCode];
@@ -185,6 +210,28 @@ class SignUpStateResendCodeLoading extends RegisterState {
 
   @override
   List<Object> get props => [];
+}
+
+///Resend Code
+class ResendCodeLoading extends RegisterState {}
+
+class ResendCodeError extends RegisterState {
+  final String message;
+  final int statusCode;
+
+  const ResendCodeError(this.message, this.statusCode);
+
+  @override
+  List<Object> get props => [message, statusCode];
+}
+
+class ResendCodeSuccess extends RegisterState {
+  final String message;
+
+  const ResendCodeSuccess(this.message);
+
+  @override
+  List<Object> get props => [message];
 }
 
 class SignUpEventResendVerificationSubmit extends RegisterState {

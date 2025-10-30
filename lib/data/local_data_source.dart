@@ -1,4 +1,4 @@
-import 'package:foodigo/features/Login/model/user_response_model.dart';
+import 'package:foodigo_delivery_man/features/Login/model/user_response_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../utils/k_strings.dart';

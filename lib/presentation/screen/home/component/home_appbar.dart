@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foodigo/features/restaurant_features/Dashboard/cubit/dashboard_cubit.dart';
 import 'package:foodigo/utils/constraints.dart';
 import 'package:foodigo/utils/k_images.dart';
 import 'package:foodigo/widget/custom_image.dart';
@@ -9,6 +11,7 @@ class HomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dCubit = context.read<DashboardCubit>();
     return Stack(
       children: [
         CustomImage(path: KImages.homeAppbarBg),

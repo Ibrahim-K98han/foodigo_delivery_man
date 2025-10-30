@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:foodigo/data/errors/errors_model.dart';
-import 'package:foodigo/features/Login/model/user_response_model.dart';
+import 'package:foodigo_delivery_man/data/errors/errors_model.dart';
+import 'package:foodigo_delivery_man/features/Login/model/user_response_model.dart';
 
 abstract class GetProfileState extends Equatable {
   const GetProfileState();

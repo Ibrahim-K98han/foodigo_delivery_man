@@ -46,12 +46,9 @@ class RemoteUrls {
   static const String getSearch = '${baseUrl}home/search';
   // static const String logout = '${baseUrl}auth/logout';
   // static const String register = '${baseUrl}auth/register';
-  static const String otpVerify = '${baseUrl}auth/verify-email';
-  static const String forgotPassOtpVerify = '${baseUrl}auth/reset-otp-match';
-  static const String resendVerificationCode =
-      '${baseUrl}auth/resend-verification';
-  static const String forgotPassword = '${baseUrl}auth/forgot-password';
-  static const String resetPassword = '${baseUrl}auth/reset-password';
+  // static const String otpVerify = '${baseUrl}auth/verify-email';
+  // static const String forgotPassOtpVerify = '${baseUrl}auth/reset-otp-match';
+
   static const String applyCoupon = '${baseUrl}cart/coupon/apply';
   static const String getAllPaymentMethod =
       '${baseUrl}checkout/payment-methods';
@@ -119,6 +116,16 @@ class RemoteUrls {
   static const String registerStepThree =
       '${baseUrl}deliveryman/auth/register/step-three';
   static const String getCity = '${baseUrl}deliveryman/cities';
+  static const String regOtpVerify = '${baseUrl}deliveryman/auth/verify-otp';
+  static const String setPassword = '${baseUrl}deliveryman/auth/set-password';
+  static const String resendVerificationCode =
+      '${baseUrl}deliveryman/auth/resend-otp';
+  static const String forgotPassword =
+      '${baseUrl}deliveryman/auth/forgot-password';
+  static const String forgotPassOtpVerify =
+      '${baseUrl}deliveryman/auth/verify-reset-otp';
+  static const String resetPassword =
+      '${baseUrl}deliveryman/auth/reset-password';
 
   static imageUrl(String imageUrl) => rootUrl + imageUrl;
 }

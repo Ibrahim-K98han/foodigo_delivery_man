@@ -17,8 +17,8 @@ class ProfileImage extends StatelessWidget {
     return BlocBuilder<GetProfileCubit, User>(
       builder: (context, state) {
         final img =
-            pCubit.state.manImage.isNotEmpty
-                ? RemoteUrls.imageUrl(pCubit.state.manImage)
+            pCubit.state.profileImage.isNotEmpty
+                ? RemoteUrls.imageUrl(pCubit.state.profileImage)
                 : KImages.profile;
         return Center(
           child: Stack(

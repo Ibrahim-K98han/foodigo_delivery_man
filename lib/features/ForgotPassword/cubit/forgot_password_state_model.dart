@@ -1,9 +1,15 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
-import 'package:foodigo/features/ForgotPassword/cubit/forgot_password_state.dart';
+import 'package:foodigo_delivery_man/features/ForgotPassword/cubit/forgot_password_state.dart';
 
 class ForgotPasswordStateModel extends Equatable {
+  final String currentPassword;
+  final String password;
+  final String passwordConfirmation;
+  final bool showCurrentPassword;
+  final bool showPassword;
+  final bool showPasswordConfirmation;
   final String newPass;
   final String conPass;
   final bool showNewPass;
@@ -11,14 +17,18 @@ class ForgotPasswordStateModel extends Equatable {
   final String email;
   final String code;
   final String otp;
-  final String password;
   final String languageCode;
   final String confirmPassword;
-  final bool showPassword;
   final bool showConfirmPassword;
   final ForgotPasswordState passwordState;
 
   const ForgotPasswordStateModel({
+    this.showCurrentPassword = true,
+    this.showPasswordConfirmation = true,
+    this.showPassword = true,
+    this.currentPassword = '',
+    this.password = '',
+    this.passwordConfirmation = '',
     this.newPass = '',
     this.conPass = '',
     this.showNewPass = true,
@@ -26,15 +36,20 @@ class ForgotPasswordStateModel extends Equatable {
     this.email = '',
     this.otp = '',
     this.code = '',
-    this.password = '',
     this.languageCode = '',
     this.confirmPassword = '',
-    this.showPassword = true,
+
     this.showConfirmPassword = true,
     this.passwordState = const ForgotPasswordStateInitial(),
   });
 
   ForgotPasswordStateModel copyWith({
+    String? currentPassword,
+    String? password,
+    String? passwordConfirmation,
+    bool? showCurrentPassword,
+    bool? showPassword,
+    bool? showPasswordConfirmation,
     String? newPass,
     String? conPass,
     bool? showNewPass,
@@ -42,14 +57,17 @@ class ForgotPasswordStateModel extends Equatable {
     String? email,
     String? otp,
     String? code,
-    String? password,
     String? languageCode,
     String? confirmPassword,
-    bool? showPassword,
     bool? showConfirmPassword,
     ForgotPasswordState? passwordState,
   }) {
     return ForgotPasswordStateModel(
+      currentPassword: currentPassword ?? this.currentPassword,
+      passwordConfirmation: passwordConfirmation ?? this.passwordConfirmation,
+      showCurrentPassword: showCurrentPassword ?? this.showCurrentPassword,
+      showPasswordConfirmation:
+          showPasswordConfirmation ?? this.showPasswordConfirmation,
       newPass: newPass ?? this.newPass,
       conPass: conPass ?? this.conPass,
       showNewPass: showNewPass ?? this.showNewPass,
@@ -68,9 +86,10 @@ class ForgotPasswordStateModel extends Equatable {
 
   Map<String, dynamic> toMap() {
     return {
+      'current_password': password,
+      'password': password,
+      'password_confirmation': passwordConfirmation,
       'email': email,
-      'password': newPass,
-      'password_confirmation': conPass,
       'otp': otp,
       'token': code,
       'c_password': confirmPassword,
@@ -82,10 +101,14 @@ class ForgotPasswordStateModel extends Equatable {
 
   static ForgotPasswordStateModel init() {
     return const ForgotPasswordStateModel(
+      currentPassword: '',
+      passwordConfirmation: '',
+      showCurrentPassword: true,
+      showPasswordConfirmation: true,
       newPass: '',
       conPass: '',
       showNewPass: true,
-      showConPass:true,
+      showConPass: true,
       email: '',
       otp: '',
       code: '',
@@ -117,10 +140,12 @@ class ForgotPasswordStateModel extends Equatable {
 
   factory ForgotPasswordStateModel.fromMap(Map<String, dynamic> map) {
     return ForgotPasswordStateModel(
+      passwordConfirmation: map['password_confirmation'] ?? '',
+      currentPassword: map['current_password'] ?? '',
       conPass: map['password'] ?? '',
       newPass: map['password_confirmation'] ?? '',
       showNewPass: map['show_password'] ?? false,
-      showConPass: map['show_confirmPassword']  ?? false,
+      showConPass: map['show_confirmPassword'] ?? false,
       email: map['email'] ?? '',
       otp: map['otp'] ?? '',
       code: map['token'] ?? '',
@@ -144,6 +169,10 @@ class ForgotPasswordStateModel extends Equatable {
   @override
   List<Object> get props {
     return [
+      currentPassword,
+      passwordConfirmation,
+      showCurrentPassword,
+      showPasswordConfirmation,
       newPass,
       conPass,
       showNewPass,

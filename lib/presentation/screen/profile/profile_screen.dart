@@ -39,8 +39,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   _initState() {
     profileCubit = context.read<GetProfileCubit>();
     profileCubit.getProfileData();
-    if (profileCubit.user != null && profileCubit.user!.manImage.isNotEmpty) {
-      image = RemoteUrls.imageUrl(profileCubit.user!.manImage);
+    if (profileCubit.user != null &&
+        profileCubit.user!.profileImage.isNotEmpty) {
+      image = RemoteUrls.imageUrl(profileCubit.user!.profileImage);
       // name = profileData.user!.name;
       // email = profileData.user!.email;
     } else {
@@ -126,26 +127,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
               },
               isVisibleBorder: false,
             ),
-            DrawerItem(
-              icon: KImages.kyc,
-              title: 'KYC Verification',
-              onTap: () {
-                Navigator.pushNamed(context, RouteNames.kycVerificationScreen);
-              },
-              isVisibleBorder: false,
-            ),
-            DrawerItem(
-              icon: KImages.location,
-              title: 'Working Area',
-              onTap: () {},
-              isVisibleBorder: false,
-            ),
-            DrawerItem(
-              icon: KImages.helpCenter,
-              title: 'Help Center',
-              onTap: () {},
-              isVisibleBorder: false,
-            ),
+            // DrawerItem(
+            //   icon: KImages.kyc,
+            //   title: 'KYC Verification',
+            //   onTap: () {
+            //     Navigator.pushNamed(context, RouteNames.kycVerificationScreen);
+            //   },
+            //   isVisibleBorder: false,
+            // ),
+            // DrawerItem(
+            //   icon: KImages.location,
+            //   title: 'Working Area',
+            //   onTap: () {},
+            //   isVisibleBorder: false,
+            // ),
+            // DrawerItem(
+            //   icon: KImages.helpCenter,
+            //   title: 'Help Center',
+            //   onTap: () {},
+            //   isVisibleBorder: false,
+            // ),
             DrawerItem(
               icon: KImages.privacy,
               title: 'Privacy Policy',

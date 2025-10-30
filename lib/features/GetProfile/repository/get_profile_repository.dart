@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:foodigo/data/errors/exception.dart';
-import 'package:foodigo/data/errors/failure.dart';
-import 'package:foodigo/features/GetProfile/model/profile_state_model.dart';
-import 'package:foodigo/features/Login/model/user_response_model.dart';
+import 'package:foodigo_delivery_man/data/errors/exception.dart';
+import 'package:foodigo_delivery_man/data/errors/failure.dart';
+import 'package:foodigo_delivery_man/features/GetProfile/model/profile_state_model.dart';
+import 'package:foodigo_delivery_man/features/Login/model/user_response_model.dart';
 
 import '../remote/get_profile_remote_data_source.dart';
 

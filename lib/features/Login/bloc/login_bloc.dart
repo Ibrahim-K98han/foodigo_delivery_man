@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodigo/features/Login/repository/login_repository.dart';
+import 'package:foodigo_delivery_man/features/Login/repository/login_repository.dart';
 
 import '../../../data/errors/failure.dart';
 import '../../../data/remote_url.dart';

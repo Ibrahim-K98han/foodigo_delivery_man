@@ -162,7 +162,7 @@ class RegisterStateModel extends Equatable {
       // 'is_resend_active': isResendActive,
       'current_password': currentPassword,
       'password': password,
-      'confirm_password': confirmPassword,
+      'password_confirmation': confirmPassword,
       'otp': otp,
     };
   }
@@ -192,7 +192,7 @@ class RegisterStateModel extends Equatable {
       // isResendActive: map['is_resend_active'] ?? '',
       currentPassword: map['current_aassword'] ?? '',
       password: map['password'] ?? '',
-      confirmPassword: map['confirm_password'] ?? '',
+      confirmPassword: map['password_confirmation'] ?? '',
       otp: map['otp'] ?? '',
     );
   }

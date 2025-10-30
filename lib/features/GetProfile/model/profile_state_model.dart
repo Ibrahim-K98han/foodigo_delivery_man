@@ -1,8 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
-
 import 'package:equatable/equatable.dart';
-import 'package:foodigo/features/GetProfile/cubit/get_profile_state.dart';
+import 'package:foodigo_delivery_man/features/GetProfile/cubit/get_profile_state.dart';
 
 class ProfileStateModel extends Equatable {
   final String image;

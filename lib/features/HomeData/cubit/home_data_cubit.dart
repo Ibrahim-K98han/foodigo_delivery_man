@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodigo/features/HomeData/home_data_model.dart';
-import 'package:foodigo/features/HomeData/repository/home_data_repository.dart';
+import 'package:foodigo_delivery_man/features/HomeData/home_data_model.dart';
+import 'package:foodigo_delivery_man/features/HomeData/repository/home_data_repository.dart';
 
 import 'home_data_state.dart';
 

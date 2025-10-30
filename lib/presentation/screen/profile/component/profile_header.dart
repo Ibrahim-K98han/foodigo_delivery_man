@@ -53,9 +53,9 @@ class ProfileHeader extends StatelessWidget {
             borderRadius: BorderRadius.circular(50),
             child: CustomImage(
               path:
-                  pCubit.user?.manImage != null &&
-                          pCubit.user!.manImage.isNotEmpty
-                      ? RemoteUrls.imageUrl(pCubit.user!.manImage)
+                  pCubit.user?.profileImage != null &&
+                          pCubit.user!.profileImage.isNotEmpty
+                      ? RemoteUrls.imageUrl(pCubit.user!.profileImage)
                       : KImages.profile,
               width: 60,
               height: 60,
@@ -89,8 +89,8 @@ class ProfileHeader extends StatelessWidget {
           Utils.verticalSpace(2),
           CustomText(
             text:
-                pCubit.user?.manImage != null &&
-                        pCubit.user!.manImage.isNotEmpty
+                pCubit.user?.profileImage != null &&
+                        pCubit.user!.profileImage.isNotEmpty
                     ? pCubit.user!.email
                     : 'example@gmail.com',
             color: sTxtColor,

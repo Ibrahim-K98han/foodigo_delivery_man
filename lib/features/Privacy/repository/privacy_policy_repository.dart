@@ -1,9 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:foodigo/data/errors/exception.dart';
-import 'package:foodigo/data/errors/failure.dart';
-import 'package:foodigo/features/Privacy/model/privacy_response_model.dart';
-import 'package:foodigo/features/Privacy/remote/privacy_policy_remote_data_source.dart';
-
+import 'package:foodigo_delivery_man/data/errors/exception.dart';
+import 'package:foodigo_delivery_man/data/errors/failure.dart';
+import 'package:foodigo_delivery_man/features/Privacy/model/privacy_response_model.dart';
+import 'package:foodigo_delivery_man/features/Privacy/remote/privacy_policy_remote_data_source.dart';
 abstract class PrivacyPolicyRepository {
   Future<Either<Failure, PrivacyResponseModel>> getPrivacyPolicy(
     String langCode,

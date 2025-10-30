@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodigo/data/remote_url.dart';
-import 'package:foodigo/features/Login/bloc/login_bloc.dart';
-import 'package:foodigo/features/Splash/model/splash_response_model.dart';
+import 'package:foodigo_delivery_man/features/Login/bloc/login_bloc.dart';
+import 'package:foodigo_delivery_man/features/Splash/model/splash_response_model.dart';
 
 import '../repository/splash_repository.dart';
 import 'splash_state.dart';

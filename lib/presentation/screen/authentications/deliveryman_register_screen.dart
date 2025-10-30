@@ -115,11 +115,11 @@ class _DeliverymanRegistrationScreenState
                 }
                 if (register is RegisterStateThreeSuccess) {
                   Utils.successSnackBar(context, register.message);
-                  Navigator.pushNamed(
+                  Navigator.pushNamedAndRemoveUntil(
                     context,
                     RouteNames.registrationOtpVerifyScreen,
+                    (route) => false,
                   );
-                  return;
                 }
               },
 

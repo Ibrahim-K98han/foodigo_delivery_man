@@ -16,18 +16,21 @@ class ActiverOrderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 124,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        itemCount: activeOrder.length,
-        itemBuilder: (context, index) {
-          final order = activeOrder[index];
-          return Padding(
-            padding: Utils.symmetric(h: 6.0, v: 0.0),
-            child: ActiveOrderCard(order: order),
-          );
-        },
-      ),
+      child:
+          activeOrder.isNotEmpty
+              ? ListView.builder(
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                itemCount: activeOrder.length,
+                itemBuilder: (context, index) {
+                  final order = activeOrder[index];
+                  return Padding(
+                    padding: Utils.symmetric(h: 6.0, v: 0.0),
+                    child: ActiveOrderCard(order: order),
+                  );
+                },
+              )
+              : const Center(child: CustomText(text: 'Data Not Found')),
     );
   }
 }

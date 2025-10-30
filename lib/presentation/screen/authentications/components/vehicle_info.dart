@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +14,6 @@ import 'package:foodigo/widget/custom_image.dart';
 import 'package:foodigo/widget/custom_text_style.dart';
 import 'package:foodigo/widget/fetch_error_text.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:image_picker/image_picker.dart';
 
 class VehicleInfoStep extends StatefulWidget {
   const VehicleInfoStep({super.key});
@@ -35,7 +36,7 @@ class _VehicleInfoStepState extends State<VehicleInfoStep> {
 
   @override
   Widget build(BuildContext context) {
-    final rCubit = context.read<RegisterCubit>();
+    // final rCubit = context.read<RegisterCubit>();
 
     return Padding(
       padding: Utils.symmetric(h: 20.0, v: 10.0),
@@ -114,67 +115,82 @@ class _VehicleInfoStepState extends State<VehicleInfoStep> {
               Utils.verticalSpace(8),
               const CustomText(text: 'Upload (JPEG, PDF & PNG Max. Size 10MB)'),
               Utils.verticalSpace(8),
-              DottedBorder(
-                options: RectDottedBorderOptions(
-                  dashPattern: [4, 10],
-                  strokeWidth: 1,
-                  color: const Color(0xffEEEFF2),
-                  padding: Utils.symmetric(h: 10.0, v: 28.0),
-                ),
-                child: Column(
-                  children: [
-                    const CustomImage(
-                      path: KImages.imageAdd,
-                      width: 20,
-                      height: 20,
-                    ),
-                    Utils.verticalSpace(8),
-                    GestureDetector(
-                      onTap: () async {
-                        final pickedFile = await ImagePicker().pickImage(
-                          source: ImageSource.gallery,
-                        );
-                        if (pickedFile != null) {
-                          rCubit.changeVehicleImg(pickedFile.path);
-                        }
-                      },
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CustomText(text: 'Drag & Drop or ', fontSize: 10),
-                          CustomText(
-                            text: 'Choose File',
-                            fontSize: 10,
-                            color: blueColor,
-                            fontWeight: FontWeight.w500,
-                            decoration: TextDecoration.underline,
-                            dColor: blueColor,
+              SizedBox(
+                width: double.infinity,
+                height: 120,
+                child: DottedBorder(
+                  options: RectDottedBorderOptions(
+                    dashPattern: [4, 10],
+                    strokeWidth: 1,
+                    color: const Color(0xffEEEFF2),
+                    padding: Utils.symmetric(h: 10.0, v: 0.0),
+                  ),
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        if (rCubit.vehicleImg != null &&
+                            rCubit.vehicleImg!.isNotEmpty)
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.file(
+                              File(rCubit.vehicleImg!),
+                              width: double.infinity,
+                              height: 120,
+                              fit: BoxFit.cover,
+                            ),
+                          )
+                        else ...[
+                          const CustomImage(
+                            path: KImages.imageAdd,
+                            width: 20,
+                            height: 20,
+                          ),
+                          Utils.verticalSpace(8),
+                          GestureDetector(
+                            onTap: () async {
+                              // final pickedFile = await ImagePicker().pickImage(
+                              //   source: ImageSource.gallery,
+                              // );
+                              // if (pickedFile != null) {
+                              //   rCubit.changeVehicleImg(pickedFile.path);
+                              // }
+
+                              final img = await Utils.pickSingleImage();
+                              if (img != null && img.isNotEmpty) {
+                                rCubit.changeVehicleImg(img);
+                              }
+                            },
+                            child: const CustomText(
+                              text: 'Choose File',
+                              fontSize: 10,
+                              color: blueColor,
+                              fontWeight: FontWeight.w500,
+                              decoration: TextDecoration.underline,
+                              dColor: blueColor,
+                            ),
                           ),
                         ],
-                      ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
-              const ListTile(
-                contentPadding: EdgeInsets.zero,
-                leading: CustomImage(
-                  path: KImages.passport,
-                  width: 50,
-                  height: 40,
-                ),
-                title: CustomText(text: 'Screenshot.jpg', fontSize: 12),
-                subtitle: CustomText(
-                  text: '2.4 mb',
-                  fontSize: 12,
-                  color: sTxtColor,
-                ),
-                trailing: CustomImage(
-                  path: KImages.loading,
-                  width: 24,
-                  height: 24,
-                ),
-              ),
+              // ListTile(
+              //   contentPadding: EdgeInsets.zero,
+              //   leading: Image.file(
+              //     File(rCubit.vehicleImg!),
+              //     width: 50,
+              //     height: 40,
+              //     fit: BoxFit.cover,
+              //   ),
+              //   title: const CustomText(text: 'Screenshot.jpg', fontSize: 12),
+              //   subtitle: const CustomText(
+              //     text: '2.4 mb',
+              //     fontSize: 12,
+              //     color: sTxtColor,
+              //   ),
+              // ),
               // _buildRemember(context),
             ],
           );
