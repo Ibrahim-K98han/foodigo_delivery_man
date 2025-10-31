@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:foodigo/features/restaurant_features/Dashboard/model/dashboard_model.dart';
-import 'package:foodigo/presentation/core/routes/route_names.dart';
-import 'package:foodigo/utils/constraints.dart';
-import 'package:foodigo/utils/k_images.dart';
-import 'package:foodigo/utils/utils.dart';
-import 'package:foodigo/widget/custom_image.dart';
-import 'package:foodigo/widget/custom_text_style.dart';
+import 'package:foodigo_delivery_man/features/Dashboard/model/dashboard_model.dart';
+import 'package:foodigo_delivery_man/presentation/core/routes/route_names.dart';
+import 'package:foodigo_delivery_man/utils/constraints.dart';
+import 'package:foodigo_delivery_man/utils/k_images.dart';
+import 'package:foodigo_delivery_man/utils/utils.dart';
+import 'package:foodigo_delivery_man/widget/custom_image.dart';
+import 'package:foodigo_delivery_man/widget/custom_text_style.dart';
 import 'package:intl/intl.dart';
 
 class ActiverOrderWidget extends StatelessWidget {
@@ -16,21 +16,26 @@ class ActiverOrderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 124,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        itemCount: activeOrder.length,
-        itemBuilder: (context, index) {
-          final order = activeOrder[index];
-          return Padding(
-            padding: Utils.symmetric(h: 6.0, v: 0.0),
-            child: ActiveOrderCard(order: order),
-          );
-        },
-      ),
+      child:
+          activeOrder.isNotEmpty
+              ? ListView.builder(
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                itemCount: activeOrder.length,
+                itemBuilder: (context, index) {
+                  final order = activeOrder[index];
+                  return Padding(
+                    padding: Utils.symmetric(h: 6.0, v: 0.0),
+                    child: ActiveOrderCard(order: order),
+                  );
+                },
+              )
+              : const Center(child: CustomText(text: 'Data Not Found')),
     );
   }
 }
+
+
 
 class ActiveOrderCard extends StatelessWidget {
   const ActiveOrderCard({super.key, required this.order});

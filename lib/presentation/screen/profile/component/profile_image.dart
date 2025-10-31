@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodigo/data/remote_url.dart';
-import 'package:foodigo/features/GetProfile/cubit/get_profile_cubit.dart';
-import 'package:foodigo/features/Login/model/user_response_model.dart';
-import 'package:foodigo/utils/constraints.dart';
-import 'package:foodigo/utils/k_images.dart';
-import 'package:foodigo/utils/utils.dart';
-import 'package:foodigo/widget/circle_image.dart';
+import 'package:foodigo_delivery_man/data/remote_url.dart';
+import 'package:foodigo_delivery_man/features/GetProfile/cubit/get_profile_cubit.dart';
+import 'package:foodigo_delivery_man/features/Login/model/user_response_model.dart';
+import 'package:foodigo_delivery_man/utils/constraints.dart';
+import 'package:foodigo_delivery_man/utils/k_images.dart';
+import 'package:foodigo_delivery_man/utils/utils.dart';
+import 'package:foodigo_delivery_man/widget/circle_image.dart';
 
 class ProfileImage extends StatelessWidget {
   const ProfileImage({super.key});
@@ -17,8 +17,8 @@ class ProfileImage extends StatelessWidget {
     return BlocBuilder<GetProfileCubit, User>(
       builder: (context, state) {
         final img =
-            pCubit.state.manImage.isNotEmpty
-                ? RemoteUrls.imageUrl(pCubit.state.manImage)
+            pCubit.state.profileImage.isNotEmpty
+                ? RemoteUrls.imageUrl(pCubit.state.profileImage)
                 : KImages.profile;
         return Center(
           child: Stack(

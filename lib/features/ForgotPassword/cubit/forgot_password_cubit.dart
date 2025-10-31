@@ -2,10 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodigo/features/ForgotPassword/cubit/forgot_password_state.dart';
-import 'package:foodigo/features/ForgotPassword/cubit/forgot_password_state_model.dart';
-import 'package:foodigo/features/ForgotPassword/repository/forgot_password_repository.dart';
-
+import 'package:foodigo_delivery_man/features/ForgotPassword/cubit/forgot_password_state.dart';
+import 'package:foodigo_delivery_man/features/ForgotPassword/cubit/forgot_password_state_model.dart';
+import 'package:foodigo_delivery_man/features/ForgotPassword/repository/forgot_password_repository.dart';
 import '../../../data/errors/failure.dart';
 
 class ForgotPasswordCubit extends Cubit<ForgotPasswordStateModel> {
@@ -19,6 +18,59 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordStateModel> {
   void changeEmail(String text) {
     emit(state.copyWith(email: text));
   }
+
+  void currentPass(String text) {
+    emit(
+      state.copyWith(
+        currentPassword: text,
+        passwordState: const ForgotPasswordStateInitial(),
+      ),
+    );
+  }
+  void password(String text) {
+    emit(
+      state.copyWith(
+        password: text,
+        passwordState: const ForgotPasswordStateInitial(),
+      ),
+    );
+  }
+  void passwordConfirmation(String text) {
+    emit(
+      state.copyWith(
+        passwordConfirmation: text,
+        passwordState: const ForgotPasswordStateInitial(),
+      ),
+    );
+  }
+
+  void showCurrentPassword() {
+    emit(
+      state.copyWith(
+        showCurrentPassword: !state.showCurrentPassword,
+        passwordState: const ForgotPasswordStateInitial(),
+      ),
+    );
+  }
+  void showPassword() {
+    emit(
+      state.copyWith(
+        showPassword: !state.showPassword,
+        passwordState: const ForgotPasswordStateInitial(),
+      ),
+    );
+  }
+  void showPasswordConfirmation() {
+    emit(
+      state.copyWith(
+        showPasswordConfirmation: !state.showPasswordConfirmation,
+        passwordState: const ForgotPasswordStateInitial(),
+      ),
+    );
+  }
+
+
+
 
   void newPass(String text) {
     emit(
@@ -94,30 +146,30 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordStateModel> {
     );
   }
 
-  Future<void> verifyForgetOtp(String email, String otp) async {
-    print("Cubit OTP: $otp");
-    emit(state.copyWith(passwordState: ForgotPassOtpStateLoading()));
-    final result = await _repository.verifyForgotOtp(
-      ForgotPasswordStateModel(email: state.email, otp: otp),
-      email,
-    );
-    result.fold(
-      (failure) {
-        final errors = ForgotPssOtpStateError(
-          failure.message,
-          failure.statusCode,
-        );
-        emit(state.copyWith(passwordState: errors));
-      },
-      (success) {
-        final userLoaded = ForgotPassOtpStateSuccess(success);
-        emit(state.copyWith(passwordState: userLoaded));
-      },
-    );
-  }
+  // Future<void> verifyForgetOtp(String email, String otp) async {
+  //   print("Cubit OTP: $otp");
+  //   emit(state.copyWith(passwordState: ForgotPassOtpStateLoading()));
+  //   final result = await _repository.verifyForgotOtp(
+  //     ForgotPasswordStateModel(email: state.email, otp: otp),
+  //     email,
+  //   );
+  //   result.fold(
+  //     (failure) {
+  //       final errors = ForgotPssOtpStateError(
+  //         failure.message,
+  //         failure.statusCode,
+  //       );
+  //       emit(state.copyWith(passwordState: errors));
+  //     },
+  //     (success) {
+  //       final userLoaded = ForgotPassOtpStateSuccess(success);
+  //       emit(state.copyWith(passwordState: userLoaded));
+  //     },
+  //   );
+  // }
 
-  Future<void> verifyForgetPassOtp(String email, String otp) async {
-    print("Cubit Forgot Pass OTP: $otp");
+  Future<void> verifyForgetPassOtp(String email) async {
+    // print("Cubit Forgot Pass OTP: $otp");
     emit(state.copyWith(passwordState: ForgotPassOtpVerifyStateLoading()));
     final result = await _repository.verifyForgotPassOtp(state);
     result.fold(
@@ -134,7 +186,6 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordStateModel> {
       },
     );
   }
-
 
   Future<void> updatePassword(String email, String otp) async {
     emit(
@@ -157,10 +208,12 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordStateModel> {
       },
       (data) {
         emit(state.copyWith(passwordState: PasswordResetStateUpdated(data)));
-
-        },
+      },
     );
   }
+
+
+  
 
   void clear() {
     emit(
@@ -174,4 +227,3 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordStateModel> {
     );
   }
 }
-

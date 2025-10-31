@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodigo/data/remote_url.dart';
-import 'package:foodigo/features/GetProfile/cubit/get_profile_cubit.dart';
-import 'package:foodigo/presentation/core/routes/route_names.dart';
-import 'package:foodigo/utils/constraints.dart';
-import 'package:foodigo/utils/k_images.dart';
-import 'package:foodigo/utils/utils.dart';
-import 'package:foodigo/widget/custom_image.dart';
-import 'package:foodigo/widget/custom_text_style.dart';
+import 'package:foodigo_delivery_man/data/remote_url.dart';
+import 'package:foodigo_delivery_man/features/GetProfile/cubit/get_profile_cubit.dart';
+import 'package:foodigo_delivery_man/presentation/core/routes/route_names.dart';
+import 'package:foodigo_delivery_man/utils/constraints.dart';
+import 'package:foodigo_delivery_man/utils/k_images.dart';
+import 'package:foodigo_delivery_man/utils/utils.dart';
+import 'package:foodigo_delivery_man/widget/custom_image.dart';
+import 'package:foodigo_delivery_man/widget/custom_text_style.dart';
 
 class ProfileHeader extends StatelessWidget {
   const ProfileHeader({super.key});
@@ -53,9 +53,9 @@ class ProfileHeader extends StatelessWidget {
             borderRadius: BorderRadius.circular(50),
             child: CustomImage(
               path:
-                  pCubit.user?.manImage != null &&
-                          pCubit.user!.manImage.isNotEmpty
-                      ? RemoteUrls.imageUrl(pCubit.user!.manImage)
+                  pCubit.user?.profileImage != null &&
+                          pCubit.user!.profileImage.isNotEmpty
+                      ? RemoteUrls.imageUrl(pCubit.user!.profileImage)
                       : KImages.profile,
               width: 60,
               height: 60,
@@ -89,8 +89,8 @@ class ProfileHeader extends StatelessWidget {
           Utils.verticalSpace(2),
           CustomText(
             text:
-                pCubit.user?.manImage != null &&
-                        pCubit.user!.manImage.isNotEmpty
+                pCubit.user?.profileImage != null &&
+                        pCubit.user!.profileImage.isNotEmpty
                     ? pCubit.user!.email
                     : 'example@gmail.com',
             color: sTxtColor,

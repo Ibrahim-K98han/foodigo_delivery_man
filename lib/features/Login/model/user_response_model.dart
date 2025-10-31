@@ -2,7 +2,7 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
-import 'package:foodigo/features/GetProfile/cubit/get_profile_state.dart';
+import 'package:foodigo_delivery_man/features/GetProfile/cubit/get_profile_state.dart';
 
 class UserResponseModel extends Equatable {
   final User? user;
@@ -65,9 +65,25 @@ class User extends Equatable {
   final String idnNum;
   final String idnImage;
   final String phone;
-  final String status;
+  final int status;
   final String createdAt;
   final String updatedAt;
+  final String gender;
+  final String countryCode;
+  final String dateOfBirth;
+  final String cityId;
+  final String zipCode;
+  final String address;
+  final String documentTypeId;
+  final String documentNumber;
+  final String profileImage;
+  final String document;
+  final String shortNote;
+  final String vehicleTypeId;
+  final String vehicleNumber;
+  final String vehicleImage;
+  final String otpExpiresAt;
+  final bool isEmailVerified;
   final GetProfileState getProfileState;
   const User({
     this.id = 0,
@@ -80,9 +96,25 @@ class User extends Equatable {
     this.idnNum = '',
     this.idnImage = '',
     this.phone = '',
-    this.status = '',
+    this.status = 0,
     this.createdAt = '',
     this.updatedAt = '',
+    this.gender = '',
+    this.countryCode = '',
+    this.dateOfBirth = '',
+    this.cityId = '',
+    this.zipCode = '',
+    this.address = '',
+    this.documentTypeId = '',
+    this.documentNumber = '',
+    this.profileImage = '',
+    this.document = '',
+    this.shortNote = '',
+    this.vehicleTypeId = '',
+    this.vehicleNumber = '',
+    this.vehicleImage = '',
+    this.otpExpiresAt = '',
+    this.isEmailVerified = true,
     this.getProfileState = const GetProfileInitial(),
   });
 
@@ -97,9 +129,25 @@ class User extends Equatable {
     String? idnNum,
     String? idnImage,
     String? phone,
-    String? status,
+    int? status,
     String? createdAt,
     String? updatedAt,
+    String? gender,
+    String? countryCode,
+    String? dateOfBirth,
+    String? cityId,
+    String? zipCode,
+    String? address,
+    String? documentTypeId,
+    String? documentNumber,
+    String? profileImage,
+    String? document,
+    String? shortNote,
+    String? vehicleTypeId,
+    String? vehicleNumber,
+    String? vehicleImage,
+    String? otpExpiresAt,
+    bool? isEmailVerified,
     GetProfileState? getProfileState,
   }) {
     return User(
@@ -116,7 +164,22 @@ class User extends Equatable {
       status: status ?? this.status,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
-      getProfileState: getProfileState ?? this.getProfileState,
+      gender: gender ?? this.gender,
+      countryCode: countryCode ?? this.countryCode,
+      dateOfBirth: dateOfBirth ?? this.dateOfBirth,
+      cityId: cityId ?? this.cityId,
+      zipCode: zipCode ?? this.zipCode,
+      address: address ?? this.address,
+      documentTypeId: documentTypeId ?? this.documentTypeId,
+      documentNumber: documentNumber ?? this.documentNumber,
+      profileImage: profileImage ?? this.profileImage,
+      document: document ?? this.document,
+      shortNote: shortNote ?? this.shortNote,
+      vehicleTypeId: vehicleTypeId ?? this.vehicleTypeId,
+      vehicleNumber: vehicleNumber ?? this.vehicleNumber,
+      vehicleImage: vehicleImage ?? this.vehicleImage,
+      otpExpiresAt: otpExpiresAt ?? this.otpExpiresAt,
+      isEmailVerified: isEmailVerified ?? this.isEmailVerified,
     );
   }
 
@@ -135,6 +198,22 @@ class User extends Equatable {
       'status': status,
       'created_at': createdAt,
       'updated_at': updatedAt,
+      'gender': gender,
+      'country_code': countryCode,
+      'date_of_birth': dateOfBirth,
+      'city_id': cityId,
+      'zip_code': zipCode,
+      'address': address,
+      'document_type_id': documentTypeId,
+      'document_number': documentNumber,
+      'profile_image': profileImage,
+      'document': document,
+      'short_note': shortNote,
+      'vehicle_typeId': vehicleTypeId,
+      'vehicle_number': vehicleNumber,
+      'vehicle_image': vehicleImage,
+      'otp_expires_at': otpExpiresAt,
+      'is_email_verified': isEmailVerified,
     };
   }
 
@@ -150,9 +229,25 @@ class User extends Equatable {
       idnNum: map['idn_num'] ?? '',
       idnImage: map['idn_image'] ?? '',
       phone: map['phone'] ?? '',
-      status: map['status'] ?? '',
+      status: map['status'] ?? 0,
       createdAt: map['created_at'] ?? '',
       updatedAt: map['updated_at'] ?? '',
+      gender: map['gender'] ?? '',
+      countryCode: map['country_code'] ?? '',
+      dateOfBirth: map['date_of_birth'] ?? '',
+      cityId: map['city_id'] ?? '',
+      zipCode: map['zip_code'] ?? '',
+      address: map['address'] ?? '',
+      documentTypeId: map['document_type_id'] ?? '',
+      documentNumber: map['document_number'] ?? '',
+      profileImage: map['profile_image'] ?? '',
+      document: map['document'] ?? '',
+      shortNote: map['short_note'] ?? '',
+      vehicleTypeId: map['vehicle_type_id'] ?? '',
+      vehicleNumber: map['vehicle_number'] ?? '',
+      vehicleImage: map['vehicle_image'] ?? '',
+      otpExpiresAt: map['otp_expires_at'] ?? '',
+      isEmailVerified: map['is_email_verified'] ?? '',
     );
   }
 
@@ -160,18 +255,33 @@ class User extends Equatable {
     return const User(
       id: 0,
       manImage: '',
-      fname: '',
       lname: '',
+      fname: '',
       email: '',
       manType: '',
       idnType: '',
       idnNum: '',
       idnImage: '',
       phone: '',
-      status: '',
+      status: 0,
       createdAt: '',
       updatedAt: '',
-      getProfileState: GetProfileInitial(),
+      gender: '',
+      countryCode: '',
+      dateOfBirth: '',
+      cityId: '',
+      zipCode: '',
+      address: '',
+      documentTypeId: '',
+      documentNumber: '',
+      profileImage: '',
+      document: '',
+      shortNote: '',
+      vehicleTypeId: '',
+      vehicleNumber: '',
+      vehicleImage: '',
+      otpExpiresAt: '',
+      isEmailVerified: true,
     );
   }
 
@@ -199,6 +309,22 @@ class User extends Equatable {
       status,
       createdAt,
       updatedAt,
+      gender,
+      countryCode,
+      dateOfBirth,
+      cityId,
+      zipCode,
+      address,
+      documentTypeId,
+      documentNumber,
+      profileImage,
+      document,
+      shortNote,
+      vehicleTypeId,
+      vehicleNumber,
+      vehicleImage,
+      otpExpiresAt,
+      isEmailVerified,
     ];
   }
 }

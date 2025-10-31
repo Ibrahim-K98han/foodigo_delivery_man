@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodigo/features/register/cubit/register_cubit.dart';
-import 'package:foodigo/features/register/cubit/register_state.dart';
-import 'package:foodigo/features/register/model/register_state_model.dart';
-import 'package:foodigo/utils/constraints.dart';
-import 'package:foodigo/utils/utils.dart';
-import 'package:foodigo/widget/custom_dropdown.dart';
-import 'package:foodigo/widget/custom_form.dart';
-import 'package:foodigo/widget/custom_text_style.dart';
-import 'package:foodigo/widget/fetch_error_text.dart';
+import 'package:foodigo_delivery_man/features/CityDocumentVehicle/cubit/city_document_vehicle_cubit.dart';
+import 'package:foodigo_delivery_man/features/CityDocumentVehicle/cubit/city_document_vehicle_state.dart';
+import 'package:foodigo_delivery_man/features/register/cubit/register_cubit.dart';
+import 'package:foodigo_delivery_man/features/register/cubit/register_state.dart';
+import 'package:foodigo_delivery_man/features/register/model/register_state_model.dart';
+import 'package:foodigo_delivery_man/utils/constraints.dart';
+import 'package:foodigo_delivery_man/utils/utils.dart';
+import 'package:foodigo_delivery_man/widget/custom_dropdown.dart';
+import 'package:foodigo_delivery_man/widget/custom_form.dart';
+import 'package:foodigo_delivery_man/widget/custom_text_style.dart';
+import 'package:foodigo_delivery_man/widget/fetch_error_text.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
@@ -21,14 +23,15 @@ class PersonalInfoStep extends StatefulWidget {
 
 class _PersonalInfoStepState extends State<PersonalInfoStep> {
   late RegisterCubit rCubit;
-  String? selectedGender;
+  late CityDocumentVehicleCubit cCubit;
   String? selectedCity;
-  final List<String> city = ['1', '2'];
 
   @override
   void initState() {
     super.initState();
     rCubit = context.read<RegisterCubit>();
+    cCubit = context.read<CityDocumentVehicleCubit>();
+    cCubit.getCityDocumentVehicleData();
     // rCubit.getCityData();
   }
 
@@ -61,9 +64,7 @@ class _PersonalInfoStepState extends State<PersonalInfoStep> {
                             initialValue: state.fname,
                             onChanged: rCubit.changeFName,
                             keyboardType: TextInputType.text,
-                            decoration: const InputDecoration(
-                              hint: CustomText(text: 'onam', color: sTxtColor),
-                            ),
+                            decoration: const InputDecoration(hintText: 'onam'),
                             validator: FormBuilderValidators.compose([
                               FormBuilderValidators.required(
                                 errorText: 'Please First Name',
@@ -91,10 +92,7 @@ class _PersonalInfoStepState extends State<PersonalInfoStep> {
                             onChanged: rCubit.changeLName,
                             keyboardType: TextInputType.text,
                             decoration: const InputDecoration(
-                              hint: CustomText(
-                                text: 'sorker',
-                                color: sTxtColor,
-                              ),
+                              hintText: 'sorker',
                             ),
                             validator: FormBuilderValidators.compose([
                               FormBuilderValidators.required(
@@ -160,7 +158,7 @@ class _PersonalInfoStepState extends State<PersonalInfoStep> {
                     print('dialcode ${number.phoneNumber}');
                   },
 
-                  selectorConfig: SelectorConfig(
+                  selectorConfig: const SelectorConfig(
                     setSelectorButtonAsPrefixIcon: true,
                     leadingPadding: 20,
                     trailingSpace: false,
@@ -170,7 +168,7 @@ class _PersonalInfoStepState extends State<PersonalInfoStep> {
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                   ),
-                  selectorTextStyle: TextStyle(
+                  selectorTextStyle: const TextStyle(
                     color: blackColor,
                     fontWeight: FontWeight.bold,
                   ),
@@ -198,10 +196,7 @@ class _PersonalInfoStepState extends State<PersonalInfoStep> {
                       onChanged: rCubit.changeEmail,
                       keyboardType: TextInputType.text,
                       decoration: const InputDecoration(
-                        hint: CustomText(
-                          text: 'example@gmail.com',
-                          color: sTxtColor,
-                        ),
+                        hintText: 'example@gmail.com',
                       ),
                       validator: FormBuilderValidators.compose([
                         FormBuilderValidators.required(
@@ -246,7 +241,7 @@ class _PersonalInfoStepState extends State<PersonalInfoStep> {
                           },
                           child: Icon(Icons.date_range, color: sTxtColor),
                         ),
-                        hint: CustomText(text: 'Date', color: sTxtColor),
+                        hintText: 'Date',
                       ),
                     ),
                   ),
@@ -261,20 +256,44 @@ class _PersonalInfoStepState extends State<PersonalInfoStep> {
                       children: [
                         const CustomText(text: 'City'),
                         Utils.verticalSpace(4),
-                        CustomDropdownButton(
-                          borderRadius: 6,
-                          value: selectedCity,
-                          hintText: 'Select City',
-                          items: city,
-                          onChanged: (value) {
-                            rCubit.changeCity(value!);
-                            print(value);
+                        BlocBuilder<
+                          CityDocumentVehicleCubit,
+                          CityDocumentVehicleState
+                        >(
+                          builder: (context, cityState) {
+                            final cities =
+                                cCubit.cityDocumentVehicleModel?.cities;
+
+                            return DropdownButtonFormField<String>(
+                              decoration: InputDecoration(
+                                hintText: 'Select City',
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                contentPadding: Utils.symmetric(
+                                  h: 12.0,
+                                  v: 12.0,
+                                ),
+                              ),
+                              value: selectedCity,
+                              items:
+                                  cities?.map((city) {
+                                    return DropdownMenuItem<String>(
+                                      value: city.id.toString(),
+                                      child: CustomText(text: city.name),
+                                    );
+                                  }).toList(),
+                              onChanged: (value) {
+                                rCubit.changeCity(value!);
+                                print('Selected City ID: $value');
+                              },
+                            );
                           },
-                          itemBuilder: (city) => CustomText(text: city),
                         ),
                       ],
                     ),
                   ),
+
                   Utils.horizontalSpace(8),
                   Expanded(
                     child: Column(
@@ -287,9 +306,7 @@ class _PersonalInfoStepState extends State<PersonalInfoStep> {
                             initialValue: state.zipCode,
                             onChanged: rCubit.changeZipCode,
                             keyboardType: TextInputType.text,
-                            decoration: const InputDecoration(
-                              hint: CustomText(text: '9005', color: sTxtColor),
-                            ),
+                            decoration: const InputDecoration(hintText: '9005'),
                             validator: FormBuilderValidators.compose([
                               FormBuilderValidators.required(
                                 errorText: 'Please Enter Zip Code',
@@ -318,10 +335,7 @@ class _PersonalInfoStepState extends State<PersonalInfoStep> {
                       onChanged: rCubit.changeAddress,
                       keyboardType: TextInputType.text,
                       decoration: const InputDecoration(
-                        hint: CustomText(
-                          text: 'mirpur Dhaka',
-                          color: sTxtColor,
-                        ),
+                        hintText: 'mirpur Dhaka',
                       ),
                       validator: FormBuilderValidators.compose([
                         FormBuilderValidators.required(

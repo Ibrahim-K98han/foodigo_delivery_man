@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodigo/features/GetProfile/cubit/get_profile_cubit.dart';
-import 'package:foodigo/features/GetProfile/cubit/get_profile_state.dart';
-import 'package:foodigo/features/Login/model/user_response_model.dart';
-import 'package:foodigo/presentation/screen/profile/component/profile_image.dart';
-import 'package:foodigo/widget/custom_appbar.dart';
-import 'package:foodigo/widget/custom_dropdown.dart';
-import 'package:foodigo/widget/custom_form.dart';
-import 'package:foodigo/widget/custom_text_style.dart';
-import 'package:foodigo/widget/fetch_error_text.dart';
-import 'package:foodigo/widget/primary_button.dart';
+import 'package:foodigo_delivery_man/features/GetProfile/cubit/get_profile_cubit.dart';
+import 'package:foodigo_delivery_man/features/GetProfile/cubit/get_profile_state.dart';
+import 'package:foodigo_delivery_man/features/Login/model/user_response_model.dart';
+import 'package:foodigo_delivery_man/presentation/screen/profile/component/profile_image.dart';
+import 'package:foodigo_delivery_man/widget/custom_appbar.dart';
+import 'package:foodigo_delivery_man/widget/custom_dropdown.dart';
+import 'package:foodigo_delivery_man/widget/custom_form.dart';
+import 'package:foodigo_delivery_man/widget/custom_text_style.dart';
+import 'package:foodigo_delivery_man/widget/fetch_error_text.dart';
+import 'package:foodigo_delivery_man/widget/primary_button.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
 import '../../../utils/constraints.dart';
@@ -204,28 +204,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const CustomText(text: 'Country'),
-                          Utils.verticalSpace(4),
-                          CustomDropdownButton(
-                            borderRadius: 6,
-                            value: selectedCountry,
-                            hintText: 'Select Country',
-                            items: country,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedCountry = value;
-                              });
-                            },
-                            itemBuilder: (country) => CustomText(text: country),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Utils.horizontalSpace(8),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
                           const CustomText(text: 'City'),
                           Utils.verticalSpace(4),
                           CustomDropdownButton(
@@ -242,63 +220,74 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         ],
                       ),
                     ),
-                  ],
-                ),
-                Utils.verticalSpace(8),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const CustomText(text: 'State'),
-                          Utils.verticalSpace(4),
-                          CustomDropdownButton(
-                            borderRadius: 6,
-                            value: selectedState,
-                            hintText: 'Select State',
-                            items: state,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedState = value;
-                              });
-                            },
-                            itemBuilder: (state) => CustomText(text: state),
-                          ),
-                        ],
-                      ),
-                    ),
                     Utils.horizontalSpace(8),
                     Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CustomFormWidget(
-                            label: 'Zip Code',
-                            bottomSpace: 8,
-                            child: TextFormField(
-                              decoration: const InputDecoration(
-                                hint: CustomText(
-                                  text: '9002',
-                                  color: sTxtColor,
+                      child: BlocBuilder<GetProfileCubit, User>(
+                        builder: (context, state) {
+                          final validate = state.getProfileState;
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CustomFormWidget(
+                                label: 'Zip Code',
+                                bottomSpace: 0,
+                                child: TextFormField(
+                                  initialValue: state.zipCode,
+                                  onChanged: pCubit.zip,
+                                  decoration: const InputDecoration(
+                                    hintText: '9002',
+                                  ),
+                                  validator: FormBuilderValidators.compose([
+                                    FormBuilderValidators.required(
+                                      errorText: 'Please enter Zip Code',
+                                    ),
+                                  ]),
                                 ),
                               ),
-                            ),
-                          ),
-                        ],
+                              if (validate
+                                  is UpdateProfileStateFormValidate) ...[
+                                if (validate.errors.zipCode.isNotEmpty)
+                                  FetchErrorText(
+                                    text: validate.errors.zipCode.first,
+                                  ),
+                              ],
+                            ],
+                          );
+                        },
                       ),
                     ),
                   ],
                 ),
-                Utils.verticalSpace(8),
-                CustomFormWidget(
-                  label: 'Address',
-                  bottomSpace: 8,
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                      hint: CustomText(text: 'mirpur Dhaka', color: sTxtColor),
-                    ),
-                  ),
+                Utils.verticalSpace(12),
+                BlocBuilder<GetProfileCubit, User>(
+                  builder: (context, state) {
+                    final validate = state.getProfileState;
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomFormWidget(
+                          label: 'Address',
+                          bottomSpace: 8,
+                          child: TextFormField(
+                            initialValue: state.address,
+                            onChanged: pCubit.address,
+                            decoration: const InputDecoration(
+                              hintText: 'mirpur Dhaka',
+                            ),
+                            validator: FormBuilderValidators.compose([
+                              FormBuilderValidators.required(
+                                errorText: 'Please enter Address',
+                              ),
+                            ]),
+                          ),
+                        ),
+                        if (validate is UpdateProfileStateFormValidate) ...[
+                          if (validate.errors.address.isNotEmpty)
+                            FetchErrorText(text: validate.errors.address.first),
+                        ],
+                      ],
+                    );
+                  },
                 ),
 
                 Utils.verticalSpace(30.0),

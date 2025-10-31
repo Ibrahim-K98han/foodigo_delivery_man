@@ -2,10 +2,10 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
-import 'package:foodigo/features/HomeData/category_model.dart';
-import 'package:foodigo/features/HomeData/cuisines_model.dart';
-import 'package:foodigo/features/HomeData/feature_product_model.dart';
-import 'package:foodigo/features/HomeData/restaurant_model.dart';
+import 'package:foodigo_delivery_man/features/HomeData/category_model.dart';
+import 'package:foodigo_delivery_man/features/HomeData/cuisines_model.dart';
+import 'package:foodigo_delivery_man/features/HomeData/feature_product_model.dart';
+import 'package:foodigo_delivery_man/features/HomeData/restaurant_model.dart';
 
 class HomeModel extends Equatable {
   final HomePage? homePage;

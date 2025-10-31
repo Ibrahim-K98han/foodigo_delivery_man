@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:foodigo/features/register/model/city_model.dart';
-import 'package:foodigo/features/register/remote/register_remote_data_source.dart';
+import 'package:foodigo_delivery_man/features/register/model/city_model.dart';
+import 'package:foodigo_delivery_man/features/register/remote/register_remote_data_source.dart';
 
 import '../../../data/errors/exception.dart';
 import '../../../data/errors/failure.dart';
@@ -18,6 +18,10 @@ abstract class RegisterRepository {
   );
 
   Future<Either<dynamic, String>> verifyRegOtp(
+    RegisterStateModel body,
+    String email,
+  );
+  Future<Either<dynamic, String>> setPassword(
     RegisterStateModel body,
     String email,
   );
@@ -85,6 +89,20 @@ class RegisterRepositoryImpl implements RegisterRepository {
   ) async {
     try {
       final result = await remoteDataSource.otpVerify(body, email);
+      return Right(result['message']);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(e.message, e.statusCode));
+    } on InvalidAuthData catch (e) {
+      return Left(InvalidAuthData(e.errors));
+    }
+  }
+  @override
+  Future<Either<dynamic, String>> setPassword(
+    RegisterStateModel body,
+    String email,
+  ) async {
+    try {
+      final result = await remoteDataSource.setPassword(body, email);
       return Right(result['message']);
     } on ServerException catch (e) {
       return Left(ServerFailure(e.message, e.statusCode));

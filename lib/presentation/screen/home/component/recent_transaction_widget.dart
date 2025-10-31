@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:foodigo/features/restaurant_features/Dashboard/model/dashboard_model.dart';
-import 'package:foodigo/utils/constraints.dart';
-import 'package:foodigo/utils/utils.dart';
-import 'package:foodigo/widget/custom_text_style.dart';
+import 'package:foodigo_delivery_man/features/Dashboard/model/dashboard_model.dart';
+import 'package:foodigo_delivery_man/utils/constraints.dart';
+import 'package:foodigo_delivery_man/utils/utils.dart';
+import 'package:foodigo_delivery_man/widget/custom_text_style.dart';
 import 'package:intl/intl.dart';
 
 class RecentTransactionWidget extends StatelessWidget {
@@ -15,7 +15,7 @@ class RecentTransactionWidget extends StatelessWidget {
     return Column(
       children: [
         Utils.verticalSpace(20),
-        Row(
+        const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CustomText(
@@ -27,19 +27,24 @@ class RecentTransactionWidget extends StatelessWidget {
           ],
         ),
         Utils.verticalSpace(13),
-        ListView.separated(
-          itemCount: withdrawHistory.length,
-          shrinkWrap: true,
-          physics: BouncingScrollPhysics(),
-          separatorBuilder: (context, index) {
-            return Divider(color: greyColor.withOpacity(0.1));
-          },
+        withdrawHistory.isNotEmpty
+            ? ListView.separated(
+              itemCount: withdrawHistory.length,
+              shrinkWrap: true,
+              physics: const BouncingScrollPhysics(),
+              separatorBuilder: (context, index) {
+                return Divider(color: greyColor.withOpacity(0.1));
+              },
 
-          itemBuilder: (context, index) {
-            final withdraw = withdrawHistory[index];
-            return RecentTransactionsCard(withdraw: withdraw);
-          },
-        ),
+              itemBuilder: (context, index) {
+                final withdraw = withdrawHistory[index];
+                return RecentTransactionsCard(withdraw: withdraw);
+              },
+            )
+            : Padding(
+              padding: Utils.only(top: 20),
+              child: const CustomText(text: 'Data Not Found'),
+            ),
       ],
     );
   }

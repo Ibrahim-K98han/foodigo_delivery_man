@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodigo/features/ChangeProfilePass/cubit/change_profile_pass_state.dart';
-import 'package:foodigo/features/ChangeProfilePass/model/change_profile_pass_state_model.dart';
-import 'package:foodigo/features/ChangeProfilePass/repository/change_profile_pass_repository.dart';
+import 'package:foodigo_delivery_man/features/ChangeProfilePass/cubit/change_profile_pass_state.dart';
+import 'package:foodigo_delivery_man/features/ChangeProfilePass/model/change_profile_pass_state_model.dart';
+import 'package:foodigo_delivery_man/features/ChangeProfilePass/repository/change_profile_pass_repository.dart';
 
 import '../../../data/errors/failure.dart';
 import '../../Login/bloc/login_bloc.dart';
