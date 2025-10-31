@@ -7,8 +7,12 @@ import '../../../data/errors/failure.dart';
 abstract class ForgotPasswordRepository {
   Future<Either<dynamic, String>> forgotPassword(Map<String, dynamic> body);
 
-  Future<Either<dynamic, String>> resetPassword(
+  Future<Either<dynamic, String>> resetPassword(ForgotPasswordStateModel body);
+
+  Future<Either<dynamic, String>> updatePassword(
     ForgotPasswordStateModel body,
+    Uri url,
+    String token,
   );
 
   // Future<Either<dynamic, String>> verifyForgotOtp(
@@ -54,6 +58,22 @@ class ForgotPasswordRepositoryImpl implements ForgotPasswordRepository {
     }
   }
 
+  @override
+  Future<Either<dynamic, String>> updatePassword(
+    ForgotPasswordStateModel body,
+    Uri url,
+    String token,
+  ) async {
+    try {
+      final result = await remoteDataSource.updatePassword(body, url, token);
+      return Right(result['data']);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(e.message, e.statusCode));
+    } on InvalidAuthData catch (e) {
+      return Left(InvalidAuthData(e.errors));
+    }
+  }
+
   // @override
   // Future<Either<dynamic, String>> verifyForgotOtp(
   //   ForgotPasswordStateModel body,
@@ -71,7 +91,7 @@ class ForgotPasswordRepositoryImpl implements ForgotPasswordRepository {
 
   @override
   Future<Either<dynamic, String>> verifyForgotPassOtp(
-    ForgotPasswordStateModel body
+    ForgotPasswordStateModel body,
   ) async {
     try {
       final result = await remoteDataSource.forgotPassOtpVerify(body);

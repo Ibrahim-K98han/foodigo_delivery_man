@@ -7,12 +7,12 @@ import '../../../data/remote_url.dart';
 abstract class ForgotPasswordRemoteDataSource {
   Future<String> forgotPassword(Map<String, dynamic> body);
 
-  Future<String> resetPassword(
-    ForgotPasswordStateModel body,
-  );
+  Future<String> resetPassword(ForgotPasswordStateModel body);
 
   // Future forgotOtpVerify(ForgotPasswordStateModel body, String email);
   Future forgotPassOtpVerify(ForgotPasswordStateModel body);
+
+  Future updatePassword(ForgotPasswordStateModel body, Uri url, String token);
 }
 
 class ForgotPasswordRemoteDataSourceImpl
@@ -20,6 +20,12 @@ class ForgotPasswordRemoteDataSourceImpl
   final http.Client client;
 
   ForgotPasswordRemoteDataSourceImpl({required this.client});
+
+  authHeader(String token) => {
+    'Authorization': 'Bearer $token',
+    'Accept': 'application/json',
+    // 'Accept': "x-www-form-urlencoded/application"
+  };
 
   final headers = {
     'Accept': 'application/json',
@@ -47,9 +53,7 @@ class ForgotPasswordRemoteDataSourceImpl
   }
 
   @override
-  Future<String> resetPassword(
-    ForgotPasswordStateModel body,
-  ) async {
+  Future<String> resetPassword(ForgotPasswordStateModel body) async {
     final uri = Uri.parse(RemoteUrls.resetPassword);
     print('update-password-url $uri');
     final clientMethod = client.post(
@@ -61,6 +65,23 @@ class ForgotPasswordRemoteDataSourceImpl
       () => clientMethod,
     );
     return responseJsonBody['message'] as String;
+  }
+
+  @override
+  Future updatePassword(
+    ForgotPasswordStateModel body,
+    Uri url,
+    String token,
+  ) async {
+    final clientMethod = client.put(
+      url,
+      body: body.toMap(),
+      headers: authHeader(token),
+    );
+    final responseJsonBody = await NetworkParser.callClientWithCatchException(
+      () => clientMethod,
+    );
+    return responseJsonBody;
   }
 
   // @override
@@ -87,14 +108,19 @@ class ForgotPasswordRemoteDataSourceImpl
   // }
 
   @override
-  Future forgotPassOtpVerify(ForgotPasswordStateModel body) async{
-    final uri = Uri.parse(RemoteUrls.forgotPassOtpVerify).replace(queryParameters: {'lang_code':body.languageCode});
+  Future forgotPassOtpVerify(ForgotPasswordStateModel body) async {
+    final uri = Uri.parse(
+      RemoteUrls.forgotPassOtpVerify,
+    ).replace(queryParameters: {'lang_code': body.languageCode});
     print('forgot pass verify otp: $uri');
-    final clientMethod =
-    client.post(uri, body: body.toMap(), headers: postDeleteHeader);
-    final responseJsonBody =
-    await NetworkParser.callClientWithCatchException(() => clientMethod);
+    final clientMethod = client.post(
+      uri,
+      body: body.toMap(),
+      headers: postDeleteHeader,
+    );
+    final responseJsonBody = await NetworkParser.callClientWithCatchException(
+      () => clientMethod,
+    );
     return responseJsonBody;
-
   }
 }

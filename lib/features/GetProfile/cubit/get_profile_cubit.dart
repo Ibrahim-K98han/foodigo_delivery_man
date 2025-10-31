@@ -35,6 +35,9 @@ class GetProfileCubit extends Cubit<User> {
   void phone(String phone) {
     emit(state.copyWith(phone: phone));
   }
+  void city(String city) {
+    emit(state.copyWith(cityId: city));
+  }
 
   void image(String image) {
     emit(state.copyWith(profileImage: image));

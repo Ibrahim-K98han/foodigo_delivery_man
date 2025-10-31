@@ -2,17 +2,23 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foodigo_delivery_man/data/remote_url.dart';
 import 'package:foodigo_delivery_man/features/ForgotPassword/cubit/forgot_password_state.dart';
 import 'package:foodigo_delivery_man/features/ForgotPassword/cubit/forgot_password_state_model.dart';
 import 'package:foodigo_delivery_man/features/ForgotPassword/repository/forgot_password_repository.dart';
+import 'package:foodigo_delivery_man/features/Login/bloc/login_bloc.dart';
+import 'package:foodigo_delivery_man/utils/utils.dart';
 import '../../../data/errors/failure.dart';
 
 class ForgotPasswordCubit extends Cubit<ForgotPasswordStateModel> {
   final ForgotPasswordRepository _repository;
+  final LoginBloc _loginBloc;
 
   ForgotPasswordCubit({
     required ForgotPasswordRepository forgotPasswordRepository,
+    required LoginBloc login_bloc,
   }) : _repository = forgotPasswordRepository,
+       _loginBloc = login_bloc,
        super(ForgotPasswordStateModel.init());
 
   void changeEmail(String text) {
@@ -27,6 +33,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordStateModel> {
       ),
     );
   }
+
   void password(String text) {
     emit(
       state.copyWith(
@@ -35,6 +42,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordStateModel> {
       ),
     );
   }
+
   void passwordConfirmation(String text) {
     emit(
       state.copyWith(
@@ -52,6 +60,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordStateModel> {
       ),
     );
   }
+
   void showPassword() {
     emit(
       state.copyWith(
@@ -60,6 +69,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordStateModel> {
       ),
     );
   }
+
   void showPasswordConfirmation() {
     emit(
       state.copyWith(
@@ -68,9 +78,6 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordStateModel> {
       ),
     );
   }
-
-
-
 
   void newPass(String text) {
     emit(
@@ -212,12 +219,44 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordStateModel> {
     );
   }
 
-
-  
+  Future<void> changePassword() async {
+    emit(state.copyWith(passwordState: const UpdatePasswordStateLoading()));
+    final uri = Utils.tokenWithCode(
+      RemoteUrls.updatePassword,
+      _loginBloc.userInformation!.token,
+      _loginBloc.state.languageCode,
+    );
+    final result = await _repository.updatePassword(
+      state,
+      uri,
+      _loginBloc.userInformation!.token,
+    );
+    result.fold(
+      (failure) {
+        if (failure is InvalidAuthData) {
+          final errors = UpdatePasswordFormValidateError(failure.errors);
+          emit(state.copyWith(passwordState: errors));
+        } else {
+          final errors = UpdatePasswordStateError(
+            failure.message,
+            failure.statusCode,
+          );
+          emit(state.copyWith(passwordState: errors));
+        }
+      },
+      (data) {
+        emit(state.copyWith(passwordState: UpdatePasswordStateLoaded(data)));
+        
+      },
+    );
+  }
 
   void clear() {
     emit(
       state.copyWith(
+        currentPassword: '',
+        password: '',
+        passwordConfirmation: '',
         newPass: '',
         conPass: '',
         showNewPass: true,

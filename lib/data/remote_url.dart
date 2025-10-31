@@ -128,6 +128,8 @@ class RemoteUrls {
       '${baseUrl}deliveryman/auth/reset-password';
   static const String cityDocumentVehicle =
       '${baseUrl}deliveryman/register-data';
+  static const String updatePassword =
+      '${baseUrl}deliveryman/profile/change-password';
 
   static imageUrl(String imageUrl) => rootUrl + imageUrl;
 }

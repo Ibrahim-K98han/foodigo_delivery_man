@@ -86,7 +86,7 @@ class ForgotPasswordStateModel extends Equatable {
 
   Map<String, dynamic> toMap() {
     return {
-      'current_password': password,
+      'current_password': currentPassword,
       'password': password,
       'password_confirmation': passwordConfirmation,
       'email': email,

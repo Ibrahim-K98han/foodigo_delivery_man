@@ -18,7 +18,6 @@ class ChangePasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final fCubit = context.read<ForgotPasswordCubit>();
-
     return Scaffold(
       appBar: const CustomAppBar(title: 'Change Password'),
       body: Padding(
@@ -132,15 +131,28 @@ class ChangePasswordScreen extends StatelessWidget {
                 Utils.verticalSpace(20),
                 BlocListener<ForgotPasswordCubit, ForgotPasswordStateModel>(
                   listener: (context, state) {
-                     final changePass = state.passwordState;
-                     
+                    final reg = state.passwordState;
+                    if (reg is UpdatePasswordStateLoading) {
+                      Utils.loadingDialog(context);
+                    } else {
+                      Utils.closeDialog(context);
+                      if (reg is UpdatePasswordStateError) {
+                        Utils.failureSnackBar(context, reg.message);
+                      } else if (reg is UpdatePasswordStateLoaded) {
+                        Utils.successSnackBar(context, reg.message);
+                        Navigator.of(context).pop(true);
+                      }
+                    }
                   },
                   child: PrimaryButton(
                     bgColor: dTextColor,
                     textColor: whiteColor,
                     minimumSize: const Size(double.infinity, 44),
                     text: 'Create Password',
-                    onPressed: () {},
+                    onPressed: () {
+                      fCubit.changePassword();
+                      // fCubit.clear();
+                    },
                   ),
                 ),
               ],
