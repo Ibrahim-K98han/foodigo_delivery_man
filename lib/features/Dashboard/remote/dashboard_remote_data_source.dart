@@ -5,7 +5,6 @@ import 'package:http/http.dart' as http;
 
 abstract class DashboardRemoteDataSource {
   Future getResDashboard(String token);
-
 }
 
 class DashboardRemoteDataSourceImpl implements DashboardRemoteDataSource {

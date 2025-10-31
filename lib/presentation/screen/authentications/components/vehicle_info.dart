@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foodigo_delivery_man/features/CityDocumentVehicle/cubit/city_document_vehicle_cubit.dart';
+import 'package:foodigo_delivery_man/features/CityDocumentVehicle/cubit/city_document_vehicle_state.dart';
 import 'package:foodigo_delivery_man/features/register/cubit/register_cubit.dart';
 import 'package:foodigo_delivery_man/features/register/cubit/register_state.dart';
 import 'package:foodigo_delivery_man/features/register/model/register_state_model.dart';
@@ -26,11 +28,14 @@ class _VehicleInfoStepState extends State<VehicleInfoStep> {
   bool _rememberMe = false;
   String? selectedType;
   late RegisterCubit rCubit;
+  late CityDocumentVehicleCubit cCubit;
 
   @override
   void initState() {
     super.initState();
     rCubit = context.read<RegisterCubit>();
+    cCubit = context.read<CityDocumentVehicleCubit>();
+    cCubit.getCityDocumentVehicleData();
     // rCubit.getCityData();
   }
 
@@ -53,39 +58,79 @@ class _VehicleInfoStepState extends State<VehicleInfoStep> {
               ),
               Utils.verticalSpace(12),
               const CustomText(text: 'Vehicle Type', color: labelColor),
-              Row(
-                children: [
-                  Radio<String>(
-                    activeColor: primaryColor,
-                    value: 'bike',
-                    groupValue: state.vehicleTypeId,
-                    onChanged: (value) {
-                      rCubit.changeVehicleType(value!);
-                      print(value);
-                    },
-                  ),
-                  const CustomText(text: 'Bike'),
-                  Radio<String>(
-                    activeColor: primaryColor,
-                    value: 'cycle',
-                    groupValue: state.vehicleTypeId,
-                    onChanged: (value) {
-                      rCubit.changeVehicleType(value!);
-                      print(value);
-                    },
-                  ),
-                  const CustomText(text: 'Cycle'),
-                  Radio<String>(
-                    activeColor: primaryColor,
-                    value: 'walker',
-                    groupValue: state.vehicleTypeId,
-                    onChanged: (value) {
-                      rCubit.changeVehicleType(value!);
-                      print(value);
-                    },
-                  ),
-                  const CustomText(text: 'Walker'),
-                ],
+              // Row(
+              //   children: [
+              //     Radio<String>(
+              //       activeColor: primaryColor,
+              //       value: 'bike',
+              //       groupValue: state.vehicleTypeId,
+              //       onChanged: (value) {
+              //         rCubit.changeVehicleType(value!);
+              //         print(value);
+              //       },
+              //     ),
+              //     const CustomText(text: 'Bike'),
+              //     Radio<String>(
+              //       activeColor: primaryColor,
+              //       value: 'cycle',
+              //       groupValue: state.vehicleTypeId,
+              //       onChanged: (value) {
+              //         rCubit.changeVehicleType(value!);
+              //         print(value);
+              //       },
+              //     ),
+              //     const CustomText(text: 'Cycle'),
+              //     Radio<String>(
+              //       activeColor: primaryColor,
+              //       value: 'walker',
+              //       groupValue: state.vehicleTypeId,
+              //       onChanged: (value) {
+              //         rCubit.changeVehicleType(value!);
+              //         print(value);
+              //       },
+              //     ),
+              //     const CustomText(text: 'Walker'),
+              //   ],
+              // ),
+              BlocBuilder<CityDocumentVehicleCubit, CityDocumentVehicleState>(
+                builder: (context, cityState) {
+                  final vehicleTypes =
+                      cCubit.cityDocumentVehicleModel?.vehicleTypes;
+
+                  // If vehicle types are not loaded yet
+                  if (vehicleTypes == null || vehicleTypes.isEmpty) {
+                    return const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 8.0),
+                      child: CustomText(
+                        text: 'Loading vehicle types...',
+                        color: Colors.grey,
+                      ),
+                    );
+                  }
+
+                  // Display vehicle types dynamically
+                  return Wrap(
+                    spacing: 8.0,
+                    children:
+                        vehicleTypes.map((vehicleType) {
+                          return Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Radio<String>(
+                                activeColor: primaryColor,
+                                value: vehicleType.id.toString(),
+                                groupValue: state.vehicleTypeId,
+                                onChanged: (value) {
+                                  rCubit.changeVehicleType(value!);
+                                  print('Selected Vehicle Type ID: $value');
+                                },
+                              ),
+                              CustomText(text: vehicleType.name),
+                            ],
+                          );
+                        }).toList(),
+                  );
+                },
               ),
               Utils.verticalSpace(8),
               Column(
@@ -96,9 +141,7 @@ class _VehicleInfoStepState extends State<VehicleInfoStep> {
                     child: TextFormField(
                       initialValue: state.vehicleNumber,
                       onChanged: rCubit.changeVehicleNumber,
-                      decoration:  InputDecoration(
-                        hintText:  'DH 31-7530',
-                      ),
+                      decoration: InputDecoration(hintText: 'DH 31-7530'),
                       validator: FormBuilderValidators.compose([
                         FormBuilderValidators.required(
                           errorText: 'Please Enter Vehicle Number',

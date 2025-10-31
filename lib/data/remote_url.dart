@@ -126,6 +126,8 @@ class RemoteUrls {
       '${baseUrl}deliveryman/auth/verify-reset-otp';
   static const String resetPassword =
       '${baseUrl}deliveryman/auth/reset-password';
+  static const String cityDocumentVehicle =
+      '${baseUrl}deliveryman/register-data';
 
   static imageUrl(String imageUrl) => rootUrl + imageUrl;
 }

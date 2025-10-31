@@ -2,6 +2,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodigo_delivery_man/features/ChangeProfilePass/cubit/change_profile_pass_cubit.dart';
 import 'package:foodigo_delivery_man/features/ChangeProfilePass/remote/change_profile_pass_remote_data_source.dart';
 import 'package:foodigo_delivery_man/features/ChangeProfilePass/repository/change_profile_pass_repository.dart';
+import 'package:foodigo_delivery_man/features/CityDocumentVehicle/cubit/city_document_vehicle_cubit.dart';
+import 'package:foodigo_delivery_man/features/CityDocumentVehicle/remote/city_document_vehicle_remote_data_source.dart';
+import 'package:foodigo_delivery_man/features/CityDocumentVehicle/repository/city_document_vehicle_repository.dart';
 import 'package:foodigo_delivery_man/features/ForgotPassword/cubit/forgot_password_cubit.dart';
 import 'package:foodigo_delivery_man/features/ForgotPassword/remote/forgot_password_remote_data_source.dart';
 import 'package:foodigo_delivery_man/features/ForgotPassword/repository/forgot_password_repository.dart';
@@ -43,7 +46,7 @@ class DInjector {
       create:
           (context) => LocalDataSourcesImpl(sharedPreferences: context.read()),
     ),
-  
+
     RepositoryProvider<LoginRemoteDataSource>(
       create: (context) => LoginRemoteDataSourceImpl(client: context.read()),
     ),
@@ -279,7 +282,6 @@ class DInjector {
     //       (context) =>
     //           OrderStatusRepositoryImpl(remoteDataSource: context.read()),
     // ),
-
     RepositoryProvider<ForgotPasswordVerifyRemoteDataSource>(
       create:
           (context) =>
@@ -291,10 +293,21 @@ class DInjector {
             remoteDataSource: context.read(),
           ),
     ),
+
+    RepositoryProvider<CityDocumentVehicleRemoteDataSource>(
+      create:
+          (context) =>
+              CityDocumentVehicleRemoteDataSourceImpl(client: context.read()),
+    ),
+    RepositoryProvider<CityDocumentVehicleRepository>(
+      create:
+          (context) => CityDocumentVehicleRepositoryImpl(
+            remoteDataSource: context.read(),
+          ),
+    ),
   ];
 
   static final blocProvider = <BlocProvider>[
-
     BlocProvider<LoginBloc>(
       create: (context) => LoginBloc(repository: context.read()),
     ),
@@ -492,6 +505,9 @@ class DInjector {
           (context) => ForgotPasswordVerifyCubit(
             forgotPasswordRepository: context.read(),
           ),
+    ),
+    BlocProvider<CityDocumentVehicleCubit>(
+      create: (context) => CityDocumentVehicleCubit(repository: context.read()),
     ),
   ];
 }

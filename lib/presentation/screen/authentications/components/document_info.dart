@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foodigo_delivery_man/features/CityDocumentVehicle/cubit/city_document_vehicle_cubit.dart';
+import 'package:foodigo_delivery_man/features/CityDocumentVehicle/cubit/city_document_vehicle_state.dart';
 import 'package:foodigo_delivery_man/features/register/cubit/register_cubit.dart';
 import 'package:foodigo_delivery_man/features/register/cubit/register_state.dart';
 import 'package:foodigo_delivery_man/features/register/model/register_state_model.dart';
@@ -24,12 +26,14 @@ class DocumentInfoStep extends StatefulWidget {
 
 class _DocumentInfoStepState extends State<DocumentInfoStep> {
   late RegisterCubit rCubit;
+  late CityDocumentVehicleCubit cCubit;
   String? selectedDocument;
-  final List<String> document = ['NID', 'Passport', 'Licence'];
   @override
   void initState() {
     super.initState();
     rCubit = context.read<RegisterCubit>();
+    cCubit = context.read<CityDocumentVehicleCubit>();
+    cCubit.getCityDocumentVehicleData();
   }
 
   @override
@@ -50,21 +54,64 @@ class _DocumentInfoStepState extends State<DocumentInfoStep> {
               Utils.verticalSpace(12),
               Row(
                 children: [
+                  // Expanded(
+                  //   child: Column(
+                  //     crossAxisAlignment: CrossAxisAlignment.start,
+                  //     children: [
+                  //       const CustomText(text: 'Document Type'),
+                  //       Utils.verticalSpace(4),
+                  //       CustomDropdownButton(
+                  //         borderRadius: 6,
+                  //         value: selectedDocument,
+                  //         hintText: 'Select Document',
+                  //         items: document,
+                  //         onChanged: (value) {
+                  //           rCubit.changeDocumentType(value!);
+                  //         },
+                  //         itemBuilder: (document) => CustomText(text: document),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const CustomText(text: 'Document Type'),
                         Utils.verticalSpace(4),
-                        CustomDropdownButton(
-                          borderRadius: 6,
-                          value: selectedDocument,
-                          hintText: 'Select Document',
-                          items: document,
-                          onChanged: (value) {
-                            rCubit.changeDocumentType(value!);
+                        BlocBuilder<
+                          CityDocumentVehicleCubit,
+                          CityDocumentVehicleState
+                        >(
+                          builder: (context, state) {
+                            final document =
+                                cCubit.cityDocumentVehicleModel!.documentTypes;
+
+                            return DropdownButtonFormField<String>(
+                              decoration: InputDecoration(
+                                hintText: 'Select Document',
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                contentPadding: Utils.symmetric(
+                                  h: 6.0,
+                                  v: 12.0,
+                                ),
+                              ),
+                              value: selectedDocument,
+                              items:
+                                  document!.map((doc) {
+                                    return DropdownMenuItem<String>(
+                                      value: doc.id.toString(),
+                                      child: CustomText(text: doc.name),
+                                    );
+                                  }).toList(),
+                              onChanged: (value) {
+                                rCubit.changeDocumentType(value!);
+                                print('Selected Document ID: $value');
+                              },
+                            );
                           },
-                          itemBuilder: (document) => CustomText(text: document),
                         ),
                       ],
                     ),
@@ -81,9 +128,7 @@ class _DocumentInfoStepState extends State<DocumentInfoStep> {
                             initialValue: state.documentNumber,
                             onChanged: rCubit.changeDocumentNumber,
                             decoration: const InputDecoration(
-                              hintText: 
-                               'Enter Number',
-                              
+                              hintText: 'Enter Number',
                             ),
                             validator: FormBuilderValidators.compose([
                               FormBuilderValidators.required(
@@ -262,9 +307,7 @@ class _DocumentInfoStepState extends State<DocumentInfoStep> {
                   initialValue: state.shortNote,
                   onChanged: rCubit.changeShortNote,
                   maxLines: 3,
-                  decoration: const InputDecoration(
-                    hintText:'Enter Note'
-                  ),
+                  decoration: const InputDecoration(hintText: 'Enter Note'),
                   validator: FormBuilderValidators.compose([
                     FormBuilderValidators.required(
                       errorText: 'Please Enter Note',

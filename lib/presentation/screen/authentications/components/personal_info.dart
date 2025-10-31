@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foodigo_delivery_man/features/CityDocumentVehicle/cubit/city_document_vehicle_cubit.dart';
+import 'package:foodigo_delivery_man/features/CityDocumentVehicle/cubit/city_document_vehicle_state.dart';
 import 'package:foodigo_delivery_man/features/register/cubit/register_cubit.dart';
 import 'package:foodigo_delivery_man/features/register/cubit/register_state.dart';
 import 'package:foodigo_delivery_man/features/register/model/register_state_model.dart';
@@ -21,14 +23,15 @@ class PersonalInfoStep extends StatefulWidget {
 
 class _PersonalInfoStepState extends State<PersonalInfoStep> {
   late RegisterCubit rCubit;
-  String? selectedGender;
+  late CityDocumentVehicleCubit cCubit;
   String? selectedCity;
-  final List<String> city = ['1', '2'];
 
   @override
   void initState() {
     super.initState();
     rCubit = context.read<RegisterCubit>();
+    cCubit = context.read<CityDocumentVehicleCubit>();
+    cCubit.getCityDocumentVehicleData();
     // rCubit.getCityData();
   }
 
@@ -253,20 +256,44 @@ class _PersonalInfoStepState extends State<PersonalInfoStep> {
                       children: [
                         const CustomText(text: 'City'),
                         Utils.verticalSpace(4),
-                        CustomDropdownButton(
-                          borderRadius: 6,
-                          value: selectedCity,
-                          hintText: 'Select City',
-                          items: city,
-                          onChanged: (value) {
-                            rCubit.changeCity(value!);
-                            print(value);
+                        BlocBuilder<
+                          CityDocumentVehicleCubit,
+                          CityDocumentVehicleState
+                        >(
+                          builder: (context, cityState) {
+                            final cities =
+                                cCubit.cityDocumentVehicleModel?.cities;
+
+                            return DropdownButtonFormField<String>(
+                              decoration: InputDecoration(
+                                hintText: 'Select City',
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                contentPadding: Utils.symmetric(
+                                  h: 12.0,
+                                  v: 12.0,
+                                ),
+                              ),
+                              value: selectedCity,
+                              items:
+                                  cities?.map((city) {
+                                    return DropdownMenuItem<String>(
+                                      value: city.id.toString(),
+                                      child: CustomText(text: city.name),
+                                    );
+                                  }).toList(),
+                              onChanged: (value) {
+                                rCubit.changeCity(value!);
+                                print('Selected City ID: $value');
+                              },
+                            );
                           },
-                          itemBuilder: (city) => CustomText(text: city),
                         ),
                       ],
                     ),
                   ),
+
                   Utils.horizontalSpace(8),
                   Expanded(
                     child: Column(

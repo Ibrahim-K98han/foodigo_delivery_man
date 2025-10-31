@@ -6,7 +6,6 @@ import '../model/dashboard_model.dart';
 
 abstract class DashboardRepository {
   Future<Either<Failure, DashboardModel>> getResDashboardData(String token);
- 
 }
 
 class DashboardRepositoryImpl implements DashboardRepository {
@@ -27,6 +26,4 @@ class DashboardRepositoryImpl implements DashboardRepository {
       return Left(ServerFailure(e.message, e.statusCode));
     }
   }
-
- 
 }
