@@ -5,6 +5,9 @@ import 'package:foodigo_delivery_man/features/ChangeProfilePass/repository/chang
 import 'package:foodigo_delivery_man/features/CityDocumentVehicle/cubit/city_document_vehicle_cubit.dart';
 import 'package:foodigo_delivery_man/features/CityDocumentVehicle/remote/city_document_vehicle_remote_data_source.dart';
 import 'package:foodigo_delivery_man/features/CityDocumentVehicle/repository/city_document_vehicle_repository.dart';
+import 'package:foodigo_delivery_man/features/Dashboard/cubit/dashboard_cubit.dart';
+import 'package:foodigo_delivery_man/features/Dashboard/remote/dashboard_remote_data_source.dart';
+import 'package:foodigo_delivery_man/features/Dashboard/repository/dashboard_repository.dart';
 import 'package:foodigo_delivery_man/features/ForgotPassword/cubit/forgot_password_cubit.dart';
 import 'package:foodigo_delivery_man/features/ForgotPassword/remote/forgot_password_remote_data_source.dart';
 import 'package:foodigo_delivery_man/features/ForgotPassword/repository/forgot_password_repository.dart';
@@ -172,15 +175,15 @@ class DInjector {
     //       (context) =>
     //           SubscriptionRepositoryImpl(remoteDataSource: context.read()),
     // ),
-    // RepositoryProvider<DashboardRemoteDataSource>(
-    //   create:
-    //       (context) => DashboardRemoteDataSourceImpl(client: context.read()),
-    // ),
-    // RepositoryProvider<DashboardRepository>(
-    //   create:
-    //       (context) =>
-    //           DashboardRepositoryImpl(remoteDataSource: context.read()),
-    // ),
+    RepositoryProvider<DashboardRemoteDataSource>(
+      create:
+          (context) => DashboardRemoteDataSourceImpl(client: context.read()),
+    ),
+    RepositoryProvider<DashboardRepository>(
+      create:
+          (context) =>
+              DashboardRepositoryImpl(remoteDataSource: context.read()),
+    ),
     // RepositoryProvider<ProductRemoteDataSource>(
     //   create: (context) => ProductRemoteDataSourceImpl(client: context.read()),
     // ),
@@ -378,8 +381,10 @@ class DInjector {
     ),
     BlocProvider<ForgotPasswordCubit>(
       create:
-          (context) =>
-              ForgotPasswordCubit(forgotPasswordRepository: context.read()),
+          (context) => ForgotPasswordCubit(
+            forgotPasswordRepository: context.read(),
+            login_bloc: context.read(),
+          ),
     ),
     // BlocProvider<ApplyCouponCubit>(
     //   create:
@@ -409,13 +414,13 @@ class DInjector {
     //         loginBloc: context.read(),
     //       ),
     // ),
-    // BlocProvider<DashboardCubit>(
-    //   create:
-    //       (context) => DashboardCubit(
-    //         repository: context.read(),
-    //         loginBloc: context.read(),
-    //       ),
-    // ),
+    BlocProvider<DashboardCubit>(
+      create:
+          (context) => DashboardCubit(
+            repository: context.read(),
+            loginBloc: context.read(),
+          ),
+    ),
     // BlocProvider<ProductCubit>(
     //   create:
     //       (context) => ProductCubit(
