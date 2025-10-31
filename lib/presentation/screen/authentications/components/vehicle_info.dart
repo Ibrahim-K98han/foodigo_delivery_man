@@ -3,16 +3,16 @@ import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodigo/features/register/cubit/register_cubit.dart';
-import 'package:foodigo/features/register/cubit/register_state.dart';
-import 'package:foodigo/features/register/model/register_state_model.dart';
-import 'package:foodigo/utils/constraints.dart';
-import 'package:foodigo/utils/k_images.dart';
-import 'package:foodigo/utils/utils.dart';
-import 'package:foodigo/widget/custom_form.dart';
-import 'package:foodigo/widget/custom_image.dart';
-import 'package:foodigo/widget/custom_text_style.dart';
-import 'package:foodigo/widget/fetch_error_text.dart';
+import 'package:foodigo_delivery_man/features/register/cubit/register_cubit.dart';
+import 'package:foodigo_delivery_man/features/register/cubit/register_state.dart';
+import 'package:foodigo_delivery_man/features/register/model/register_state_model.dart';
+import 'package:foodigo_delivery_man/utils/constraints.dart';
+import 'package:foodigo_delivery_man/utils/k_images.dart';
+import 'package:foodigo_delivery_man/utils/utils.dart';
+import 'package:foodigo_delivery_man/widget/custom_form.dart';
+import 'package:foodigo_delivery_man/widget/custom_image.dart';
+import 'package:foodigo_delivery_man/widget/custom_text_style.dart';
+import 'package:foodigo_delivery_man/widget/fetch_error_text.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
 class VehicleInfoStep extends StatefulWidget {
@@ -96,8 +96,8 @@ class _VehicleInfoStepState extends State<VehicleInfoStep> {
                     child: TextFormField(
                       initialValue: state.vehicleNumber,
                       onChanged: rCubit.changeVehicleNumber,
-                      decoration: const InputDecoration(
-                        hint: CustomText(text: 'DH 31-7530', color: sTxtColor),
+                      decoration:  InputDecoration(
+                        hintText:  'DH 31-7530',
                       ),
                       validator: FormBuilderValidators.compose([
                         FormBuilderValidators.required(

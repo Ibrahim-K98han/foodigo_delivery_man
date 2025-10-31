@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodigo/data/remote_url.dart';
-import 'package:foodigo/features/GetProfile/cubit/get_profile_cubit.dart';
-import 'package:foodigo/features/Login/bloc/login_bloc.dart';
-import 'package:foodigo/features/Login/bloc/login_event.dart';
-import 'package:foodigo/features/Login/bloc/login_state.dart';
-import 'package:foodigo/features/Login/model/login_state_model.dart';
-import 'package:foodigo/presentation/core/routes/route_names.dart';
-import 'package:foodigo/presentation/screen/profile/component/drawer_item.dart';
-import 'package:foodigo/utils/constraints.dart';
-import 'package:foodigo/utils/k_images.dart';
-import 'package:foodigo/utils/utils.dart';
-import 'package:foodigo/widget/circle_image.dart';
-import 'package:foodigo/widget/custom_image.dart';
-import 'package:foodigo/widget/custom_text_style.dart';
-import 'package:foodigo/widget/loading_widget.dart';
-import 'package:foodigo/widget/primary_button.dart';
+import 'package:foodigo_delivery_man/data/remote_url.dart';
+import 'package:foodigo_delivery_man/features/GetProfile/cubit/get_profile_cubit.dart';
+import 'package:foodigo_delivery_man/features/Login/bloc/login_bloc.dart';
+import 'package:foodigo_delivery_man/features/Login/bloc/login_event.dart';
+import 'package:foodigo_delivery_man/features/Login/bloc/login_state.dart';
+import 'package:foodigo_delivery_man/features/Login/model/login_state_model.dart';
+import 'package:foodigo_delivery_man/presentation/core/routes/route_names.dart';
+import 'package:foodigo_delivery_man/presentation/screen/profile/component/drawer_item.dart';
+import 'package:foodigo_delivery_man/utils/constraints.dart';
+import 'package:foodigo_delivery_man/utils/k_images.dart';
+import 'package:foodigo_delivery_man/utils/utils.dart';
+import 'package:foodigo_delivery_man/widget/circle_image.dart';
+import 'package:foodigo_delivery_man/widget/custom_image.dart';
+import 'package:foodigo_delivery_man/widget/custom_text_style.dart';
+import 'package:foodigo_delivery_man/widget/loading_widget.dart';
+import 'package:foodigo_delivery_man/widget/primary_button.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});

@@ -1,10 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodigo_delivery_man/features/AllFood/remote/all_food_remote_data.dart';
-import 'package:foodigo_delivery_man/features/AllFood/repository/all_food_repository.dart';
-import 'package:foodigo_delivery_man/features/ApplyCoupon/cubit/apply_coupon_cubit.dart';
-import 'package:foodigo_delivery_man/features/ApplyCoupon/remote/apply_coupon_remote_data_source.dart';
-import 'package:foodigo_delivery_man/features/ApplyCoupon/repository/apply_coupon_repository.dart';
-import 'package:foodigo_delivery_man/features/Cart/cubit/cart_cubit.dart';
 import 'package:foodigo_delivery_man/features/ChangeProfilePass/cubit/change_profile_pass_cubit.dart';
 import 'package:foodigo_delivery_man/features/ChangeProfilePass/remote/change_profile_pass_remote_data_source.dart';
 import 'package:foodigo_delivery_man/features/ChangeProfilePass/repository/change_profile_pass_repository.dart';
@@ -17,48 +11,21 @@ import 'package:foodigo_delivery_man/features/GetProfile/repository/get_profile_
 import 'package:foodigo_delivery_man/features/Login/bloc/login_bloc.dart';
 import 'package:foodigo_delivery_man/features/Login/remote/login_remote_data.dart';
 import 'package:foodigo_delivery_man/features/Login/repository/login_repository.dart';
-import 'package:foodigo_delivery_man/features/Order/cubit/order_cubit.dart';
-import 'package:foodigo_delivery_man/features/Order/remote/order_remote_data_source.dart';
-import 'package:foodigo_delivery_man/features/Order/repository/order_repository.dart';
-import 'package:foodigo_delivery_man/features/PaymentMethod/cubit/payment_method_cubit.dart';
-import 'package:foodigo_delivery_man/features/PaymentMethod/remote/payment_method_remote_data_source.dart';
-import 'package:foodigo_delivery_man/features/PaymentMethod/repository/payment_method_repository.dart';
 import 'package:foodigo_delivery_man/features/Privacy/cubit/privacy_policy_cubit.dart';
 import 'package:foodigo_delivery_man/features/Privacy/remote/privacy_policy_remote_data_source.dart';
 import 'package:foodigo_delivery_man/features/Privacy/repository/privacy_policy_repository.dart';
-import 'package:foodigo_delivery_man/features/Review/cubit/review_cubit.dart';
-import 'package:foodigo_delivery_man/features/Review/remote/review_remote_data_source.dart';
-import 'package:foodigo_delivery_man/features/Review/repository/review_repository.dart';
 import 'package:foodigo_delivery_man/features/Splash/cubit/splash_cubit.dart';
 import 'package:foodigo_delivery_man/features/Splash/remote/splash_remote_data_source.dart';
 import 'package:foodigo_delivery_man/features/Splash/repository/splash_repository.dart';
-import 'package:foodigo_delivery_man/features/Subscription/cubit/subscription_cubit.dart';
-import 'package:foodigo_delivery_man/features/Subscription/remote/subscription_remote_data_source.dart';
-import 'package:foodigo_delivery_man/features/Subscription/repository/subscription_repository.dart';
-import 'package:foodigo_delivery_man/features/WishList/cubit/wish_list_cubit.dart';
-import 'package:foodigo_delivery_man/features/WishList/remote/wish_list_remote_data_source.dart';
-import 'package:foodigo_delivery_man/features/WishList/repository/wish_list_repository.dart';
-import 'package:foodigo_delivery_man/features/add_to_cart/cubit/add_cart_cubit.dart';
-import 'package:foodigo_delivery_man/features/add_to_cart/remote/add_cart_remote_data_source.dart';
-import 'package:foodigo_delivery_man/features/add_to_cart/repository/add_cart_repository.dart';
-import 'package:foodigo_delivery_man/features/address/cubit/get_address_cubit.dart';
-import 'package:foodigo_delivery_man/features/address/remote/get_address_remote_data_source.dart';
-import 'package:foodigo_delivery_man/features/address/repository/get_address_repository.dart';
-import 'package:foodigo_delivery_man/features/checkout/cubit/checkout_cubit.dart';
-import 'package:foodigo_delivery_man/features/checkout/remote/checkout_remote_data_source.dart';
-import 'package:foodigo_delivery_man/features/checkout/repository/checkout_repository.dart';
 import 'package:foodigo_delivery_man/features/register/cubit/register_cubit.dart';
 import 'package:foodigo_delivery_man/features/register/remote/register_remote_data_source.dart';
 import 'package:foodigo_delivery_man/features/register/repository/register_repository.dart';
-import 'package:foodigo_delivery_man/features/restaurant_features/Dashboard/cubit/dashboard_cubit.dart';
-import 'package:foodigo_delivery_man/features/restaurant_features/Dashboard/repository/dashboard_repository.dart';import 'package:http/http.dart';
+import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'data/local_data_source.dart';
-import 'features/AllFood/cubit/all_food_cubit.dart';
 import 'features/ForgotPasswordVerify/cubit/forgot_password_verify_cubit.dart';
 import 'features/ForgotPasswordVerify/remote/forgot_password_verify_remote_data_source.dart';
 import 'features/ForgotPasswordVerify/repository/forgot_password_verify_repository.dart';
-import 'features/restaurant_features/Dashboard/remote/dashboard_remote_data_source.dart';
 
 class DInjector {
   static late final SharedPreferences _sharedPreferences;
@@ -96,57 +63,57 @@ class DInjector {
           (context) =>
               GetProfileRepositoryImpl(remoteDataSource: context.read()),
     ),
-    RepositoryProvider<AddCartRemoteDataSource>(
-      create: (context) => AddCartRemoteDataSourceImpl(client: context.read()),
-    ),
-    RepositoryProvider<AddCartRepository>(
-      create:
-          (context) => AddCartRepositoryImpl(remoteDataSource: context.read()),
-    ),
-    RepositoryProvider<GetAddressRemoteDataSource>(
-      create:
-          (context) => GetAddressRemoteDataSourceImpl(client: context.read()),
-    ),
-    RepositoryProvider<GetAddressRepository>(
-      create:
-          (context) =>
-              GetAddressRepositoryImpl(remoteDataSource: context.read()),
-    ),
-    RepositoryProvider<CheckoutRemoteDataSource>(
-      create: (context) => CheckoutRemoteDataSourceImpl(client: context.read()),
-    ),
-    RepositoryProvider<CheckoutRepository>(
-      create:
-          (context) => CheckoutRepositoryImpl(remoteDataSource: context.read()),
-    ),
-    RepositoryProvider<OrderRemoteDataSource>(
-      create: (context) => OrderRemoteDataSourceImpl(client: context.read()),
-    ),
-    RepositoryProvider<OrderRepository>(
-      create:
-          (context) => OrderRepositoryImpl(remoteDataSource: context.read()),
-    ),
-    RepositoryProvider<WishListRemoteDataSource>(
-      create: (context) => WishListRemoteDataSourceImpl(client: context.read()),
-    ),
-    RepositoryProvider<WishListRepository>(
-      create:
-          (context) => WishListRepositoryImpl(remoteDataSource: context.read()),
-    ),
-    RepositoryProvider<ReviewRemoteDataSource>(
-      create: (context) => ReviewRemoteDataSourceImpl(client: context.read()),
-    ),
-    RepositoryProvider<ReviewRepository>(
-      create:
-          (context) => ReviewRepositoryImpl(remoteDataSource: context.read()),
-    ),
-    RepositoryProvider<AllFoodRemoteDataSource>(
-      create: (context) => AllFoodRemoteDataSourceImpl(client: context.read()),
-    ),
-    RepositoryProvider<AllFoodRepository>(
-      create:
-          (context) => AllFoodRepositoryImpl(remoteDataSource: context.read()),
-    ),
+    // RepositoryProvider<AddCartRemoteDataSource>(
+    //   create: (context) => AddCartRemoteDataSourceImpl(client: context.read()),
+    // ),
+    // RepositoryProvider<AddCartRepository>(
+    //   create:
+    //       (context) => AddCartRepositoryImpl(remoteDataSource: context.read()),
+    // ),
+    // RepositoryProvider<GetAddressRemoteDataSource>(
+    //   create:
+    //       (context) => GetAddressRemoteDataSourceImpl(client: context.read()),
+    // ),
+    // RepositoryProvider<GetAddressRepository>(
+    //   create:
+    //       (context) =>
+    //           GetAddressRepositoryImpl(remoteDataSource: context.read()),
+    // ),
+    // RepositoryProvider<CheckoutRemoteDataSource>(
+    //   create: (context) => CheckoutRemoteDataSourceImpl(client: context.read()),
+    // ),
+    // RepositoryProvider<CheckoutRepository>(
+    //   create:
+    //       (context) => CheckoutRepositoryImpl(remoteDataSource: context.read()),
+    // ),
+    // RepositoryProvider<OrderRemoteDataSource>(
+    //   create: (context) => OrderRemoteDataSourceImpl(client: context.read()),
+    // ),
+    // RepositoryProvider<OrderRepository>(
+    //   create:
+    //       (context) => OrderRepositoryImpl(remoteDataSource: context.read()),
+    // ),
+    // RepositoryProvider<WishListRemoteDataSource>(
+    //   create: (context) => WishListRemoteDataSourceImpl(client: context.read()),
+    // ),
+    // RepositoryProvider<WishListRepository>(
+    //   create:
+    //       (context) => WishListRepositoryImpl(remoteDataSource: context.read()),
+    // ),
+    // RepositoryProvider<ReviewRemoteDataSource>(
+    //   create: (context) => ReviewRemoteDataSourceImpl(client: context.read()),
+    // ),
+    // RepositoryProvider<ReviewRepository>(
+    //   create:
+    //       (context) => ReviewRepositoryImpl(remoteDataSource: context.read()),
+    // ),
+    // RepositoryProvider<AllFoodRemoteDataSource>(
+    //   create: (context) => AllFoodRemoteDataSourceImpl(client: context.read()),
+    // ),
+    // RepositoryProvider<AllFoodRepository>(
+    //   create:
+    //       (context) => AllFoodRepositoryImpl(remoteDataSource: context.read()),
+    // ),
     RepositoryProvider<RegisterRemoteDataSource>(
       create: (context) => RegisterRemoteDataSourceImpl(client: context.read()),
     ),
@@ -164,25 +131,25 @@ class DInjector {
           (context) =>
               ForgotPasswordRepositoryImpl(remoteDataSource: context.read()),
     ),
-    RepositoryProvider<ApplyCouponRemoteDataSource>(
-      create:
-          (context) => ApplyCouponRemoteDataSourceImpl(client: context.read()),
-    ),
-    RepositoryProvider<ApplyCouponRepository>(
-      create:
-          (context) =>
-              ApplyCouponRepositoryImpl(remoteDataSource: context.read()),
-    ),
-    RepositoryProvider<PaymentMethodRemoteDataSource>(
-      create:
-          (context) =>
-              PaymentMethodRemoteDataSourceImpl(client: context.read()),
-    ),
-    RepositoryProvider<PaymentMethodRepository>(
-      create:
-          (context) =>
-              PaymentMethodRepositoryImpl(remoteDataSource: context.read()),
-    ),
+    // RepositoryProvider<ApplyCouponRemoteDataSource>(
+    //   create:
+    //       (context) => ApplyCouponRemoteDataSourceImpl(client: context.read()),
+    // ),
+    // RepositoryProvider<ApplyCouponRepository>(
+    //   create:
+    //       (context) =>
+    //           ApplyCouponRepositoryImpl(remoteDataSource: context.read()),
+    // ),
+    // RepositoryProvider<PaymentMethodRemoteDataSource>(
+    //   create:
+    //       (context) =>
+    //           PaymentMethodRemoteDataSourceImpl(client: context.read()),
+    // ),
+    // RepositoryProvider<PaymentMethodRepository>(
+    //   create:
+    //       (context) =>
+    //           PaymentMethodRepositoryImpl(remoteDataSource: context.read()),
+    // ),
     RepositoryProvider<ChangeProfilePassRemoteDataSource>(
       create:
           (context) =>
@@ -193,24 +160,24 @@ class DInjector {
           (context) =>
               ChangeProfilePassRepositoryImpl(remoteDataSource: context.read()),
     ),
-    RepositoryProvider<SubscriptionRemoteDataSource>(
-      create:
-          (context) => SubscriptionRemoteDataSourceImpl(client: context.read()),
-    ),
-    RepositoryProvider<SubscriptionRepository>(
-      create:
-          (context) =>
-              SubscriptionRepositoryImpl(remoteDataSource: context.read()),
-    ),
-    RepositoryProvider<DashboardRemoteDataSource>(
-      create:
-          (context) => DashboardRemoteDataSourceImpl(client: context.read()),
-    ),
-    RepositoryProvider<DashboardRepository>(
-      create:
-          (context) =>
-              DashboardRepositoryImpl(remoteDataSource: context.read()),
-    ),
+    // RepositoryProvider<SubscriptionRemoteDataSource>(
+    //   create:
+    //       (context) => SubscriptionRemoteDataSourceImpl(client: context.read()),
+    // ),
+    // RepositoryProvider<SubscriptionRepository>(
+    //   create:
+    //       (context) =>
+    //           SubscriptionRepositoryImpl(remoteDataSource: context.read()),
+    // ),
+    // RepositoryProvider<DashboardRemoteDataSource>(
+    //   create:
+    //       (context) => DashboardRemoteDataSourceImpl(client: context.read()),
+    // ),
+    // RepositoryProvider<DashboardRepository>(
+    //   create:
+    //       (context) =>
+    //           DashboardRepositoryImpl(remoteDataSource: context.read()),
+    // ),
     // RepositoryProvider<ProductRemoteDataSource>(
     //   create: (context) => ProductRemoteDataSourceImpl(client: context.read()),
     // ),
@@ -341,58 +308,58 @@ class DInjector {
             loginBloc: context.read(),
           ),
     ),
-    BlocProvider<CartCubit>(
-      create:
-          (context) =>
-              CartCubit(repository: context.read(), loginBloc: context.read()),
-    ),
-    BlocProvider<AddCartCubit>(
-      create:
-          (context) => AddCartCubit(
-            repository: context.read(),
-            loginBloc: context.read(),
-          ),
-    ),
-    BlocProvider<GetAddressCubit>(
-      create:
-          (context) => GetAddressCubit(
-            repository: context.read(),
-            loginBloc: context.read(),
-          ),
-    ),
-    BlocProvider<CheckoutCubit>(
-      create:
-          (context) => CheckoutCubit(
-            repository: context.read(),
-            loginBloc: context.read(),
-          ),
-    ),
-    BlocProvider<OrderCubit>(
-      create:
-          (context) =>
-              OrderCubit(repository: context.read(), loginBloc: context.read()),
-    ),
-    BlocProvider<WishListCubit>(
-      create:
-          (context) => WishListCubit(
-            repository: context.read(),
-            loginBloc: context.read(),
-          ),
-    ),
-    BlocProvider<ReviewCubit>(
-      create:
-          (context) => ReviewCubit(
-            repository: context.read(),
-            loginBloc: context.read(),
-          ),
-    ),
-    BlocProvider<AllFoodCubit>(
-      create:
-          (context) => AllFoodCubit(
-            repository: context.read(),
-            loginBloc: context.read(),
-          ),
-    ),
+    // BlocProvider<CartCubit>(
+    //   create:
+    //       (context) =>
+    //           CartCubit(repository: context.read(), loginBloc: context.read()),
+    // ),
+    // BlocProvider<AddCartCubit>(
+    //   create:
+    //       (context) => AddCartCubit(
+    //         repository: context.read(),
+    //         loginBloc: context.read(),
+    //       ),
+    // ),
+    // BlocProvider<GetAddressCubit>(
+    //   create:
+    //       (context) => GetAddressCubit(
+    //         repository: context.read(),
+    //         loginBloc: context.read(),
+    //       ),
+    // ),
+    // BlocProvider<CheckoutCubit>(
+    //   create:
+    //       (context) => CheckoutCubit(
+    //         repository: context.read(),
+    //         loginBloc: context.read(),
+    //       ),
+    // ),
+    // BlocProvider<OrderCubit>(
+    //   create:
+    //       (context) =>
+    //           OrderCubit(repository: context.read(), loginBloc: context.read()),
+    // ),
+    // BlocProvider<WishListCubit>(
+    //   create:
+    //       (context) => WishListCubit(
+    //         repository: context.read(),
+    //         loginBloc: context.read(),
+    //       ),
+    // ),
+    // BlocProvider<ReviewCubit>(
+    //   create:
+    //       (context) => ReviewCubit(
+    //         repository: context.read(),
+    //         loginBloc: context.read(),
+    //       ),
+    // ),
+    // BlocProvider<AllFoodCubit>(
+    //   create:
+    //       (context) => AllFoodCubit(
+    //         repository: context.read(),
+    //         loginBloc: context.read(),
+    //       ),
+    // ),
     BlocProvider<RegisterCubit>(
       create: (context) => RegisterCubit(registerRepository: context.read()),
     ),
@@ -401,20 +368,20 @@ class DInjector {
           (context) =>
               ForgotPasswordCubit(forgotPasswordRepository: context.read()),
     ),
-    BlocProvider<ApplyCouponCubit>(
-      create:
-          (context) => ApplyCouponCubit(
-            repository: context.read(),
-            loginBloc: context.read(),
-          ),
-    ),
-    BlocProvider<PaymentCubit>(
-      create:
-          (context) => PaymentCubit(
-            repository: context.read(),
-            loginBloc: context.read(),
-          ),
-    ),
+    // BlocProvider<ApplyCouponCubit>(
+    //   create:
+    //       (context) => ApplyCouponCubit(
+    //         repository: context.read(),
+    //         loginBloc: context.read(),
+    //       ),
+    // ),
+    // BlocProvider<PaymentCubit>(
+    //   create:
+    //       (context) => PaymentCubit(
+    //         repository: context.read(),
+    //         loginBloc: context.read(),
+    //       ),
+    // ),
     BlocProvider<ChangeProfilePassCubit>(
       create:
           (context) => ChangeProfilePassCubit(
@@ -422,20 +389,20 @@ class DInjector {
             loginBloc: context.read(),
           ),
     ),
-    BlocProvider<SubscriptionCubit>(
-      create:
-          (context) => SubscriptionCubit(
-            repository: context.read(),
-            loginBloc: context.read(),
-          ),
-    ),
-    BlocProvider<DashboardCubit>(
-      create:
-          (context) => DashboardCubit(
-            repository: context.read(),
-            loginBloc: context.read(),
-          ),
-    ),
+    // BlocProvider<SubscriptionCubit>(
+    //   create:
+    //       (context) => SubscriptionCubit(
+    //         repository: context.read(),
+    //         loginBloc: context.read(),
+    //       ),
+    // ),
+    // BlocProvider<DashboardCubit>(
+    //   create:
+    //       (context) => DashboardCubit(
+    //         repository: context.read(),
+    //         loginBloc: context.read(),
+    //       ),
+    // ),
     // BlocProvider<ProductCubit>(
     //   create:
     //       (context) => ProductCubit(

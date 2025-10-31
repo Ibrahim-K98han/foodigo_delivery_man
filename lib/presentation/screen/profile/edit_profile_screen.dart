@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodigo/features/GetProfile/cubit/get_profile_cubit.dart';
-import 'package:foodigo/features/GetProfile/cubit/get_profile_state.dart';
-import 'package:foodigo/features/Login/model/user_response_model.dart';
-import 'package:foodigo/presentation/screen/profile/component/profile_image.dart';
-import 'package:foodigo/widget/custom_appbar.dart';
-import 'package:foodigo/widget/custom_dropdown.dart';
-import 'package:foodigo/widget/custom_form.dart';
-import 'package:foodigo/widget/custom_text_style.dart';
-import 'package:foodigo/widget/fetch_error_text.dart';
-import 'package:foodigo/widget/primary_button.dart';
+import 'package:foodigo_delivery_man/features/GetProfile/cubit/get_profile_cubit.dart';
+import 'package:foodigo_delivery_man/features/GetProfile/cubit/get_profile_state.dart';
+import 'package:foodigo_delivery_man/features/Login/model/user_response_model.dart';
+import 'package:foodigo_delivery_man/presentation/screen/profile/component/profile_image.dart';
+import 'package:foodigo_delivery_man/widget/custom_appbar.dart';
+import 'package:foodigo_delivery_man/widget/custom_dropdown.dart';
+import 'package:foodigo_delivery_man/widget/custom_form.dart';
+import 'package:foodigo_delivery_man/widget/custom_text_style.dart';
+import 'package:foodigo_delivery_man/widget/fetch_error_text.dart';
+import 'package:foodigo_delivery_man/widget/primary_button.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
 import '../../../utils/constraints.dart';
@@ -235,10 +235,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   initialValue: state.zipCode,
                                   onChanged: pCubit.zip,
                                   decoration: const InputDecoration(
-                                    hint: CustomText(
-                                      text: '9002',
-                                      color: sTxtColor,
-                                    ),
+                                    hintText: '9002',
                                   ),
                                   validator: FormBuilderValidators.compose([
                                     FormBuilderValidators.required(
@@ -275,10 +272,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             initialValue: state.address,
                             onChanged: pCubit.address,
                             decoration: const InputDecoration(
-                              hint: CustomText(
-                                text: 'mirpur Dhaka',
-                                color: sTxtColor,
-                              ),
+                              hintText: 'mirpur Dhaka',
                             ),
                             validator: FormBuilderValidators.compose([
                               FormBuilderValidators.required(

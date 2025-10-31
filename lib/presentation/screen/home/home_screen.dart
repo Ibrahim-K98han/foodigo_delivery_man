@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodigo/features/restaurant_features/Dashboard/cubit/dashboard_cubit.dart';
-import 'package:foodigo/features/restaurant_features/Dashboard/cubit/dashboard_state.dart';
-import 'package:foodigo/presentation/screen/home/component/active_order_widget.dart';
-import 'package:foodigo/presentation/screen/home/component/home_appbar.dart';
-import 'package:foodigo/presentation/screen/home/component/recent_transaction_widget.dart';
-import 'package:foodigo/presentation/screen/home/component/statistics_widget.dart';
-import 'package:foodigo/utils/constraints.dart';
-import 'package:foodigo/utils/k_images.dart';
-import 'package:foodigo/utils/utils.dart';
-import 'package:foodigo/widget/fetch_error_text.dart';
-import 'package:foodigo/widget/loading_widget.dart';
-import 'package:foodigo/widget/page_refresh.dart';
-import 'package:foodigo/widget/title_and_navigator.dart';
+import 'package:foodigo_delivery_man/features/Dashboard/cubit/dashboard_cubit.dart';
+import 'package:foodigo_delivery_man/features/Dashboard/cubit/dashboard_state.dart';
+import 'package:foodigo_delivery_man/presentation/screen/home/component/active_order_widget.dart';
+import 'package:foodigo_delivery_man/presentation/screen/home/component/home_appbar.dart';
+import 'package:foodigo_delivery_man/presentation/screen/home/component/recent_transaction_widget.dart';
+import 'package:foodigo_delivery_man/presentation/screen/home/component/statistics_widget.dart';
+import 'package:foodigo_delivery_man/utils/constraints.dart';
+import 'package:foodigo_delivery_man/utils/k_images.dart';
+import 'package:foodigo_delivery_man/utils/utils.dart';
+import 'package:foodigo_delivery_man/widget/fetch_error_text.dart' show FetchErrorText;
+import 'package:foodigo_delivery_man/widget/loading_widget.dart';
+import 'package:foodigo_delivery_man/widget/page_refresh.dart';
+import 'package:foodigo_delivery_man/widget/title_and_navigator.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

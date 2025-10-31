@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
-import 'package:foodigo/features/register/cubit/register_cubit.dart';
-import 'package:foodigo/features/register/cubit/register_state.dart';
-import 'package:foodigo/features/register/model/register_state_model.dart';
-import 'package:foodigo/presentation/core/routes/route_names.dart';
-import 'package:foodigo/utils/constraints.dart';
-import 'package:foodigo/utils/k_images.dart';
-import 'package:foodigo/utils/utils.dart';
-import 'package:foodigo/widget/custom_image.dart';
-import 'package:foodigo/widget/custom_text_style.dart';
+import 'package:foodigo_delivery_man/features/register/cubit/register_cubit.dart' show RegisterCubit;
+import 'package:foodigo_delivery_man/presentation/core/routes/route_names.dart';
+import 'package:foodigo_delivery_man/utils/constraints.dart';
+import 'package:foodigo_delivery_man/utils/utils.dart';
+import 'package:foodigo_delivery_man/widget/custom_text_style.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
+
+import '../../../features/register/cubit/register_state.dart';
+import '../../../features/register/model/register_state_model.dart';
+import '../../../utils/k_images.dart';
+import '../../../widget/custom_image.dart';
 
 class RegistrationOtpVerifyScreen extends StatefulWidget {
   const RegistrationOtpVerifyScreen({super.key});

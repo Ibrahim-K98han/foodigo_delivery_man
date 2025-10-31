@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:foodigo/utils/constraints.dart';
-import 'package:foodigo/utils/k_images.dart';
-import 'package:foodigo/utils/utils.dart';
-import 'package:foodigo/widget/custom_dropdown.dart';
-import 'package:foodigo/widget/custom_form.dart';
-import 'package:foodigo/widget/custom_image.dart';
-import 'package:foodigo/widget/custom_text_style.dart';
-import 'package:foodigo/widget/primary_button.dart';
+import 'package:foodigo_delivery_man/utils/constraints.dart';
+import 'package:foodigo_delivery_man/utils/k_images.dart';
+import 'package:foodigo_delivery_man/utils/utils.dart';
+import 'package:foodigo_delivery_man/widget/custom_dropdown.dart';
+import 'package:foodigo_delivery_man/widget/custom_form.dart';
+import 'package:foodigo_delivery_man/widget/custom_image.dart';
+import 'package:foodigo_delivery_man/widget/custom_text_style.dart';
+import 'package:foodigo_delivery_man/widget/primary_button.dart';
 
 class MyWalletScreen extends StatefulWidget {
   const MyWalletScreen({super.key});
@@ -146,13 +146,11 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
                                           bottomSpace: 8,
                                           child: TextFormField(
                                             decoration: InputDecoration(
-                                              hint: CustomText(
-                                                text: '000',
-                                                color: sTxtColor,
+                                              hintText: '000',
                                               ),
                                             ),
                                           ),
-                                        ),
+                                        
                                         Utils.verticalSpace(10),
                                         CustomFormWidget(
                                           label: 'Banck Info',
@@ -160,10 +158,7 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
                                           child: TextFormField(
                                             maxLines: 2,
                                             decoration: InputDecoration(
-                                              hint: CustomText(
-                                                text: 'Enter Bank Description',
-                                                color: sTxtColor,
-                                              ),
+                                              hintText: 'Enter Bank Description',
                                             ),
                                           ),
                                         ),

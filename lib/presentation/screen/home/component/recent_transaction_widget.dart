@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:foodigo/features/restaurant_features/Dashboard/model/dashboard_model.dart';
-import 'package:foodigo/utils/constraints.dart';
-import 'package:foodigo/utils/utils.dart';
-import 'package:foodigo/widget/custom_text_style.dart';
+import 'package:foodigo_delivery_man/features/Dashboard/model/dashboard_model.dart';
+import 'package:foodigo_delivery_man/utils/constraints.dart';
+import 'package:foodigo_delivery_man/utils/utils.dart';
+import 'package:foodigo_delivery_man/widget/custom_text_style.dart';
 import 'package:intl/intl.dart';
 
 class RecentTransactionWidget extends StatelessWidget {
