@@ -54,8 +54,6 @@ class RemoteUrls {
       '${baseUrl}checkout/payment-methods';
   static const String splashScreen = '${baseUrl}home/splash-screen';
   static const String changeProfilePass = '${baseUrl}auth/change-password';
-  static const String privacyPolicy = '${baseUrl}home/privacy-policy';
-  static const String termsAndCondition = '${baseUrl}home/terms-conditions';
   static const String offerAndReward = '${baseUrl}home/offers';
   static const String payWithBank = '${baseUrl}payment/bank';
   static const String payWithStripe = '${rootUrl}payment-api/pay-with-stripe';
@@ -130,6 +128,8 @@ class RemoteUrls {
       '${baseUrl}deliveryman/register-data';
   static const String updatePassword =
       '${baseUrl}deliveryman/profile/change-password';
+  static const String privacyPolicy = '${baseUrl}home/privacy-policy';
+  static const String termsAndCondition = '${baseUrl}home/terms-conditions';
 
   static imageUrl(String imageUrl) => rootUrl + imageUrl;
 }

@@ -124,12 +124,12 @@ class RouteNames {
       case RouteNames.privacyPolicyScreen:
         return MaterialPageRoute(
           settings: settings,
-          builder: (_) => const PrivacyPolicyScreen(),
+          builder: (_) => const PrivacyPolicy(),
         );
       case RouteNames.termsConditionScreen:
         return MaterialPageRoute(
           settings: settings,
-          builder: (_) => const TermsConditionScreen(),
+          builder: (_) => const TermsAndConditionScreen(),
         );
       case RouteNames.changePasswordScreen:
         return MaterialPageRoute(
