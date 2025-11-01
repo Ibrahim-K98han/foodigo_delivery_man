@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foodigo_delivery_man/features/Splash/cubit/splash_cubit.dart';
 import 'package:foodigo_delivery_man/presentation/core/routes/route_names.dart';
 
 import '../../../utils/k_images.dart';
@@ -15,6 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+
     gotToNext();
   }
 

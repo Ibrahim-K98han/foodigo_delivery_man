@@ -14,7 +14,7 @@ class SplashCubit extends Cubit<SplashState> {
     required LoginBloc loginBloc,
   })  : _repository = repository,
         _loginBloc = loginBloc,
-        super(const SplashStateInitial());
+        super(const SplashStateInitial()); 
 
   SplashResponseModel? splashResponseModel;
 

@@ -52,7 +52,7 @@ class RemoteUrls {
   static const String applyCoupon = '${baseUrl}cart/coupon/apply';
   static const String getAllPaymentMethod =
       '${baseUrl}checkout/payment-methods';
-  static const String splashScreen = '${baseUrl}home/splash-screen';
+
   static const String changeProfilePass = '${baseUrl}auth/change-password';
   static const String offerAndReward = '${baseUrl}home/offers';
   static const String payWithBank = '${baseUrl}payment/bank';
@@ -130,6 +130,7 @@ class RemoteUrls {
       '${baseUrl}deliveryman/profile/change-password';
   static const String privacyPolicy = '${baseUrl}home/privacy-policy';
   static const String termsAndCondition = '${baseUrl}home/terms-conditions';
+  static const String splashScreen = '${baseUrl}deliveryman/splash-screen';
 
   static imageUrl(String imageUrl) => rootUrl + imageUrl;
 }
