@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:foodigo_delivery_man/features/HomeData/feature_product_model.dart';
+import 'package:foodigo/features/HomeData/feature_product_model.dart';
 import '../home_data_model.dart';
 
 abstract class HomeDataState extends Equatable {

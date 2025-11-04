@@ -1,6 +1,7 @@
 import 'dart:io';
-import 'package:foodigo_delivery_man/data/network_parser.dart';
-import 'package:foodigo_delivery_man/features/GetProfile/model/profile_state_model.dart';
+
+import 'package:foodigo/data/network_parser.dart';
+import 'package:foodigo/features/GetProfile/model/profile_state_model.dart';
 import 'package:http/http.dart' as http;
 
 abstract class GetProfileRemoteDataSource {
@@ -21,7 +22,7 @@ class GetProfileRemoteDataSourceImpl implements GetProfileRemoteDataSource {
     // 'Accept': "x-www-form-urlencoded/application"
   };
 
-    final headers = {
+  final headers = {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
     'X-Requested-With': 'XMLHttpRequest',
@@ -43,7 +44,7 @@ class GetProfileRemoteDataSourceImpl implements GetProfileRemoteDataSource {
 
     request.fields.addAll(
       body.toMap()
-        ..remove('image')
+        ..remove('man_image')
         ..map((key, value) => MapEntry(key, value.toString())),
     );
 
@@ -52,7 +53,7 @@ class GetProfileRemoteDataSourceImpl implements GetProfileRemoteDataSource {
       'Accept': 'application/json',
     });
     if (body.image.isNotEmpty && File(body.image).existsSync()) {
-      final file = await http.MultipartFile.fromPath('image', body.image);
+      final file = await http.MultipartFile.fromPath('man_image', body.image);
       request.files.add(file);
     }
     http.StreamedResponse response = await request.send();
@@ -60,6 +61,6 @@ class GetProfileRemoteDataSourceImpl implements GetProfileRemoteDataSource {
     final responseJsonBody = await NetworkParser.callClientWithCatchException(
       () => clientMethod,
     );
-    return responseJsonBody['data']['user'];
+    return responseJsonBody['data']['delivery_man'];
   }
 }

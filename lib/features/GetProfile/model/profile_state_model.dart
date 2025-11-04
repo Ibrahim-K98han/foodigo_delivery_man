@@ -1,7 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
-import 'package:foodigo_delivery_man/features/GetProfile/cubit/get_profile_state.dart';
+import 'package:foodigo/features/GetProfile/cubit/get_profile_state.dart';
 
 class ProfileStateModel extends Equatable {
   final String image;
@@ -10,6 +11,7 @@ class ProfileStateModel extends Equatable {
   final String email;
   final String phone;
   final String address;
+  final String manType;
   final GetProfileState getProfileState;
   const ProfileStateModel({
     this.image = '',
@@ -18,6 +20,7 @@ class ProfileStateModel extends Equatable {
     this.email = '',
     this.phone = '',
     this.address = '',
+    this.manType = '',
     this.getProfileState = const GetProfileInitial(),
   });
 
@@ -28,6 +31,7 @@ class ProfileStateModel extends Equatable {
     String? email,
     String? phone,
     String? address,
+    String? manType,
     GetProfileState? getProfileState,
   }) {
     return ProfileStateModel(
@@ -37,6 +41,7 @@ class ProfileStateModel extends Equatable {
       email: email ?? this.email,
       phone: phone ?? this.phone,
       address: address ?? this.address,
+      manType: manType ?? this.manType,
       getProfileState: getProfileState ?? this.getProfileState,
     );
   }
@@ -49,6 +54,7 @@ class ProfileStateModel extends Equatable {
       'email': email,
       'phone': phone,
       'address': address,
+      'man_type': manType,
     };
   }
 
@@ -60,6 +66,7 @@ class ProfileStateModel extends Equatable {
       email: map['email'] ?? '',
       phone: map['phone'] ?? '',
       address: map['address'] ?? '',
+      manType: map['man_type'] ?? '',
     );
   }
 
@@ -73,6 +80,15 @@ class ProfileStateModel extends Equatable {
 
   @override
   List<Object> get props {
-    return [image, name, email, phone, address, getProfileState];
+    return [
+      image,
+      name,
+      lastName,
+      email,
+      phone,
+      address,
+      manType,
+      getProfileState,
+    ];
   }
 }

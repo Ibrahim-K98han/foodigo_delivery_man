@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:foodigo_delivery_man/features/Dashboard/model/dashboard_model.dart';
-import 'package:foodigo_delivery_man/utils/constraints.dart';
-import 'package:foodigo_delivery_man/utils/utils.dart';
-import 'package:foodigo_delivery_man/widget/custom_text_style.dart';
+import 'package:foodigo/features/Dashboard/model/dashboard_model.dart';
+import 'package:foodigo/utils/constraints.dart';
+import 'package:foodigo/utils/utils.dart';
+import 'package:foodigo/widget/custom_text_style.dart';
 import 'package:intl/intl.dart';
 
 class RecentTransactionWidget extends StatelessWidget {
@@ -14,18 +14,18 @@ class RecentTransactionWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Utils.verticalSpace(20),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            CustomText(
-              text: 'Recent Transactions',
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-            ),
-            CustomText(text: 'See All'),
-          ],
-        ),
+        // Utils.verticalSpace(20),
+        // const Row(
+        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //   children: [
+        //     CustomText(
+        //       text: 'Recent Transactions',
+        //       fontSize: 16,
+        //       fontWeight: FontWeight.w500,
+        //     ),
+        //     CustomText(text: 'See All'),
+        //   ],
+        // ),
         Utils.verticalSpace(13),
         withdrawHistory.isNotEmpty
             ? ListView.separated(

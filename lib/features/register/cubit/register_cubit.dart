@@ -1,9 +1,10 @@
 import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodigo_delivery_man/data/remote_url.dart';
-import 'package:foodigo_delivery_man/features/register/cubit/register_state.dart';
-import 'package:foodigo_delivery_man/features/register/model/register_state_model.dart';
-import 'package:foodigo_delivery_man/features/register/repository/register_repository.dart';
+import 'package:foodigo/data/remote_url.dart';
+import 'package:foodigo/features/register/cubit/register_state.dart';
+import 'package:foodigo/features/register/model/register_state_model.dart';
+import 'package:foodigo/features/register/repository/register_repository.dart';
 
 import '../../../data/errors/failure.dart';
 

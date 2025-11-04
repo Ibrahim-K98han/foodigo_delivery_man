@@ -1,13 +1,14 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodigo_delivery_man/features/Login/bloc/login_bloc.dart';
-import 'package:foodigo_delivery_man/features/Login/model/user_response_model.dart';
+import 'package:foodigo/features/GetProfile/model/profile_state_model.dart';
+import 'package:foodigo/features/Login/bloc/login_bloc.dart';
 
 import '../../../data/remote_url.dart';
 import '../../../utils/utils.dart';
+import '../../Login/model/user_response_model.dart';
 import '../repository/get_profile_repository.dart';
 import 'get_profile_state.dart';
 
-class GetProfileCubit extends Cubit<User> {
+class GetProfileCubit extends Cubit<ProfileStateModel> {
   final GetProfileRepository _repository;
   final LoginBloc _loginBloc;
 
@@ -16,16 +17,16 @@ class GetProfileCubit extends Cubit<User> {
     required LoginBloc loginBloc,
   }) : _repository = repository,
        _loginBloc = loginBloc,
-       super(User.init());
+       super(const ProfileStateModel());
 
   User? user;
 
   void name(String text) {
-    emit(state.copyWith(lname: text));
+    emit(state.copyWith(name: text));
   }
 
   void lname(String text) {
-    emit(state.copyWith(lname: text));
+    emit(state.copyWith(lastName: text));
   }
 
   void email(String email) {
@@ -35,19 +36,23 @@ class GetProfileCubit extends Cubit<User> {
   void phone(String phone) {
     emit(state.copyWith(phone: phone));
   }
-  void city(String city) {
-    emit(state.copyWith(cityId: city));
-  }
 
   void image(String image) {
-    emit(state.copyWith(profileImage: image));
+    emit(state.copyWith(image: image));
   }
-  void zip(String text) {
-    emit(state.copyWith(zipCode: text));
+
+  void changeManType(String text) {
+    emit(state.copyWith(manType: text));
   }
-  void address(String text) {
-    emit(state.copyWith(address: text));
-  }
+  // void zip(String text) {
+  //   emit(state.copyWith(zipCode: text));
+  // }
+  // void address(String text) {
+  //   emit(state.copyWith(address: text));
+  // }
+  // void city(String text) {
+  //   emit(state.copyWith(cityId: text));
+  // }
 
   Future<void> getProfileData() async {
     if (_loginBloc.userInformation?.token.isNotEmpty ?? false) {
@@ -74,14 +79,15 @@ class GetProfileCubit extends Cubit<User> {
         (success) {
           user = success;
           if (user != null) {
-            emit(state.copyWith(fname: user!.fname));
-            emit(state.copyWith(lname: user!.lname));
+            emit(state.copyWith(name: user!.fname));
+            emit(state.copyWith(lastName: user!.lname));
             emit(state.copyWith(email: user!.email));
             emit(state.copyWith(phone: user!.phone));
             emit(state.copyWith(address: user!.address));
-            emit(state.copyWith(zipCode: user!.zipCode));
-            emit(state.copyWith(cityId: user!.cityId));
-            emit(state.copyWith(profileImage: user!.profileImage));
+            emit(state.copyWith(manType: user!.manType));
+            // emit(state.copyWith(zipCode: user!.zipCode));
+            // emit(state.copyWith(cityId: user!.cityId));
+            emit(state.copyWith(image: user!.profileImage));
           }
           final successState = GetProfileLoaded(success);
           emit(state.copyWith(getProfileState: successState));
@@ -93,43 +99,43 @@ class GetProfileCubit extends Cubit<User> {
     }
   }
 
-  // Future<void> updateProfile() async {
-  //   emit(state.copyWith(getProfileState: UpdateProfileLoading()));
-  //   final uri = Utils.tokenWithCode(
-  //     RemoteUrls.updateProfile,
-  //     _loginBloc.userInformation!.token,
-  //     _loginBloc.state.languageCode,
-  //   );
-  //   print('Update Profile $uri');
-  //   try {
-  //     final result = await _repository.updateProfile(
-  //       state,
-  //       uri,
-  //       _loginBloc.userInformation!.token,
-  //     );
-  //     result.fold(
-  //       (failure) {
-  //         emit(
-  //           state.copyWith(
-  //             getProfileState: UpdateProfileError(
-  //               failure.message,
-  //               failure.statusCode,
-  //             ),
-  //           ),
-  //         );
-  //       },
-  //       (success) {
-  //         user = success;
-  //         emit(state.copyWith(getProfileState: UpdateProfileLoaded(success)));
-  //         // clearState();
-  //       },
-  //     );
-  //   } catch (e) {
-  //     emit(
-  //       state.copyWith(getProfileState: UpdateProfileError(e.toString(), 500)),
-  //     );
-  //   }
-  // }
+  Future<void> updateProfile() async {
+    emit(state.copyWith(getProfileState: UpdateProfileLoading()));
+    final uri = Utils.tokenWithCode(
+      RemoteUrls.updateProfile,
+      _loginBloc.userInformation!.token,
+      _loginBloc.state.languageCode,
+    );
+    print('Update Profile $uri');
+    try {
+      final result = await _repository.updateProfile(
+        state,
+        uri,
+        _loginBloc.userInformation!.token,
+      );
+      result.fold(
+        (failure) {
+          emit(
+            state.copyWith(
+              getProfileState: UpdateProfileError(
+                failure.message,
+                failure.statusCode,
+              ),
+            ),
+          );
+        },
+        (success) {
+          user = success;
+          emit(state.copyWith(getProfileState: UpdateProfileLoaded(success)));
+          // clearState();
+        },
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(getProfileState: UpdateProfileError(e.toString(), 500)),
+      );
+    }
+  }
 
   // void clearState() {
   //   emit(const ProfileStateModel());

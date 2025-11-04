@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:foodigo_delivery_man/features/Dashboard/model/dashboard_model.dart';
-import 'package:foodigo_delivery_man/presentation/core/routes/route_names.dart';
-import 'package:foodigo_delivery_man/utils/constraints.dart';
-import 'package:foodigo_delivery_man/utils/k_images.dart';
-import 'package:foodigo_delivery_man/utils/utils.dart';
-import 'package:foodigo_delivery_man/widget/custom_image.dart';
-import 'package:foodigo_delivery_man/widget/custom_text_style.dart';
+import 'package:foodigo/features/Dashboard/model/dashboard_model.dart';
+import 'package:foodigo/presentation/core/routes/route_names.dart';
+import 'package:foodigo/utils/constraints.dart';
+import 'package:foodigo/utils/k_images.dart';
+import 'package:foodigo/utils/utils.dart';
+import 'package:foodigo/widget/custom_image.dart';
+import 'package:foodigo/widget/custom_text_style.dart';
 import 'package:intl/intl.dart';
 
 class ActiverOrderWidget extends StatelessWidget {
@@ -14,33 +14,78 @@ class ActiverOrderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 124,
-      child:
-          activeOrder.isNotEmpty
-              ? ListView.builder(
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
-                itemCount: activeOrder.length,
-                itemBuilder: (context, index) {
-                  final order = activeOrder[index];
-                  return Padding(
-                    padding: Utils.symmetric(h: 6.0, v: 0.0),
-                    child: ActiveOrderCard(order: order),
-                  );
-                },
-              )
-              : const Center(child: CustomText(text: 'Data Not Found')),
+    return Padding(
+      padding: Utils.only(left: 20),
+      child: SizedBox(
+        height: 124,
+        child:
+            activeOrder.isNotEmpty
+                ? ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  itemCount: activeOrder.length,
+                  itemBuilder: (context, index) {
+                    final order = activeOrder[index];
+                    return Padding(
+                      padding: Utils.symmetric(h: 6.0, v: 0.0),
+                      child: ActiveOrderCard(order: order),
+                    );
+                  },
+                )
+                : const Center(child: CustomText(text: 'Data Not Found')),
+      ),
     );
   }
 }
 
-
-
-class ActiveOrderCard extends StatelessWidget {
+class ActiveOrderCard extends StatefulWidget {
   const ActiveOrderCard({super.key, required this.order});
 
   final ActiveOrder order;
+
+  @override
+  State<ActiveOrderCard> createState() => _ActiveOrderCardState();
+}
+
+class _ActiveOrderCardState extends State<ActiveOrderCard> {
+  String getOrderStatusText(dynamic status) {
+    switch (status.toString()) {
+      case '0':
+        return 'Pending';
+      case '3':
+        return 'Completed';
+      case '4':
+        return 'Cancelled';
+      default:
+        return 'Unknown';
+    }
+  }
+
+  Color getOrderStatusColor(dynamic status) {
+    switch (status.toString()) {
+      case '0':
+        return Colors.blue;
+      case '3':
+        return Colors.green;
+      case '4':
+        return Colors.red;
+      default:
+        return Colors.grey;
+    }
+  }
+
+  Color getOrderStatusBgColor(dynamic status) {
+    switch (status.toString()) {
+      case '0':
+        return Colors.blue.withOpacity(0.2);
+      case '3':
+        return Colors.green.withOpacity(0.2);
+      case '4':
+        return Colors.red.withOpacity(0.2);
+      default:
+        return Colors.grey.withOpacity(0.2);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,20 +106,23 @@ class ActiveOrderCard extends StatelessWidget {
               Row(
                 children: [
                   const CustomText(text: 'Order Id: ', color: sTxtColor),
-                  CustomText(text: '#${order.id}', fontWeight: FontWeight.w500),
+                  CustomText(
+                    text: '#${widget.order.id}',
+                    fontWeight: FontWeight.w500,
+                  ),
                 ],
               ),
               Container(
-                padding: Utils.symmetric(h: 4.0, v: 2.0),
+                padding: Utils.symmetric(h: 6.0, v: 4.0),
                 decoration: BoxDecoration(
-                  color: redColor.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(4),
+                  color: getOrderStatusBgColor(widget.order.orderRequest),
+                  borderRadius: BorderRadius.circular(50),
                 ),
                 child: CustomText(
-                  text: 'Cash Delivery',
+                  text: getOrderStatusText(widget.order.orderRequest),
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
-                  color: redColor,
+                  color: getOrderStatusColor(widget.order.orderRequest),
                 ),
               ),
             ],
@@ -84,7 +132,7 @@ class ActiveOrderCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CustomText(
-                text: Utils.formatPrice(context, order.grandTotal),
+                text: Utils.formatPrice(context, widget.order.grandTotal),
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
@@ -92,13 +140,15 @@ class ActiveOrderCard extends StatelessWidget {
                 children: [
                   const CustomImage(
                     path: KImages.stopwatchCheck,
-                    width: 14,
-                    height: 14,
+                    width: 18,
+                    height: 18,
                     fit: BoxFit.cover,
                   ),
                   Utils.horizontalSpace(2),
                   CustomText(
-                    text: DateFormat('hh:mm a, dd MMM').format(order.createdAt),
+                    text: DateFormat(
+                      'hh:mm a, dd MMM',
+                    ).format(widget.order.createdAt),
                     color: sTxtColor,
                   ),
                 ],
@@ -106,47 +156,69 @@ class ActiveOrderCard extends StatelessWidget {
             ],
           ),
           Utils.verticalSpace(12),
-          Row(
-            children: [
-              Expanded(
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, RouteNames.orderConfirmScreen);
-                  },
-                  child: Container(
-                    height: 32,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: lightGrayColor),
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    child: Center(
-                      child: CustomText(
-                        text: 'Details',
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                RouteNames.orderConfirmScreen,
+                arguments: widget.order.id,
+              );
+            },
+            child: Container(
+              height: 32,
+              decoration: BoxDecoration(
+                border: Border.all(color: dBorderColor),
+                borderRadius: BorderRadius.circular(6),
+              ),
+              child: const Center(
+                child: CustomText(
+                  text: 'View Details',
+                  textAlign: TextAlign.center,
                 ),
               ),
-              Utils.horizontalSpace(12),
-              Expanded(
-                child: Container(
-                  height: 32,
-                  decoration: BoxDecoration(
-                    color: textColor,
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: Center(
-                    child: CustomText(
-                      text: 'Distance',
-                      textAlign: TextAlign.center,
-                      color: whiteColor,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
+          // Row(
+          //   children: [
+          //     Expanded(
+          //       child: GestureDetector(
+          //         onTap: () {
+          //           Navigator.pushNamed(context, RouteNames.orderConfirmScreen);
+          //         },
+          //         child: Container(
+          //           height: 32,
+          //           decoration: BoxDecoration(
+          //             border: Border.all(color: lightGrayColor),
+          //             borderRadius: BorderRadius.circular(6),
+          //           ),
+          //           child: Center(
+          //             child: CustomText(
+          //               text: 'Details',
+          //               textAlign: TextAlign.center,
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //     Utils.horizontalSpace(12),
+          //     Expanded(
+          //       child: Container(
+          //         height: 32,
+          //         decoration: BoxDecoration(
+          //           color: textColor,
+          //           borderRadius: BorderRadius.circular(6),
+          //         ),
+          //         child: Center(
+          //           child: CustomText(
+          //             text: 'Distance',
+          //             textAlign: TextAlign.center,
+          //             color: whiteColor,
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //   ],
+          // ),
         ],
       ),
     );

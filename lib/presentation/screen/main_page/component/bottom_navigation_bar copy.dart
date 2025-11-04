@@ -14,7 +14,7 @@ class MyBottomNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = MainController();
     return Container(
-      height: Platform.isAndroid ? 110 : 110,
+      height: Platform.isAndroid ? 105 : 110,
       decoration: const BoxDecoration(
         color: whiteColor,
         borderRadius: BorderRadius.only(
@@ -39,7 +39,11 @@ class MyBottomNavigationBar extends StatelessWidget {
             int selectedIndex = index.data ?? 0;
             return BottomNavigationBar(
               selectedItemColor: primaryColor,
+              unselectedItemColor: Color(0xff000929),
               type: BottomNavigationBarType.fixed,
+              selectedFontSize: 12,
+              unselectedFontSize: 12,
+
               items: <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
                   tooltip: 'Home',

@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
-import 'package:foodigo_delivery_man/utils/k_images.dart';
-import 'package:foodigo_delivery_man/widget/primary_button.dart';
+import 'package:foodigo/features/register/cubit/register_cubit.dart';
+import 'package:foodigo/features/register/cubit/register_state.dart';
+import 'package:foodigo/features/register/model/register_state_model.dart';
+import 'package:foodigo/presentation/core/routes/route_names.dart';
+import 'package:foodigo/utils/constraints.dart';
+import 'package:foodigo/utils/k_images.dart';
+import 'package:foodigo/utils/utils.dart';
+import 'package:foodigo/widget/custom_form.dart';
+import 'package:foodigo/widget/custom_image.dart';
+import 'package:foodigo/widget/custom_text_style.dart';
+import 'package:foodigo/widget/fetch_error_text.dart';
+import 'package:foodigo/widget/primary_button.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../../features/register/cubit/register_cubit.dart';
-import '../../../features/register/cubit/register_state.dart';
-import '../../../features/register/model/register_state_model.dart';
-import '../../../utils/utils.dart';
-import '../../../widget/custom_form.dart';
-import '../../../widget/custom_image.dart';
-import '../../../widget/custom_text_style.dart';
-import '../../../widget/fetch_error_text.dart';
-import '../../core/routes/route_names.dart';
 
 class SetPasswordScreen extends StatefulWidget {
   const SetPasswordScreen({super.key});

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodigo_delivery_man/widget/custom_text_style.dart';
+import 'package:foodigo/widget/custom_text_style.dart';
 
 import '../utils/constraints.dart';
 import '../utils/utils.dart';

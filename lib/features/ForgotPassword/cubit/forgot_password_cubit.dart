@@ -2,12 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodigo_delivery_man/data/remote_url.dart';
-import 'package:foodigo_delivery_man/features/ForgotPassword/cubit/forgot_password_state.dart';
-import 'package:foodigo_delivery_man/features/ForgotPassword/cubit/forgot_password_state_model.dart';
-import 'package:foodigo_delivery_man/features/ForgotPassword/repository/forgot_password_repository.dart';
-import 'package:foodigo_delivery_man/features/Login/bloc/login_bloc.dart';
-import 'package:foodigo_delivery_man/utils/utils.dart';
+import 'package:foodigo/data/remote_url.dart';
+import 'package:foodigo/features/ForgotPassword/cubit/forgot_password_state.dart';
+import 'package:foodigo/features/ForgotPassword/cubit/forgot_password_state_model.dart';
+import 'package:foodigo/features/ForgotPassword/repository/forgot_password_repository.dart';
+import 'package:foodigo/features/Login/bloc/login_bloc.dart';
+import 'package:foodigo/utils/utils.dart';
+
 import '../../../data/errors/failure.dart';
 
 class ForgotPasswordCubit extends Cubit<ForgotPasswordStateModel> {
@@ -244,9 +245,10 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordStateModel> {
           emit(state.copyWith(passwordState: errors));
         }
       },
-      (data) {
-        emit(state.copyWith(passwordState: UpdatePasswordStateLoaded(data)));
-        
+      (success) {
+        emit(
+          state.copyWith(passwordState: UpdatePasswordStateSuccess(success)),
+        );
       },
     );
   }

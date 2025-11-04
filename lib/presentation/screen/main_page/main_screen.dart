@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodigo_delivery_man/presentation/screen/my_order/my_orders_screen.dart';
-import 'package:foodigo_delivery_man/presentation/screen/profile/profile_screen.dart';
+import 'package:foodigo/presentation/screen/my_order/my_orders_screen.dart';
+import 'package:foodigo/presentation/screen/profile/profile_screen.dart';
 import '../home/home_screen.dart';
 import '../my_wallet/my_wallet_screen.dart';
 import 'component/bottom_navigation_bar copy.dart';

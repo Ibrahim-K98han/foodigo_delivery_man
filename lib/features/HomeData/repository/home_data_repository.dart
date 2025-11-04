@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:foodigo_delivery_man/data/errors/exception.dart';
-import 'package:foodigo_delivery_man/data/errors/failure.dart';
-import 'package:foodigo_delivery_man/features/HomeData/home_data_model.dart';
+import 'package:foodigo/data/errors/exception.dart';
+import 'package:foodigo/data/errors/failure.dart';
+import 'package:foodigo/features/HomeData/home_data_model.dart';
 
 import '../remote/home_data_remote_data_source.dart';
 

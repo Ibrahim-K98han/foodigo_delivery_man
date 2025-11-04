@@ -1,8 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodigo_delivery_man/features/CityDocumentVehicle/cubit/city_document_vehicle_state.dart';
-import 'package:foodigo_delivery_man/features/CityDocumentVehicle/model/city_document_vehicle_model.dart';
-import 'package:foodigo_delivery_man/features/CityDocumentVehicle/repository/city_document_vehicle_repository.dart';
-
+import 'package:foodigo/features/CityDocumentVehicle/cubit/city_document_vehicle_state.dart';
+import 'package:foodigo/features/CityDocumentVehicle/model/city_document_vehicle_model.dart';
+import 'package:foodigo/features/CityDocumentVehicle/repository/city_document_vehicle_repository.dart';
 
 class CityDocumentVehicleCubit extends Cubit<CityDocumentVehicleState> {
   final CityDocumentVehicleRepository _repository;

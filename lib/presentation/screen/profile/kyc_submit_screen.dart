@@ -1,14 +1,14 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:foodigo_delivery_man/utils/constraints.dart';
-import 'package:foodigo_delivery_man/utils/k_images.dart';
-import 'package:foodigo_delivery_man/utils/utils.dart';
-import 'package:foodigo_delivery_man/widget/custom_appbar.dart';
-import 'package:foodigo_delivery_man/widget/custom_dropdown.dart';
-import 'package:foodigo_delivery_man/widget/custom_form.dart';
-import 'package:foodigo_delivery_man/widget/custom_image.dart';
-import 'package:foodigo_delivery_man/widget/custom_text_style.dart';
-import 'package:foodigo_delivery_man/widget/primary_button.dart';
+import 'package:foodigo/utils/constraints.dart';
+import 'package:foodigo/utils/k_images.dart';
+import 'package:foodigo/utils/utils.dart';
+import 'package:foodigo/widget/custom_appbar.dart';
+import 'package:foodigo/widget/custom_dropdown.dart';
+import 'package:foodigo/widget/custom_form.dart';
+import 'package:foodigo/widget/custom_image.dart';
+import 'package:foodigo/widget/custom_text_style.dart';
+import 'package:foodigo/widget/primary_button.dart';
 
 class KycSubmitScreen extends StatefulWidget {
   const KycSubmitScreen({super.key});
@@ -88,7 +88,7 @@ class _KycDataLoadedState extends State<KycDataLoaded> {
               child: TextFormField(
                 maxLines: 2,
                 decoration: InputDecoration(
-                  hintText:  'Enter Description',
+                  hintText: 'Enter Description',
                 ),
               ),
             ),
@@ -158,7 +158,7 @@ class _KycDataLoadedState extends State<KycDataLoaded> {
               bottomSpace: 8,
               child: TextFormField(
                 decoration: InputDecoration(
-                  hintText:  '452552 002',
+                  hintText:'452552 002',
                 ),
               ),
             ),
@@ -168,7 +168,7 @@ class _KycDataLoadedState extends State<KycDataLoaded> {
               bottomSpace: 8,
               child: TextFormField(
                 decoration: InputDecoration(
-                  hintText: 'Date of Expire',
+                  hintText:  'Date of Expire',
                 ),
               ),
             ),

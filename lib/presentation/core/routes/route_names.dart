@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:foodigo_delivery_man/presentation/screen/authentications/create_new_password_screen.dart';
-import 'package:foodigo_delivery_man/presentation/screen/authentications/forgot_password_otp_screen.dart';
-import 'package:foodigo_delivery_man/presentation/screen/authentications/forgot_password_screen.dart';
-import 'package:foodigo_delivery_man/presentation/screen/authentications/registration_otp_verify_screen.dart';
-import 'package:foodigo_delivery_man/presentation/screen/authentications/set_password_screen.dart';
-import 'package:foodigo_delivery_man/presentation/screen/my_order/my_orders_screen.dart';
-import 'package:foodigo_delivery_man/presentation/screen/my_order/order_confirm_screen.dart';
-import 'package:foodigo_delivery_man/presentation/screen/on_boarding_screen/on_boarding_screen.dart';
-import 'package:foodigo_delivery_man/presentation/screen/profile/change_password_screen.dart';
-import 'package:foodigo_delivery_man/presentation/screen/profile/edit_profile_screen.dart';
-import 'package:foodigo_delivery_man/presentation/screen/profile/kyc_submit_screen.dart';
-import 'package:foodigo_delivery_man/presentation/screen/profile/kyc_verification_screen.dart';
-import 'package:foodigo_delivery_man/presentation/screen/profile/privacy_policy_screen.dart';
-import 'package:foodigo_delivery_man/presentation/screen/profile/terms_condition_screen.dart';
-import 'package:foodigo_delivery_man/presentation/screen/sms/sms_screen.dart';
+import 'package:foodigo/presentation/screen/authentications/create_new_password_screen.dart';
+import 'package:foodigo/presentation/screen/authentications/forgot_password_otp_screen.dart';
+import 'package:foodigo/presentation/screen/authentications/forgot_password_screen.dart';
+import 'package:foodigo/presentation/screen/authentications/registration_otp_verify_screen.dart';
+import 'package:foodigo/presentation/screen/authentications/set_password_screen.dart';
+import 'package:foodigo/presentation/screen/my_order/my_orders_screen.dart';
+import 'package:foodigo/presentation/screen/my_order/order_confirm_screen.dart';
+import 'package:foodigo/presentation/screen/on_boarding_screen/on_boarding_screen.dart';
+import 'package:foodigo/presentation/screen/profile/change_password_screen.dart';
+import 'package:foodigo/presentation/screen/profile/edit_profile_screen.dart';
+import 'package:foodigo/presentation/screen/profile/kyc_submit_screen.dart';
+import 'package:foodigo/presentation/screen/profile/kyc_verification_screen.dart';
+import 'package:foodigo/presentation/screen/profile/privacy_policy_screen.dart';
+import 'package:foodigo/presentation/screen/profile/terms_condition_screen.dart';
+import 'package:foodigo/presentation/screen/sms/sms_screen.dart';
+
 import '../../screen/authentications/authentication_screen.dart';
 import '../../screen/authentications/deliveryman_register_screen.dart';
 import '../../screen/main_page/main_screen.dart';
@@ -45,7 +46,7 @@ class RouteNames {
   static const String trackOrderScreen = '/orderTrackScreen';
   static const String smsScreen = '/smsScreen';
   static const String editProfileScreen = '/editProfileScreen';
-  static const String myOrderScreen = '/myOrderScreen';
+  static const String myOrderScreen = '/myOrdersScreen';
   static const String orderConfirmScreen = '/orderConfirmScreen';
   static const String kycVerificationScreen = '/kycVerificationScreen';
   static const String kycSubmitScreen = '/kycSubmitScreen';
@@ -107,9 +108,12 @@ class RouteNames {
           builder: (_) => const OnBoardingScreen(),
         );
       case RouteNames.orderConfirmScreen:
+      final id = settings.arguments as int;
         return MaterialPageRoute(
           settings: settings,
-          builder: (_) => const OrderConfirmScreen(),
+          builder: (_) =>  OrderConfirmScreen(
+            orderId: id.toString(),
+          ),
         );
       case RouteNames.kycVerificationScreen:
         return MaterialPageRoute(
@@ -124,12 +128,12 @@ class RouteNames {
       case RouteNames.privacyPolicyScreen:
         return MaterialPageRoute(
           settings: settings,
-          builder: (_) => const PrivacyPolicyScreen(),
+          builder: (_) => const PrivacyPolicy(),
         );
       case RouteNames.termsConditionScreen:
         return MaterialPageRoute(
           settings: settings,
-          builder: (_) => const TermsConditionScreen(),
+          builder: (_) => const TermsAndConditionScreen(),
         );
       case RouteNames.changePasswordScreen:
         return MaterialPageRoute(

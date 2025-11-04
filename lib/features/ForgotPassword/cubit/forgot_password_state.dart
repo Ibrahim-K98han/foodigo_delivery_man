@@ -44,9 +44,8 @@ class VerifyingForgotPasswordError extends ForgotPasswordState {
 }
 
 class ForgotPasswordFormValidateError extends ForgotPasswordState {
-  const ForgotPasswordFormValidateError(this.errors);
-
   final Errors errors;
+  const ForgotPasswordFormValidateError(this.errors);
 
   @override
   List<Object> get props => [errors];
@@ -213,7 +212,6 @@ class UpdatePasswordStateLoading extends ForgotPasswordState {
   List<Object> get props => [];
 }
 
-
 class UpdatePasswordStateError extends ForgotPasswordState {
   const UpdatePasswordStateError(this.message, this.statusCode);
 
@@ -234,9 +232,19 @@ class UpdatePasswordFormValidateError extends ForgotPasswordState {
 }
 
 class UpdatePasswordStateLoaded extends ForgotPasswordState {
-  const UpdatePasswordStateLoaded(this.message,);
+  const UpdatePasswordStateLoaded(this.message);
 
   final String message;
+  @override
+  List<Object> get props => [message];
+}
+
+
+class  UpdatePasswordStateSuccess extends ForgotPasswordState {
+  final String message;
+
+  const UpdatePasswordStateSuccess(this.message);
+
   @override
   List<Object> get props => [message];
 }
