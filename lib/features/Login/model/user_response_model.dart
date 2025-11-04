@@ -2,7 +2,7 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
-import 'package:foodigo_delivery_man/features/GetProfile/cubit/get_profile_state.dart';
+import 'package:foodigo/features/GetProfile/cubit/get_profile_state.dart';
 
 class UserResponseModel extends Equatable {
   final User? user;

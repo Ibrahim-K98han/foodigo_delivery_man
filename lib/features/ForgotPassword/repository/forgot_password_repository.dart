@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:foodigo_delivery_man/features/ForgotPassword/cubit/forgot_password_state_model.dart';
-import 'package:foodigo_delivery_man/features/ForgotPassword/remote/forgot_password_remote_data_source.dart';
-import '../../../data/errors/exception.dart';
+import 'package:foodigo/features/ForgotPassword/cubit/forgot_password_state_model.dart';
+import 'package:foodigo/features/ForgotPassword/remote/forgot_password_remote_data_source.dart';import '../../../data/errors/exception.dart';
 import '../../../data/errors/failure.dart';
 
 abstract class ForgotPasswordRepository {

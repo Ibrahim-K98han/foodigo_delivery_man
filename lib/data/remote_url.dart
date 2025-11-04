@@ -17,7 +17,7 @@ class RemoteUrls {
 
   // static const String login = '${baseUrl}auth/login';
   // static const String getProfile = '${baseUrl}auth/profile';
-  static const String updateProfile = '${baseUrl}auth/profile';
+
   static const String addProduct = '${baseUrl}cart/add';
 
   static String updateProduct(int id) => '${baseUrl}cart/update/$id';
@@ -52,7 +52,7 @@ class RemoteUrls {
   static const String applyCoupon = '${baseUrl}cart/coupon/apply';
   static const String getAllPaymentMethod =
       '${baseUrl}checkout/payment-methods';
-
+  static const String splashScreen = '${baseUrl}home/splash-screen';
   static const String changeProfilePass = '${baseUrl}auth/change-password';
   static const String offerAndReward = '${baseUrl}home/offers';
   static const String payWithBank = '${baseUrl}payment/bank';
@@ -63,10 +63,7 @@ class RemoteUrls {
   static const String restaurantLogout = '${baseUrl}restaurant/auth/logout';
   // static const String getRestaurantDashboard = '${baseUrl}restaurant/dashboard';
   static const String getProduct = '${baseUrl}restaurant/product/product-list';
-  static const String getAllOrder = '${baseUrl}restaurant/order/order-list';
 
-  static String getOrderDetails(String id) =>
-      '${baseUrl}restaurant/order/detail/$id';
   static const String getCategoryList =
       '${baseUrl}restaurant/category/category-list';
   static const String storeProduct = '${baseUrl}restaurant/product/store';
@@ -95,12 +92,8 @@ class RemoteUrls {
       '${baseUrl}restaurant/addon/update/$id';
   static const String restaurantPassChange =
       '${baseUrl}restaurant/profile/change-password';
-  static const String getEarning = '${baseUrl}restaurant/withdraw/my-withdraw';
-  static const String getWithdraw = '${baseUrl}restaurant/withdraw/create';
-  static const String withdrawStore = '${baseUrl}restaurant/withdraw/store';
-
-  static String changeOrderStatus(String id) =>
-      '${baseUrl}restaurant/order/status/change/$id';
+  // static const String getEarning = '${baseUrl}restaurant/withdraw/my-withdraw';
+  // static const String getWithdraw = '${baseUrl}restaurant/withdraw/create';
 
   ///================Delivery Man======================
   static const String login = '${baseUrl}deliveryman/auth/login';
@@ -128,9 +121,19 @@ class RemoteUrls {
       '${baseUrl}deliveryman/register-data';
   static const String updatePassword =
       '${baseUrl}deliveryman/profile/change-password';
+
   static const String privacyPolicy = '${baseUrl}home/privacy-policy';
   static const String termsAndCondition = '${baseUrl}home/terms-conditions';
-  static const String splashScreen = '${baseUrl}deliveryman/splash-screen';
+  static const createWithdraw = '${baseUrl}deliveryman/withdraw/create';
+  static const getWithdraw = '${baseUrl}deliveryman/withdraw/my-withdraw';
+  static const String withdrawStore = '${baseUrl}deliveryman/withdraw/store';
+  static const String splash = '${baseUrl}deliveryman/splash-screen';
+  static const String updateProfile = '${baseUrl}deliveryman/profile/update';
+  static const String getAllOrder = '${baseUrl}deliveryman/order/order-request';
+  static String getOrderDetails(String id) =>
+      '${baseUrl}deliveryman/order/detail/$id';
+  static String changeOrderStatus(String id) =>
+      '${baseUrl}deliveryman/order/request/status/update/$id';
 
   static imageUrl(String imageUrl) => rootUrl + imageUrl;
 }

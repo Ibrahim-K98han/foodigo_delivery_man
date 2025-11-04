@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:foodigo_delivery_man/data/errors/exception.dart';
-import 'package:foodigo_delivery_man/data/errors/failure.dart';
-import 'package:foodigo_delivery_man/features/GetProfile/model/profile_state_model.dart';
-import 'package:foodigo_delivery_man/features/Login/model/user_response_model.dart';
+import 'package:foodigo/data/errors/exception.dart';
+import 'package:foodigo/data/errors/failure.dart';
+import 'package:foodigo/features/GetProfile/model/profile_state_model.dart';
+import 'package:foodigo/features/Login/model/user_response_model.dart';
 
 import '../remote/get_profile_remote_data_source.dart';
 
@@ -22,9 +22,9 @@ class GetProfileRepositoryImpl implements GetProfileRepository {
   const GetProfileRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<Either<Failure, User>> getProfileData(Uri url,String token) async {
+  Future<Either<Failure, User>> getProfileData(Uri url, String token) async {
     try {
-      final result = await remoteDataSource.getProfileData(url,token);
+      final result = await remoteDataSource.getProfileData(url, token);
       final data = User.fromMap(result['data']['delivery_man']);
       return Right(data);
     } on ServerException catch (e) {

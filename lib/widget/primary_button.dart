@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../utils/constraints.dart';
 import 'custom_text_style.dart';
@@ -57,7 +56,7 @@ class PrimaryButton extends StatelessWidget {
         child: CustomText(
           text: text,
           color: textColor,
-          fontSize: fontSize.sp,
+          fontSize: fontSize,
           height: 1,
           fontWeight: FontWeight.w500,
           fontFamily: medium500,

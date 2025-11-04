@@ -51,7 +51,7 @@ class CustomText extends StatelessWidget {
       // ),
       style: GoogleFonts.inter(
         fontWeight: fontWeight,
-        fontSize: fontSize.sp,
+        fontSize: fontSize,
         color: color,
         height: height.h,
         decoration: decoration,

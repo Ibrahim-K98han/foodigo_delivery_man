@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:foodigo_delivery_man/presentation/core/routes/route_names.dart';
-import 'package:foodigo_delivery_man/utils/constraints.dart';
-import 'package:foodigo_delivery_man/utils/k_images.dart';
-import 'package:foodigo_delivery_man/utils/utils.dart';
-import 'package:foodigo_delivery_man/widget/custom_appbar.dart';
-import 'package:foodigo_delivery_man/widget/custom_image.dart';
-import 'package:foodigo_delivery_man/widget/custom_text_style.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foodigo/features/Order/cubit/orders_cubit.dart';
+import 'package:foodigo/features/Order/cubit/orders_state.dart';
+import 'package:foodigo/features/Order/model/orders_model.dart';
+import 'package:foodigo/features/OrderStatus/cubit/order_status_cubit.dart';
+import 'package:foodigo/features/OrderStatus/cubit/order_status_state.dart';
+import 'package:foodigo/features/OrderStatus/model/change_order_status_state_model.dart';
+import 'package:foodigo/presentation/screen/my_order/component/order_container.dart';
+import 'package:foodigo/utils/constraints.dart';
+import 'package:foodigo/utils/k_images.dart';
+import 'package:foodigo/utils/utils.dart';
+import 'package:foodigo/widget/custom_appbar.dart';
+import 'package:foodigo/widget/custom_image.dart';
+import 'package:foodigo/widget/custom_text_style.dart';
+import 'package:foodigo/widget/fetch_error_text.dart';
+import 'package:foodigo/widget/loading_widget.dart';
+import 'package:foodigo/widget/page_refresh.dart';
 
 class MyOrdersScreen extends StatefulWidget {
   const MyOrdersScreen({super.key});
@@ -16,13 +26,32 @@ class MyOrdersScreen extends StatefulWidget {
 
 class _MyOrdersScreenState extends State<MyOrdersScreen>
     with TickerProviderStateMixin {
+  String? _lastChangedStatus;
   late TabController tabController;
+  late OrdersCubit orCubit;
 
   @override
   void initState() {
     super.initState();
+    orCubit = context.read<OrdersCubit>();
+    orCubit.getAllOrder();
+    tabController = TabController(length: 4, vsync: this);
+  }
 
-    tabController = TabController(length: 6, vsync: this);
+  @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
+  }
+
+  void _navigateToTab(int index) {
+    if (mounted && tabController.index != index) {
+      tabController.animateTo(
+        index,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
   }
 
   @override
@@ -30,23 +59,82 @@ class _MyOrdersScreenState extends State<MyOrdersScreen>
     return Scaffold(
       backgroundColor: greyColor.withOpacity(0.06),
       appBar: const CustomAppBar(title: 'My Order', visibleLeading: false),
-      body: LoadOrderData(tabController: tabController),
+      body: BlocListener<OrderStatusCubit, ChangeOrderStatusStateModel>(
+        listenWhen: (previous, current) {
+          return previous.orderStatusState != current.orderStatusState;
+        },
+        listener: (context, state) {
+          if (state.orderStatusState is OrderStatusSuccess) {
+            final successState = state.orderStatusState as OrderStatusSuccess;
+            orCubit.getAllOrder();
+
+            _lastChangedStatus = state.orderStatus;
+            final statusList = ['Pending', 'Running', 'Completed', 'Cancelled'];
+            final newStatusIndex = statusList.indexOf(state.orderStatus);
+
+            if (newStatusIndex != -1) {
+              _navigateToTab(newStatusIndex);
+            }
+
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(successState.message),
+                backgroundColor: Colors.green,
+                duration: const Duration(seconds: 2),
+              ),
+            );
+          } else if (state.orderStatusState is OrderStatusError) {
+            final error = state.orderStatusState as OrderStatusError;
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(error.message),
+                backgroundColor: Colors.red,
+                duration: const Duration(seconds: 2),
+              ),
+            );
+          }
+        },
+        child: PageRefresh(
+          onRefresh: () async {
+            orCubit.getAllOrder();
+          },
+          child: BlocBuilder<OrdersCubit, OrdersState>(
+            builder: (context, state) {
+              if (state is OrderLoading) {
+                return const LoadingWidget();
+              } else if (state is OrderError &&
+                  state.statusCode != 503 &&
+                  orCubit.orderModel!.isEmpty) {
+                return FetchErrorText(text: state.message);
+              }
+              return LoadOrderData(
+                order: orCubit.orderModel!,
+                tabController: tabController,
+              );
+            },
+          ),
+        ),
+      ),
     );
   }
 }
 
 class LoadOrderData extends StatelessWidget {
-  const LoadOrderData({super.key, required this.tabController});
+  const LoadOrderData({
+    super.key,
+    required this.tabController,
+    required this.order,
+  });
 
   final TabController tabController;
 
+  final List<OrdersModel> order;
+
   static const Map<int, String> statusMap = {
-    1: "Pending",
-    2: "Confirmed",
-    3: "Processing",
-    4: "On the Way",
-    5: "Delivered",
-    6: "Canceled",
+    0: "Pending",
+    1: "Running",
+    3: "Completed",
+    4: "Cancelled",
   };
 
   @override
@@ -54,11 +142,14 @@ class LoadOrderData extends StatelessWidget {
     return Column(
       children: [
         TabBar(
+          tabAlignment: TabAlignment.start,
+          padding: Utils.symmetric(h: 20.0, v: 0.0),
+          overlayColor: WidgetStateProperty.all(Colors.transparent),
           controller: tabController,
           isScrollable: true,
           indicator: BoxDecoration(
             color: primaryColor,
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(6),
             border: Border.all(color: primaryColor),
           ),
           indicatorSize: TabBarIndicatorSize.tab,
@@ -70,8 +161,8 @@ class LoadOrderData extends StatelessWidget {
                 return Tab(
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 12,
+                      horizontal: 8.0,
+                      vertical: 0.0,
                     ),
                     child: CustomText(text: label, fontSize: 14),
                   ),
@@ -80,215 +171,38 @@ class LoadOrderData extends StatelessWidget {
         ),
         Expanded(
           child: Padding(
-            padding: Utils.symmetric(h: 20, v: 10.0),
+            padding: Utils.only(top: 12),
             child: TabBarView(
               controller: tabController,
-              children: [
-                ListView.builder(
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: Utils.only(bottom: 10),
-                      child: OrderContainer(
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            RouteNames.orderConfirmScreen,
-                          );
-                        },
-                      ),
+              children:
+                  statusMap.keys.map((status) {
+                    final filteredOrders =
+                        order.where((order) {
+                          final statusValue = int.tryParse(order.orderRequest);
+                          return statusValue == status;
+                        }).toList();
+
+                    if (filteredOrders.isEmpty) {
+                      return const Center(
+                        child: CustomImage(path: KImages.cartNotFound),
+                      );
+                    }
+                    return ListView.builder(
+                      padding: Utils.symmetric(h: 20.0, v: 0.0),
+                      itemCount: filteredOrders.length,
+                      itemBuilder: (context, index) {
+                        final item = filteredOrders[index];
+                        return Padding(
+                          padding: Utils.only(bottom: 12),
+                          child: OrderContainer(order: item),
+                        );
+                      },
                     );
-                  },
-                ),
-                ListView.builder(
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: Utils.only(bottom: 10),
-                      child: OrderContainer(
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            RouteNames.orderConfirmScreen,
-                          );
-                        },
-                      ),
-                    );
-                  },
-                ),
-                ListView.builder(
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: Utils.only(bottom: 10),
-                      child: OrderContainer(
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            RouteNames.orderConfirmScreen,
-                          );
-                        },
-                      ),
-                    );
-                  },
-                ),
-                ListView.builder(
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: Utils.only(bottom: 10),
-                      child: OrderContainer(
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            RouteNames.orderConfirmScreen,
-                          );
-                        },
-                      ),
-                    );
-                  },
-                ),
-                ListView.builder(
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: Utils.only(bottom: 10),
-                      child: OrderContainer(
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            RouteNames.orderConfirmScreen,
-                          );
-                        },
-                      ),
-                    );
-                  },
-                ),
-                ListView.builder(
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: Utils.only(bottom: 10),
-                      child: OrderContainer(
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            RouteNames.orderConfirmScreen,
-                          );
-                        },
-                      ),
-                    );
-                  },
-                ),
-              ],
+                  }).toList(),
             ),
           ),
         ),
       ],
-    );
-  }
-}
-
-class OrderContainer extends StatelessWidget {
-  const OrderContainer({super.key, required this.onTap});
-
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: Utils.symmetric(h: 12.0, v: 6.0),
-      width: 327,
-      height: 124,
-      decoration: BoxDecoration(
-        color: whiteColor,
-        borderRadius: BorderRadius.circular(6),
-      ),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              CustomText(text: 'Order Id: ', color: sTxtColor),
-              CustomText(text: '#25041', fontWeight: FontWeight.w500),
-              Utils.horizontalSpace(12),
-              Container(
-                padding: Utils.symmetric(h: 8.0, v: 4.0),
-                width: 60,
-                height: 24,
-                decoration: BoxDecoration(
-                  color: blueColor.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: Center(
-                  child: CustomText(
-                    text: 'Active',
-                    color: blueColor,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 12,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Utils.verticalSpace(12),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomText(
-                text: '\$234.00',
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
-              Row(
-                children: [
-                  CustomImage(
-                    path: KImages.stopwatchCheck,
-                    color: sTxtColor,
-                    width: 18,
-                    height: 18,
-                    fit: BoxFit.cover,
-                  ),
-                  CustomText(text: '03:35 PM', color: sTxtColor),
-                ],
-              ),
-            ],
-          ),
-          Utils.verticalSpace(12),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: GestureDetector(
-                  onTap: onTap,
-                  child: Container(
-                    width: 145,
-                    height: 32,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: dBorderColor),
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    child: Center(child: CustomText(text: 'Details')),
-                  ),
-                ),
-              ),
-              Utils.horizontalSpace(12),
-              Expanded(
-                child: Container(
-                  width: 145,
-                  height: 32,
-                  decoration: BoxDecoration(
-                    color: dTextColor,
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: Center(
-                    child: CustomText(text: 'Distance', color: whiteColor),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
     );
   }
 }

@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodigo_delivery_man/features/Dashboard/cubit/dashboard_cubit.dart';
-import 'package:foodigo_delivery_man/features/Dashboard/cubit/dashboard_state.dart';
-import 'package:foodigo_delivery_man/presentation/screen/home/component/active_order_widget.dart';
-import 'package:foodigo_delivery_man/presentation/screen/home/component/home_appbar.dart';
-import 'package:foodigo_delivery_man/presentation/screen/home/component/recent_transaction_widget.dart';
-import 'package:foodigo_delivery_man/presentation/screen/home/component/statistics_widget.dart';
-import 'package:foodigo_delivery_man/utils/constraints.dart';
-import 'package:foodigo_delivery_man/utils/k_images.dart';
-import 'package:foodigo_delivery_man/utils/utils.dart';
-import 'package:foodigo_delivery_man/widget/fetch_error_text.dart' show FetchErrorText;
-import 'package:foodigo_delivery_man/widget/loading_widget.dart';
-import 'package:foodigo_delivery_man/widget/page_refresh.dart';
-import 'package:foodigo_delivery_man/widget/title_and_navigator.dart';
+import 'package:foodigo/features/Dashboard/cubit/dashboard_cubit.dart';
+import 'package:foodigo/features/Dashboard/cubit/dashboard_state.dart';
+import 'package:foodigo/presentation/core/routes/route_names.dart';
+import 'package:foodigo/presentation/screen/home/component/active_order_widget.dart';
+import 'package:foodigo/presentation/screen/home/component/home_appbar.dart';
+import 'package:foodigo/presentation/screen/home/component/recent_transaction_widget.dart';
+import 'package:foodigo/presentation/screen/home/component/statistics_widget.dart';
+import 'package:foodigo/presentation/screen/main_page/component/main_controller.dart';
+import 'package:foodigo/utils/constraints.dart';
+import 'package:foodigo/utils/k_images.dart';
+import 'package:foodigo/utils/utils.dart';
+import 'package:foodigo/widget/fetch_error_text.dart';
+import 'package:foodigo/widget/loading_widget.dart';
+import 'package:foodigo/widget/page_refresh.dart';
+import 'package:foodigo/widget/title_and_navigator.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -79,14 +81,14 @@ class DashboardData extends StatelessWidget {
   Widget build(BuildContext context) {
     final dCubit = context.read<DashboardCubit>();
     final stats = [
-      {
-        'icon': KImages.activeOrder,
-        'title': 'Request Orders',
-        'amount':
-            dCubit.dashboardModel!.statistics!.orderStatistics!.completed
-                .toString(),
-        'iconBg': greenColor,
-      },
+      // {
+      //   'icon': KImages.activeOrder,
+      //   'title': 'Request Orders',
+      //   'amount':
+      //       dCubit.dashboardModel!.statistics!.orderStatistics!.request
+      //           .toString(),
+      //   'iconBg': greenColor,
+      // },
       {
         'icon': KImages.running,
         'title': 'Running Orders',
@@ -121,7 +123,7 @@ class DashboardData extends StatelessWidget {
       },
     ];
     return Padding(
-      padding: Utils.symmetric(h: 24),
+      padding: Utils.symmetric(h: 0.0),
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -139,14 +141,50 @@ class DashboardData extends StatelessWidget {
                   }).toList(),
             ),
             Utils.verticalSpace(20),
-            TitleAndNavigator(title: 'Active Order', press: () {}),
+            Padding(
+              padding: Utils.symmetric(h: 20.0, v: 0.0),
+              child: TitleAndNavigator(
+                title: 'Active Order',
+                press: () {
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    RouteNames.mainScreen,
+                    (route) => false,
+                  );
+                  Future.delayed(const Duration(milliseconds: 100), () {
+                    MainController().changeTab(1);
+                  });
+                },
+              ),
+            ),
             Utils.verticalSpace(13),
             ActiverOrderWidget(
               activeOrder: dCubit.dashboardModel!.activeOrder!,
             ),
+            Utils.verticalSpace(16),
 
-            RecentTransactionWidget(
-              withdrawHistory: dCubit.dashboardModel!.withdrawHistory!,
+            Padding(
+              padding: Utils.symmetric(h: 20.0, v: 0.0),
+              child: TitleAndNavigator(
+                title: 'Recent Transactions',
+                press: () {
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    RouteNames.mainScreen,
+                    (route) => false,
+                  );
+                  Future.delayed(const Duration(milliseconds: 100), () {
+                    MainController().changeTab(2);
+                  });
+                },
+              ),
+            ),
+
+            Padding(
+              padding: Utils.symmetric(h: 20.0, v: 0.0),
+              child: RecentTransactionWidget(
+                withdrawHistory: dCubit.dashboardModel!.withdrawHistory!,
+              ),
             ),
           ],
         ),

@@ -1,7 +1,6 @@
 import 'dart:convert';
-
 import 'package:equatable/equatable.dart';
-import 'package:foodigo_delivery_man/features/ForgotPassword/cubit/forgot_password_state.dart';
+import 'package:foodigo/features/ForgotPassword/cubit/forgot_password_state.dart';
 
 class ForgotPasswordStateModel extends Equatable {
   final String currentPassword;

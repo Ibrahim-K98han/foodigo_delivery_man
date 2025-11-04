@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:foodigo_delivery_man/features/CityDocumentVehicle/model/city_document_vehicle_model.dart';
+import 'package:foodigo/features/CityDocumentVehicle/model/city_document_vehicle_model.dart';
 
 abstract class CityDocumentVehicleState extends Equatable {
   const CityDocumentVehicleState();

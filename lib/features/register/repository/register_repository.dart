@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:foodigo_delivery_man/features/register/model/city_model.dart';
-import 'package:foodigo_delivery_man/features/register/remote/register_remote_data_source.dart';
+import 'package:foodigo/features/register/model/city_model.dart';
+import 'package:foodigo/features/register/remote/register_remote_data_source.dart';
 
 import '../../../data/errors/exception.dart';
 import '../../../data/errors/failure.dart';

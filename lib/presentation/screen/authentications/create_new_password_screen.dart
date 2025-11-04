@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodigo_delivery_man/features/ForgotPassword/cubit/forgot_password_cubit.dart';
-import 'package:foodigo_delivery_man/features/ForgotPassword/cubit/forgot_password_state.dart';
-import 'package:foodigo_delivery_man/features/ForgotPassword/cubit/forgot_password_state_model.dart';
-import 'package:foodigo_delivery_man/presentation/core/routes/route_names.dart';
-import 'package:foodigo_delivery_man/utils/k_images.dart';
-import 'package:foodigo_delivery_man/utils/utils.dart';
-import 'package:foodigo_delivery_man/widget/custom_form.dart';
-import 'package:foodigo_delivery_man/widget/custom_image.dart';
-import 'package:foodigo_delivery_man/widget/custom_text_style.dart';
-import 'package:foodigo_delivery_man/widget/fetch_error_text.dart';
-import 'package:foodigo_delivery_man/widget/primary_button.dart';
+import 'package:foodigo/features/ForgotPassword/cubit/forgot_password_cubit.dart';
+import 'package:foodigo/features/ForgotPassword/cubit/forgot_password_state.dart';
+import 'package:foodigo/features/ForgotPassword/cubit/forgot_password_state_model.dart';
+import 'package:foodigo/presentation/core/routes/route_names.dart';
+import 'package:foodigo/utils/k_images.dart';
+import 'package:foodigo/utils/utils.dart';
+import 'package:foodigo/widget/custom_form.dart';
+import 'package:foodigo/widget/custom_image.dart';
+import 'package:foodigo/widget/custom_text_style.dart';
+import 'package:foodigo/widget/fetch_error_text.dart';
+import 'package:foodigo/widget/primary_button.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
 class CreateNewPasswordScreen extends StatefulWidget {

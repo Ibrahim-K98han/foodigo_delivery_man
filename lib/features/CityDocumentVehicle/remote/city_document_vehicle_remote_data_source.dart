@@ -1,5 +1,6 @@
-import 'package:foodigo_delivery_man/data/network_parser.dart';
-import 'package:foodigo_delivery_man/data/remote_url.dart';
+
+import 'package:foodigo/data/network_parser.dart';
+import 'package:foodigo/data/remote_url.dart';
 import 'package:http/http.dart' as http;
 
 abstract class CityDocumentVehicleRemoteDataSource {

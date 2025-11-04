@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodigo_delivery_man/data/remote_url.dart';
-import 'package:foodigo_delivery_man/features/GetProfile/cubit/get_profile_cubit.dart';
-import 'package:foodigo_delivery_man/features/Login/bloc/login_bloc.dart';
-import 'package:foodigo_delivery_man/features/Login/bloc/login_event.dart';
-import 'package:foodigo_delivery_man/features/Login/bloc/login_state.dart';
-import 'package:foodigo_delivery_man/features/Login/model/login_state_model.dart';
-import 'package:foodigo_delivery_man/presentation/core/routes/route_names.dart';
-import 'package:foodigo_delivery_man/presentation/screen/profile/component/drawer_item.dart';
-import 'package:foodigo_delivery_man/utils/constraints.dart';
-import 'package:foodigo_delivery_man/utils/k_images.dart';
-import 'package:foodigo_delivery_man/utils/utils.dart';
-import 'package:foodigo_delivery_man/widget/circle_image.dart';
-import 'package:foodigo_delivery_man/widget/custom_image.dart';
-import 'package:foodigo_delivery_man/widget/custom_text_style.dart';
-import 'package:foodigo_delivery_man/widget/loading_widget.dart';
-import 'package:foodigo_delivery_man/widget/primary_button.dart';
+import 'package:foodigo/data/remote_url.dart';
+import 'package:foodigo/features/GetProfile/cubit/get_profile_cubit.dart';
+import 'package:foodigo/features/Login/bloc/login_bloc.dart';
+import 'package:foodigo/features/Login/bloc/login_event.dart';
+import 'package:foodigo/features/Login/bloc/login_state.dart';
+import 'package:foodigo/features/Login/model/login_state_model.dart';
+import 'package:foodigo/presentation/core/routes/route_names.dart';
+import 'package:foodigo/presentation/screen/profile/component/drawer_item.dart';
+import 'package:foodigo/utils/constraints.dart';
+import 'package:foodigo/utils/k_images.dart';
+import 'package:foodigo/utils/utils.dart';
+import 'package:foodigo/widget/circle_image.dart';
+import 'package:foodigo/widget/custom_image.dart';
+import 'package:foodigo/widget/custom_text_style.dart';
+import 'package:foodigo/widget/loading_widget.dart';
+import 'package:foodigo/widget/primary_button.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -41,7 +41,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     profileCubit.getProfileData();
     if (profileCubit.user != null &&
         profileCubit.user!.profileImage.isNotEmpty) {
-      image = RemoteUrls.imageUrl(profileCubit.user!.profileImage);
+      image = RemoteUrls.imageUrl(profileCubit.user!.manImage);
       // name = profileData.user!.name;
       // email = profileData.user!.email;
     } else {
@@ -85,14 +85,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   Utils.verticalSpace(12.0),
 
-                  CircleImage(image: image, size: 80),
+                  // CircleImage(
+                  //   image: RemoteUrls.imageUrl(profileCubit.user!.manImage),
+                  //   size: 60,
+                  // ),
+                  CircleImage(
+                    image:
+                        profileCubit.user != null
+                            ? RemoteUrls.imageUrl(profileCubit.user!.manImage)
+                            : KImages.profile,
+                    size: 80,
+                  ),
                   Utils.verticalSpace(8),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      // CustomText(
+                      //   text: '$name $lname',
+                      //   fontSize: 16.0,
+                      //   fontWeight: FontWeight.w500,
+                      // ),
                       CustomText(
-                        text: '$name $lname',
-                        fontSize: 16.0,
+                        text:
+                            profileCubit.user != null
+                                ? '${profileCubit.user!.fname} ${profileCubit.user!.lname}'
+                                : 'Guest',
+
+                        fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
                       Utils.horizontalSpace(8),
@@ -113,7 +132,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ],
                   ),
                   Utils.verticalSpace(2),
-                  CustomText(text: email, color: sTxtColor),
+                  CustomText(
+                    text:
+                        profileCubit.user != null
+                            ? profileCubit.user!.email
+                            : 'example@gmail.com',
+                    height: 1.32,
+                    color: sTxtColor,
+                  ),
                   Utils.verticalSpace(20),
                 ],
               ),

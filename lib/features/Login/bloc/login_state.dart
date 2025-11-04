@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:foodigo_delivery_man/features/Login/model/user_response_model.dart';
+import 'package:foodigo/features/Login/model/user_response_model.dart';
 
 import '../../../data/errors/errors_model.dart';
 

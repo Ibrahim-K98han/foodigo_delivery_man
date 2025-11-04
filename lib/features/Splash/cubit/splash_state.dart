@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:foodigo_delivery_man/features/Splash/model/splash_response_model.dart';
+import 'package:foodigo/features/Splash/model/splash_response_model.dart';
 
 abstract class SplashState extends Equatable {
   const SplashState();

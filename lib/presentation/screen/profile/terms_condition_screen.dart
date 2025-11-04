@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
-import 'package:foodigo_delivery_man/features/Privacy/cubit/privacy_policy_cubit.dart';
-import 'package:foodigo_delivery_man/features/Privacy/cubit/privacy_policy_state.dart';
-import 'package:foodigo_delivery_man/utils/utils.dart';
-import 'package:foodigo_delivery_man/widget/custom_appbar.dart';
-import 'package:foodigo_delivery_man/widget/loading_widget.dart';
-
+import 'package:foodigo/features/Privacy/cubit/privacy_policy_cubit.dart';
+import 'package:foodigo/features/Privacy/cubit/privacy_policy_state.dart';
+import 'package:foodigo/utils/utils.dart';
+import 'package:foodigo/widget/custom_appbar.dart';
+import 'package:foodigo/widget/loading_widget.dart';
 
 class TermsAndConditionScreen extends StatefulWidget {
   const TermsAndConditionScreen({super.key});

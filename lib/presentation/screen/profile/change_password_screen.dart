@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodigo_delivery_man/features/ForgotPassword/cubit/forgot_password_cubit.dart';
-import 'package:foodigo_delivery_man/features/ForgotPassword/cubit/forgot_password_state.dart';
-import 'package:foodigo_delivery_man/features/ForgotPassword/cubit/forgot_password_state_model.dart';
-import 'package:foodigo_delivery_man/utils/constraints.dart';
-import 'package:foodigo_delivery_man/utils/k_images.dart';
-import 'package:foodigo_delivery_man/utils/utils.dart';
-import 'package:foodigo_delivery_man/widget/custom_appbar.dart';
-import 'package:foodigo_delivery_man/widget/custom_form.dart';
-import 'package:foodigo_delivery_man/widget/custom_image.dart';
-import 'package:foodigo_delivery_man/widget/fetch_error_text.dart';
-import 'package:foodigo_delivery_man/widget/primary_button.dart';
+import 'package:foodigo/features/ForgotPassword/cubit/forgot_password_cubit.dart';
+import 'package:foodigo/features/ForgotPassword/cubit/forgot_password_state.dart';
+import 'package:foodigo/features/ForgotPassword/cubit/forgot_password_state_model.dart';
+import 'package:foodigo/utils/constraints.dart';
+import 'package:foodigo/utils/k_images.dart';
+import 'package:foodigo/utils/utils.dart';
+import 'package:foodigo/widget/custom_appbar.dart';
+import 'package:foodigo/widget/custom_form.dart';
+import 'package:foodigo/widget/custom_image.dart';
+import 'package:foodigo/widget/fetch_error_text.dart';
+import 'package:foodigo/widget/primary_button.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
   const ChangePasswordScreen({super.key});
@@ -24,16 +25,18 @@ class ChangePasswordScreen extends StatelessWidget {
         padding: Utils.symmetric(h: 20.0, v: 10.0),
         child: BlocBuilder<ForgotPasswordCubit, ForgotPasswordStateModel>(
           builder: (context, state) {
-            final change = state.passwordState;
+            final validate = state.passwordState;
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Utils.verticalSpace(20),
-                const CustomImage(
-                  path: KImages.changePassword,
-                  width: 72,
-                  height: 72,
-                  fit: BoxFit.cover,
+                const Center(
+                  child: CustomImage(
+                    path: KImages.changePassword,
+                    width: 72,
+                    height: 72,
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 Utils.verticalSpace(30),
                 Column(
@@ -56,12 +59,17 @@ class ChangePasswordScreen extends StatelessWidget {
                             ),
                           ),
                         ),
+                        validator: FormBuilderValidators.compose([
+                          FormBuilderValidators.required(
+                            errorText: 'Please Enter Current Password',
+                          ),
+                        ]),
                       ),
                     ),
-                    if (change is ForgotPasswordFormValidateError) ...[
-                      if (change.errors.currentPassword.isNotEmpty)
+                    if (validate is ForgotPasswordFormValidateError) ...[
+                      if (validate.errors.currentPassword.isNotEmpty)
                         FetchErrorText(
-                          text: change.errors.currentPassword.first,
+                          text: validate.errors.currentPassword.first,
                         ),
                     ],
                   ],
@@ -88,11 +96,16 @@ class ChangePasswordScreen extends StatelessWidget {
                             ),
                           ),
                         ),
+                        validator: FormBuilderValidators.compose([
+                          FormBuilderValidators.required(
+                            errorText: 'Please Enter New Password',
+                          ),
+                        ]),
                       ),
                     ),
-                    if (change is ForgotPasswordFormValidateError) ...[
-                      if (change.errors.password.isNotEmpty)
-                        FetchErrorText(text: change.errors.password.first),
+                    if (validate is ForgotPasswordFormValidateError) ...[
+                      if (validate.errors.password.isNotEmpty)
+                        FetchErrorText(text: validate.errors.password.first),
                     ],
                   ],
                 ),
@@ -118,18 +131,23 @@ class ChangePasswordScreen extends StatelessWidget {
                             ),
                           ),
                         ),
+                        validator: FormBuilderValidators.compose([
+                          FormBuilderValidators.required(
+                            errorText: 'Please Enter Confirm Password',
+                          ),
+                        ]),
                       ),
                     ),
-                    if (change is ForgotPasswordFormValidateError) ...[
-                      if (change.errors.confirmPassword.isNotEmpty)
+                    if (validate is ForgotPasswordFormValidateError) ...[
+                      if (validate.errors.confirmPassword.isNotEmpty)
                         FetchErrorText(
-                          text: change.errors.confirmPassword.first,
+                          text: validate.errors.confirmPassword.first,
                         ),
                     ],
                   ],
                 ),
                 Utils.verticalSpace(20),
-                BlocListener<ForgotPasswordCubit, ForgotPasswordStateModel>(
+                BlocConsumer<ForgotPasswordCubit, ForgotPasswordStateModel>(
                   listener: (context, state) {
                     final reg = state.passwordState;
                     if (reg is UpdatePasswordStateLoading) {
@@ -138,22 +156,24 @@ class ChangePasswordScreen extends StatelessWidget {
                       Utils.closeDialog(context);
                       if (reg is UpdatePasswordStateError) {
                         Utils.failureSnackBar(context, reg.message);
-                      } else if (reg is UpdatePasswordStateLoaded) {
+                      } else if (reg is UpdatePasswordStateSuccess) {
                         Utils.successSnackBar(context, reg.message);
                         Navigator.of(context).pop(true);
                       }
                     }
                   },
-                  child: PrimaryButton(
-                    bgColor: dTextColor,
-                    textColor: whiteColor,
-                    minimumSize: const Size(double.infinity, 44),
-                    text: 'Create Password',
-                    onPressed: () {
-                      fCubit.changePassword();
-                      // fCubit.clear();
-                    },
-                  ),
+                  builder: (context, state) {
+                    return PrimaryButton(
+                      bgColor: dTextColor,
+                      textColor: whiteColor,
+                      minimumSize: const Size(double.infinity, 44),
+                      text: 'Create Password',
+                      onPressed: () {
+                        fCubit.changePassword();
+                        // fCubit.clear();
+                      },
+                    );
+                  },
                 ),
               ],
             );

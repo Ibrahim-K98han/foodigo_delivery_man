@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodigo_delivery_man/features/Dashboard/model/dashboard_model.dart';
-import 'package:foodigo_delivery_man/features/Login/bloc/login_bloc.dart';
+import 'package:foodigo/features/Dashboard/model/dashboard_model.dart';
+import 'package:foodigo/features/Dashboard/model/splash_model.dart';
+import 'package:foodigo/features/Login/bloc/login_bloc.dart';
+
 import '../repository/dashboard_repository.dart';
 import 'dashboard_state.dart';
 
@@ -16,7 +18,7 @@ class DashboardCubit extends Cubit<DashboardState> {
        super(const DashboardInitial());
 
   DashboardModel? dashboardModel;
- 
+  SplashModel? splashModel;
 
   Future<void> getDashboardData() async {
     emit(const DashboardLoading());
@@ -31,5 +33,12 @@ class DashboardCubit extends Cubit<DashboardState> {
     });
   }
 
-
+  Future<void> getSplashData() async {
+    emit(const SplashLoading());
+    final result = await _repository.getSplash();
+    result.fold((l) => emit(SplashError(l.message, l.statusCode)), (success) {
+      splashModel = success;
+      emit(SplashLoaded(success));
+    });
+  }
 }
